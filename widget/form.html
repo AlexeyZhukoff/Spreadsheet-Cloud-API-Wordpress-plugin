@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Spreadsheet Cloud API shortcode generator</title>
+        <script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+    </head>
+
+    <style type="text/css">
+        fieldset{
+            margin: 5px 0 10px 0;
+            height: 300px;
+            line-height: 15px;
+            overflow: hidden;
+        }
+        
+        fieldset span{
+            width: 100px;
+            float: intrude;
+            clear: left;
+        }
+        
+        fieldset input, select {
+            margin-bottom: 5px;
+        }
+        div#rangegrouppar, div#htmlgrouppar, div#imggrouppar{
+             border:inherit; 
+             padding-top: 5px; 
+             padding-left: 5px;
+             margin-bottom: 0px;
+             margin-top: 5px;
+        }
+    </style>
+
+    <body>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                function rangeChange() {
+                    var range = $(this);
+                    var form = range.closest("fieldset");
+                    disableIndexParameters(form, range.val().length > 0);
+                }
+                function commandChange() {
+                    var command = $(this);
+                    CommandChangeCore(command);
+                }
+                function CommandChangeCore(command) {
+                    disableCommandParameters(command.closest("fieldset"), command.val() == "GetHTMLRange");
+                }
+                function disableCommandParameters(form, disabled) {
+                    form.find(".exportgridlines").attr('disabled', !disabled);
+                    form.find(".imggrouppar").find("input, select").each(function () {
+                        $(this).attr('disabled', disabled);
+                    })
+                }
+                function disableIndexParameters(form, disabled) {
+                    form.find(".startrowindex").attr('disabled', disabled);
+                    form.find(".endrowindex").attr('disabled', disabled);
+                    form.find(".startcolumnindex").attr('disabled', disabled);
+                    form.find(".endcolumnindex").attr('disabled', disabled);
+                }
+                $('body').on('change', '.range', rangeChange);
+                $('body').on('change', '.command', commandChange);
+                $(document).ready(function () {
+                    $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
+                    CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                    $("#insert").click(function () {
+                        var shortcode = "[sclapi ";
+                        $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
+                            var att_name = $(this).attr("name"),
+                               att_value = $(this).val(),
+                               att_result = '';
+                            if (att_name == "exportgridlines") {
+                                if ($(this).prop("checked"))
+                                    att_value = "true";
+                                else att_value = undefined;
+                            }
+                            if (att_name == "command" && shortcode.length > 8)
+                                shortcode += "]<br />[sclapi ";
+                            if (att_value != undefined && att_value.length != 0)
+                                att_result = att_name + '="' + att_value + '" ';
+                            shortcode += att_result;
+                        })
+                        shortcode += ']';
+
+                        tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
+                        tinyMCEPopup.close();
+                    })
+
+                    $("#add_shortcode").click(function () {
+                        output = $("#sclapi-container-template").find("fieldset").clone(false);
+                        $("#sclapi-container").append(output);
+                        CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                    })
+
+                    $("#cancel").click(function () {
+                        tinyMCEPopup.close();
+                    })
+                })
+            })
+
+        </script>
+
+        <form id="sclapi-generator" method="" action="">
+            <div id="sclapi-container">
+            </div>
+            <div>
+                <input type="button" id="add_shortcode" name="add_shortcode" value=" + " class="mceButton" />
+                <input type="button" id="insert" name="insert" value="Insert" />
+                <input type="button" id="cancel" name="cancel" value="Cancel" />
+            </div>
+        </form>
+        <div id="sclapi-container-template" style="display:none">
+            <fieldset>
+                <legend>Shortcode parameters</legend>
+                <span>Command</span><select class="command" name="command">
+                    <option value="GetHTMLRange">GetHTMLRange</option>
+                    <option>GetImage</option>
+                    <option>GetImageBytes</option>
+                </select><br />
+                <span>File Name</span><input type="text" class="filename" name="filename" /><br />
+                <span>Sheet Name</span><input type="text" class="sheetname" name="sheetname" /><span> Sheet Index </span><input type="number" id="sheetindex" name="sheetindex" /><br />
+                <div class="rangegrouppar"><span>Range</span><input type="text" class="range" name="range" /><br />
+                    <span>Start Row Index</span><input type="number" class="startrowindex" name="startrowindex" />
+                    <span> End Row Index </span><input type="number" class="endrowindex" name="endrowindex" /><br />
+                    <span>Start Column Index</span><input type="number" class="startcolumnindex" name="startcolumnindex" />
+                    <span> End Column Index </span><input type="number" class="endcolumnindex" name="endcolumnindex" /><br /></div>
+                <div class="htmlgrouppar"><input type="checkbox" class="exportgridlines" name="exportgridlines" style="vertical-align: top" /><span style="vertical-align: top">Export Grid Lines</span><br /></div>
+                <div class="imggrouppar"><span>Object Index</span><input type="number" class="objectindex" name="objectindex" value="0" /><br />
+                    <span>Picture Type</span><select class="picturetype" name="picturetype">
+                        <option>picture</option>
+                        <option>chart</option>
+                    </select><br />
+                    <span>Height</span><input type="number" class="height" name="height" />
+                    <span> Width </span><input type="number" class="width" name="width" /></div>
+            </fieldset>
+        </div>
+    </body>
+</html>
