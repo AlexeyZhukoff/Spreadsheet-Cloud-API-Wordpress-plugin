@@ -37,30 +37,6 @@
 
         <script type="text/javascript">
             jQuery(function ($) {
-                function rangeChange() {
-                    var range = $(this);
-                    var form = range.closest("fieldset");
-                    disableIndexParameters(form, range.val().length > 0);
-                }
-                function commandChange() {
-                    var command = $(this);
-                    CommandChangeCore(command);
-                }
-                function CommandChangeCore(command) {
-                    disableCommandParameters(command.closest("fieldset"), command.val() == "GetHTMLRange");
-                }
-                function disableCommandParameters(form, disabled) {
-                    form.find(".exportgridlines").attr('disabled', !disabled);
-                    form.find(".imggrouppar").find("input, select").each(function () {
-                        $(this).attr('disabled', disabled);
-                    })
-                }
-                function disableIndexParameters(form, disabled) {
-                    form.find(".startrowindex").attr('disabled', disabled);
-                    form.find(".endrowindex").attr('disabled', disabled);
-                    form.find(".startcolumnindex").attr('disabled', disabled);
-                    form.find(".endcolumnindex").attr('disabled', disabled);
-                }
                 $('body').on('change', '.range', rangeChange);
                 $('body').on('change', '.command', commandChange);
                 $(document).ready(function () {
@@ -99,6 +75,30 @@
                         tinyMCEPopup.close();
                     })
                 })
+                function rangeChange() {
+                    var range = $(this);
+                    var form = range.closest("fieldset");
+                    disableIndexParameters(form, range.val().length > 0);
+                }
+                function commandChange() {
+                    var command = $(this);
+                    CommandChangeCore(command);
+                }
+                function CommandChangeCore(command) {
+                    disableCommandParameters(command.closest("fieldset"), command.val() == "GetHTMLRange");
+                }
+                function disableCommandParameters(form, disabled) {
+                    form.find(".exportgridlines").attr('disabled', !disabled);
+                    form.find(".imggrouppar").find("input, select").each(function () {
+                        $(this).attr('disabled', disabled);
+                    })
+                }
+                function disableIndexParameters(form, disabled) {
+                    form.find(".startrowindex").attr('disabled', disabled);
+                    form.find(".endrowindex").attr('disabled', disabled);
+                    form.find(".startcolumnindex").attr('disabled', disabled);
+                    form.find(".endcolumnindex").attr('disabled', disabled);
+                }
             })
 
         </script>
