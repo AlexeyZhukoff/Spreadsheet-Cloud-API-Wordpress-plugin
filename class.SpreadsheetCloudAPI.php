@@ -30,6 +30,9 @@ class SpreadsheetCloudAPIActions {
     public function GetAction ($atts) {
         $command = $atts[Parameters::Command];
         switch ( $command ){
+            //case 'getfilelist':
+            //    $response = self::GetFileList();
+            //    break;
             case Commands::GetHtmlRange:
                 $response = self::GetHTMLRange($atts);
                 break;
@@ -147,6 +150,21 @@ class SpreadsheetCloudAPIActions {
         Parameters::PictureType => $atts[Parameters::PictureType],
         Parameters::WPP => 'true');
         return $params;
+    }
+    function GetFileList (){
+        $output = SpreadsheetRequest::getFilesList();
+        $response = json_decode($output['data'], true);
+        $result = '<span>File Name</span><select class="filename" name="filename">';
+        $counter = 0;
+        foreach($response as $current){
+            if($counter == 0)
+                $result = $result.'<option value="'.$current['Name'].'">';
+            else $result = $result.'<option>';
+            $result = $result.$current['Name'].'</option>';
+            $counter = $counter + 1;
+        }
+        $result = $result.'</select><br />';
+        return $result;
     }
 }
 ?>

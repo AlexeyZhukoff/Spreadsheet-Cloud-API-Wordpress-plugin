@@ -137,6 +137,9 @@ class SpreadsheetRequest {
     public static function deleteCells($params) {
         return self::delete($params, '/deletecells');
     }
+    public static function getFilesList() {
+        return self::getWithoutParams('/getfilelist');
+    }
 
     #region File I/0
     public static function uploadFile($file) {
@@ -276,6 +279,25 @@ class SpreadsheetRequest {
         $request = curl_init();
         curl_setopt_array($request, [
             CURLOPT_URL => self::baseUri.$url.'?'.http_build_query($params),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $header,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_AUTOREFERER => true
+        ]);
+
+        $response = curl_exec($request);
+        $info = curl_getinfo($request);
+
+        curl_close($request);
+        
+        return array('status' => $info['http_code'], 'data' => $response);
+    }
+    private static function getWithoutParams($url) {
+        $header = self::generateHeader(null);
+
+        $request = curl_init();
+        curl_setopt_array($request, [
+            CURLOPT_URL => self::baseUri.$url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_FOLLOWLOCATION => true,

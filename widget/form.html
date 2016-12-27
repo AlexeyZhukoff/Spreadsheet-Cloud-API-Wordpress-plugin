@@ -42,6 +42,7 @@
                 $(document).ready(function () {
                     $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
                     CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                    console.log(php_vars);
                     $("#insert").click(function () {
                         var shortcode = "[sclapi ";
                         $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
@@ -60,7 +61,7 @@
                             shortcode += att_result;
                         })
                         shortcode += ']';
-
+                        
                         tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
                         tinyMCEPopup.close();
                     })
@@ -120,7 +121,13 @@
                     <option>GetImage</option>
                     <option>GetImageBytes</option>
                 </select><br />
-                <span>File Name</span><input type="text" class="filename" name="filename" /><br />
+                <span>File Name</span>
+                <select class="filename" name="filename">
+                    <option value="file1.xls">file1.xls</option>
+                    <option>file2.xls</option>
+                    <option>file3.xls</option>
+                </select><br />
+                <!--<input type="text" class="filename" name="filename" id="filename" /><br />-->
                 <span>Sheet Name</span><input type="text" class="sheetname" name="sheetname" /><span> Sheet Index </span><input type="number" id="sheetindex" name="sheetindex" /><br />
                 <div class="rangegrouppar"><span>Range</span><input type="text" class="range" name="range" /><br />
                     <span>Start Row Index</span><input type="number" class="startrowindex" name="startrowindex" />
