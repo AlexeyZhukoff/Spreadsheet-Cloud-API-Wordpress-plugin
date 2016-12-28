@@ -15,6 +15,7 @@ function mt_options_page() {
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
         $opt_val = $_POST[ $data_field_name ];
         update_option( $apiKey, $opt_val );
+        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList());
 ?>
 <div class="updated"><p><strong><?php _e('Options saved.', 'mt_trans_domain' ); ?></strong></p></div>
 <?php

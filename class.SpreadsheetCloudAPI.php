@@ -30,9 +30,6 @@ class SpreadsheetCloudAPIActions {
     public function GetAction ($atts) {
         $command = $atts[Parameters::Command];
         switch ( $command ){
-            //case 'getfilelist':
-            //    $response = self::GetFileList();
-            //    break;
             case Commands::GetHtmlRange:
                 $response = self::GetHTMLRange($atts);
                 break;
