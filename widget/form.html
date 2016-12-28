@@ -42,11 +42,10 @@
                 $('body').on('change', '.command', commandChange);
 
                 $(document).ready(function () {
-                $.get("test.php", function (htmlFilesList) {
-                    $(".filelist").append(htmlFilesList);
-                    $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
-                });
-                    
+                    $.get("test.php", function (htmlFilesList) {
+                        $(".filelist").append(htmlFilesList);
+                        $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
+                    });
 
                     CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
 
