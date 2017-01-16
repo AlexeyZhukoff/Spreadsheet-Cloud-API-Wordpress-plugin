@@ -71,6 +71,8 @@ class SpreadsheetRequest {
         return self::get($params, '/closedocument');
     }
     #endregion
+
+    #region Styles and Cells
     public static function getStyles($params) {
         return self::get($params, '/getcellstyle');
     }
@@ -137,32 +139,79 @@ class SpreadsheetRequest {
     public static function deleteCells($params) {
         return self::delete($params, '/deletecells');
     }
-    public static function getFilesList() {
-        return self::getWithoutParams('/getfilelist');
-    }
+    #endregion
+    public static function curl_custom_postfields($ch, array $assoc = array(), array $files = array()) {
+    
+        // invalid characters for "name" and "filename"
+        static $disallow = array("\0", "\"", "\r", "\n");
 
+        // build normal parameters
+        foreach ($assoc as $k => $v) {
+            $k = str_replace($disallow, "_", $k);
+            $body[] = implode("\r\n", array(
+                "Content-Disposition: form-data; name=\"{$k}\"",
+                "",
+                filter_var($v), 
+            ));
+        }
+        // build file parameters
+        foreach ($files as $k => $v) {
+            
+            $data = file_get_contents($v);
+            echo $v;
+            $v = call_user_func("end", explode(DIRECTORY_SEPARATOR, $v));
+            $k = str_replace($disallow, "_", $k);
+            $v = str_replace($disallow, "_", $v);
+            $body[] = implode("\r\n", array(
+                "Content-Disposition: form-data; filename=\"{$k}\"; name=\"{$v}\"",
+                "Content-Type: application/octet-stream",
+                "",
+                $data, 
+            ));
+        }
+    
+        // generate safe boundary 
+        do {
+            $boundary = "---------------------" . md5(mt_rand() . microtime());
+        } while (preg_grep("/{$boundary}/", $body));
+    
+        // add boundary for each parameters
+        array_walk($body, function (&$part) use ($boundary) {
+            $part = "--{$boundary}\r\n{$part}";
+        });
+    
+        // add final boundary
+        $body[] = "--{$boundary}--";
+        $body[] = "";
+    
+        // set options
+        return @curl_setopt_array($ch, array(
+            CURLOPT_POST       => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => implode("\r\n", $body),
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: amx ".get_option( 'API_Key' ),
+                "Expect: 100-continue",
+                "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
+            ),
+        ));
+    }
     #region File I/0
     public static function uploadFile($file) {
         if (empty($file))
             return;
-
+        require_once( ABSPATH . 'wp-admin/includes/file.php' );
         $request = curl_init();
-        $apiKey = SpreadsheetSDK::getInstance()->getApiKey();
-        $header = [
-            'Authorization: '.self::scheme.' '.$apiKey,
-            'Content-type: multipart/form-data',
-        ];
-
-
-        curl_setopt_array($request, [
-            CURLOPT_URL => self::baseUri.'/upload',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => [
-                'file' => $file
-            ]
-        ]);
+        
+        $arF = array();
+        $arF[$file['name']] = $file['tmp_name'];
+        echo '<pre>'.print_r($file,1).'</pre>';
+        self::curl_custom_postfields($request, array(), $arF); 
+        curl_setopt(
+            $request,
+            CURLOPT_URL,
+            self::baseUri.'/upload'
+        );
         $response = curl_exec($request);
         $info = curl_getinfo($request);
 
@@ -310,6 +359,10 @@ class SpreadsheetRequest {
         curl_close($request);
         
         return array('status' => $info['http_code'], 'data' => $response);
+    }
+
+    public static function getFilesList() {
+        return self::getWithoutParams('/getfilelist');
     }
     #endregion
 }

@@ -4,8 +4,6 @@ function mt_add_pages() {
 }
 
 function mt_options_page() {
-    //echo "<h2>Spreadsheet Cloud API Options</h2>";
-
     $apiKey = 'API_Key';
     $hidden_field_name = 'mt_submit_hidden';
     $data_field_name = 'API_Key';
@@ -16,10 +14,22 @@ function mt_options_page() {
         $opt_val = $_POST[ $data_field_name ];
         update_option( $apiKey, $opt_val );
         update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList());
+        
 ?>
 <div class="updated"><p><strong><?php _e('Options saved.', 'mt_trans_domain' ); ?></strong></p></div>
 <?php
     }
+
+
+    if (wp_verify_nonce($_POST['fileup_nonce'], 'my_file_upload')) {
+        if (!function_exists('wp_handle_upload'))
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            $file = &$_FILES['my_file_upload'];
+           
+            SpreadsheetRequest::uploadFile($file);
+     }
+
+
     echo '<div class="wrap">';
     echo "<h2>" . __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' ) . "</h2>";
     ?>
@@ -35,7 +45,15 @@ function mt_options_page() {
 <input type="submit" name="Submit" value="<?php _e('Update Options', 'mt_trans_domain' ) ?>" />
 </p>
 
+
 </form>
+
+<form class="user_upload_file none" enctype="multipart/form-data" method="post" action="<?= str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
+<?php wp_nonce_field('my_file_upload', 'fileup_nonce'); ?>
+<input class="file_input_text" name="my_file_upload" type="file" />
+<input class="btn" type="submit" value="Upload" />
+</form>
+
 </div>
 
 <?php
