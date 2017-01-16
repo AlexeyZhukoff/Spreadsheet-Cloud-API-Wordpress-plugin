@@ -158,7 +158,7 @@ class SpreadsheetRequest {
         foreach ($files as $k => $v) {
             
             $data = file_get_contents($v);
-            echo $v;
+            
             $v = call_user_func("end", explode(DIRECTORY_SEPARATOR, $v));
             $k = str_replace($disallow, "_", $k);
             $v = str_replace($disallow, "_", $v);
@@ -205,7 +205,7 @@ class SpreadsheetRequest {
         
         $arF = array();
         $arF[$file['name']] = $file['tmp_name'];
-        echo '<pre>'.print_r($file,1).'</pre>';
+        
         self::curl_custom_postfields($request, array(), $arF); 
         curl_setopt(
             $request,
