@@ -18,7 +18,6 @@ class SpreadsheetRequest {
     public static function uploadFile($file) {
         if (empty($file))
             return;
-        require_once( ABSPATH . 'wp-admin/includes/file.php' );
         $request = curl_init();
         
         $arF = array();

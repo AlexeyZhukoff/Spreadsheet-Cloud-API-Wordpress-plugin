@@ -151,7 +151,7 @@ class SpreadsheetCloudAPIActions {
     function GetFileList (){
         $output = SpreadsheetRequest::getFilesList();
         $response = json_decode($output['data'], true);
-        $result = '<span>File Name</span><select class="filename" name="filename">';
+        $result = '<span>File Name: </span><select class="filename" name="filename">';
         $counter = 0;
         foreach($response as $current){
             if($counter == 0)
