@@ -1,0 +1,18 @@
+<div class="wrap">
+    <h2> <?= $optionsheader; ?> </h2>
+    <form name="form1" method="post" action="<?= $optionsaction; ?>">
+        <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
+        <p><?= $optionsapikey; ?> 
+        <input type="text" name="<?= $data_field_name; ?>" value="<?= $opt_val; ?>" size="50">
+        </p>
+        <hr />
+        <p class="submit">
+            <input type="submit" name="Submit" value="<?= $optionsupdate; ?>" />
+        </p>
+    </form>
+    <form class="user_upload_file none" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
+        <?= $optionsnoncefield; ?>
+        <input class="file_input_text" name="my_file_upload" type="file" />
+        <input class="btn" type="submit" value="Upload" />
+      </form>
+</div>
