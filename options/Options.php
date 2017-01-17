@@ -13,17 +13,20 @@ function mt_options_page() {
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
         $opt_val = $_POST[ $data_field_name ];
         update_option( $apiKey, $opt_val );
-        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+        //update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
         show_header_message('Options saved.');
     }
-
-
     if (wp_verify_nonce($_POST['fileup_nonce'], 'my_file_upload')) {
         if (!function_exists('wp_handle_upload'))
             require_once( ABSPATH . 'wp-admin/includes/file.php' );
             $file = &$_FILES['my_file_upload'];
-            SpreadsheetRequest::uploadFile($file);
-            show_header_message('File Uploaded.');
+            $uploadresponse = SpreadsheetRequest::uploadFile($file);
+            if($uploadresponse['status'] == 200){
+                show_header_message('File Uploaded.');
+            }
+            else {
+                show_header_message($uploadresponse['data']);
+            }
             update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
     }
     $optionsheader = __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' );
