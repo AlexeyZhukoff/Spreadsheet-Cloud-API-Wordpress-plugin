@@ -148,13 +148,20 @@ class SpreadsheetCloudAPIActions {
         Parameters::WPP => 'true');
         return $params;
     }
-    function GetFileList (){
+    function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
         $response = json_decode($output['data'], true);
-        $result = '<span>File Name: </span><select class="filename" name="filename">';
+        $result = '<select class="filename" name="filename" size="'.$size.'" ';
+        if($size == 1){
+            $result = '<span>File Name: </span>'.result;
+        }
+        else{
+            $result = $result.'style="height: 200px; width: 321px"';
+        }
+        $result = $result.'>';
         $counter = 0;
         foreach($response as $current){
-            if($counter == 0)
+            if($counter == 0 && $size == 1)
                 $result = $result.'<option value="'.$current['Name'].'">';
             else $result = $result.'<option>';
             $result = $result.$current['Name'].'</option>';

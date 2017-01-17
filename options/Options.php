@@ -13,7 +13,7 @@ function mt_options_page() {
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
         $opt_val = $_POST[ $data_field_name ];
         update_option( $apiKey, $opt_val );
-        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList());
+        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
         show_header_message('Options saved.');
     }
 
@@ -24,13 +24,14 @@ function mt_options_page() {
             $file = &$_FILES['my_file_upload'];
             SpreadsheetRequest::uploadFile($file);
             show_header_message('File Uploaded.');
-            update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList());
+            update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
     }
     $optionsheader = __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' );
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
     $optionsapikey = __("API Key:", 'API_Key' );
     $optionsupdate = __('Update Options', 'mt_trans_domain' );
     $optionsnoncefield = wp_nonce_field('my_file_upload', 'fileup_nonce');
+    $servicefilelist = SpreadsheetCloudAPIActions::GetFileList(3);
     include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\Options.html');
 }
 function show_header_message($message){
