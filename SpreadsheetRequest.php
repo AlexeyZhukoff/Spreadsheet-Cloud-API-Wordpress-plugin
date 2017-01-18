@@ -95,16 +95,18 @@ class SpreadsheetRequest {
     #endregion
 
     #region Helper
-    private static function generateHeader($json) {
-        
+    private static function generateHeader($contentlength, $contenttype) {
         $apiKey = get_option( 'API_Key' );
 
+        if(is_null($contenttype))
+            $contenttype = 'application/json';
+
         $header = [
-            'Content-type: application/json',
+            'Content-type: '.$contenttype,
             'Authorization: '.self::scheme.' '.$apiKey,
         ];
-        if (!empty($json) || !is_null($json)) {
-            $header[] = 'Content-Length: '.strlen($json);
+        if (!empty($contentlength) || !is_null($contentlength)) {
+            $header[] = 'Content-Length: '.$contentlength;
         }        
         return $header;
     }
@@ -115,7 +117,7 @@ class SpreadsheetRequest {
 
         $json = json_encode($params);
 
-        $header = self::generateHeader($json);
+        $header = self::generateHeader(strlen($json), null);
 
         $request = curl_init();
 
@@ -141,7 +143,7 @@ class SpreadsheetRequest {
 
         $json = json_encode($params);
 
-        $header = self::generateHeader(null);
+        $header = self::generateHeader(null, null);
 
         $request = curl_init();
 
@@ -165,10 +167,9 @@ class SpreadsheetRequest {
         if (empty($params))
             return null;
 
-        $json = json_encode($params);
-
-        $header = self::generateHeader(null);
-
+        $filename = "=".$params["filename"];
+        $header = self::generateHeader(strlen($filename), 'application/x-www-form-urlencoded');
+        
         $request = curl_init();
 
         curl_setopt_array($request, [
@@ -176,7 +177,7 @@ class SpreadsheetRequest {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_CUSTOMREQUEST => "DELETE",
-            CURLOPT_POSTFIELDS => $json,
+            CURLOPT_POSTFIELDS => $filename,
             CURLOPT_FOLLOWLOCATION => true
         ]);
 
@@ -184,15 +185,17 @@ class SpreadsheetRequest {
         $info = curl_getinfo($request);
 
         curl_close($request);
-
+        
         return array('status' => $info['http_code'], 'data' => $response);
     }
-
+    public static function deletefile($params){
+        return self::delete($params, '/deletefile');
+    }
     private static function get($params, $url) {
         if (empty($params))
             return null;
         
-        $header = self::generateHeader(null);
+        $header = self::generateHeader(null, null);
 
         $request = curl_init();
         curl_setopt_array($request, [
@@ -211,7 +214,7 @@ class SpreadsheetRequest {
         return array('status' => $info['http_code'], 'data' => $response);
     }
     private static function getWithoutParams($url) {
-        $header = self::generateHeader(null);
+        $header = self::generateHeader(null, null);
 
         $request = curl_init();
         curl_setopt_array($request, [
