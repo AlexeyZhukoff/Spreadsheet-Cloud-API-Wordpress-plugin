@@ -8,7 +8,9 @@ function mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
     $data_field_name = 'API_Key';
     $opt_val = get_option( $apiKey );
+    
     //echo '<pre>'.print_r($_POST,1).'</pre>';
+    //echo '<pre>'.print_r($_FILES,1).'</pre>';
 
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
         $opt_val = $_POST[ $data_field_name ];
