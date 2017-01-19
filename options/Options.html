@@ -11,19 +11,40 @@
         </p>
     </form>
     <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
+        <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
         <?= $servicefilelist; ?>
-
-        <input type="file" class="file_input_text" name="my_file_upload">
-        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Upload; ?>" id="uploadbutton" style="display: none"/>
-        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Download; ?>" />
-        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Rename; ?>" />
-        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Delete; ?>" />
+        <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
+        <input class="uploadbutton"type="button" value="<?= FileOperations::Upload; ?>" />
+        <input class="downloadbutton" type="button" value="<?= FileOperations::Download; ?>" />
+        <input class="renamebutton" type="button" value="<?= FileOperations::Rename; ?>" />
+        <input class="deletebutton" type="button" value="<?= FileOperations::Delete; ?>" />
         <script type="text/javascript">
             jQuery(function ($) {
-                $('.wrap').on('change', '.file_input_text', fileselected);
-                function fileselected() {
-                    $('#uploadbutton').click();
+                $('.wrap').on('click', '.uploadbutton', fileselect);
+                $('.wrap').on('click', '.downloadbutton', download);
+                $('.wrap').on('click', '.renamebutton', rename);
+                $('.wrap').on('click', '.deletebutton', deleteclk);
+                $('.wrap').on('change', '.file_input_text', upload);
+                function fileselect() {
+                    $('.file_input_text').click();
                 }
+                function upload() {
+                    $('.my_file_operation').val("<?= FileOperations::Upload; ?>");
+                    $('.user_file_manager').submit();
+                }
+                function download() {
+                    $('.my_file_operation').val("<?= FileOperations::Download; ?>");
+                    $('.user_file_manager').submit();
+                }
+                function rename() {
+                    $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+                    $('.user_file_manager').submit();
+                }
+                function deleteclk() {
+                    $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
+                    $('.user_file_manager').submit();
+                }
+
             })
         </script>
     </form>

@@ -158,6 +158,7 @@ class SpreadsheetCloudAPIActions {
     }
     function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
+        //echo '<pre>'.print_r($output['data'],1).'</pre>';
         $response = json_decode($output['data'], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if($size == 1){
