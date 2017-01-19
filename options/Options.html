@@ -10,7 +10,7 @@
             <input type="submit" name="Submit" value="<?= $optionsupdate; ?>" />
         </p>
     </form>
-    <form class="user_upload_file none" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
+    <form class="user_file_manager none" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
         <?= $servicefilelist; ?>
         <input class="file_input_text" name="my_file_upload" type="file" />
         <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Upload; ?>" />
