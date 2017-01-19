@@ -31,5 +31,11 @@ class PictureType{
     const ConnectionShape = "connectionshape";
     const GroupShape = "groupshape";
 }
+class FileOperations{
+    const Upload = "Upload";
+    const Delete = "Delete";
+    const Rename = "Rename";
+    const Download = "DownLoad";
+}
 ?>
 

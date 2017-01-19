@@ -12,10 +12,10 @@
     </form>
     <form class="user_upload_file none" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
         <?= $servicefilelist; ?>
-        <?= $optionsnoncefield; ?>
         <input class="file_input_text" name="my_file_upload" type="file" />
-        <input class="btn" type="submit" value="Upload" />
-        <?= $optionsnoncedelete; ?>
-        <input class="btn" type="submit" name="my_file_delete" value="Delete" />
+        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Upload; ?>" />
+        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Download; ?>" />
+        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Rename; ?>" />
+        <input class="btn" type="submit" name="my_file_operation" value="<?= FileOperations::Delete; ?>" />
     </form>
 </div>
