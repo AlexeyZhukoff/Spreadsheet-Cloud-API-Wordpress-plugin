@@ -46,6 +46,14 @@ class SpreadsheetCloudAPIActions {
         return $response;
     }
 
+    public function UploadFile($file){
+        return SpreadsheetRequest::uploadFile($file);
+    }
+    public function DeleteFile($filename){
+        $params = array(Parameters::FileName => $filename);
+        return SpreadsheetRequest::deletefile($params);
+    }
+
     function GetHTMLRange ($atts) {
         $params = self::ExtractGetHTMLRangeParams($atts);
         $output = SpreadsheetRequest::getHtml($params);

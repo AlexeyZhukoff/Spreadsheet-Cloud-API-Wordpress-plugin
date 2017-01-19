@@ -35,7 +35,7 @@ class FileOperations{
     const Upload = "Upload";
     const Delete = "Delete";
     const Rename = "Rename";
-    const Download = "DownLoad";
+    const Download = "Download";
 }
 ?>
 

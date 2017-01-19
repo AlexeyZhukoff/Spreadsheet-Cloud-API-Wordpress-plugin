@@ -48,7 +48,7 @@ function upload_file(){
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
     $file = &$_FILES['my_file_upload'];
     if(!empty($file['name'])){
-        $uploadresponse = SpreadsheetRequest::uploadFile($file);
+        $uploadresponse = SpreadsheetCloudAPIActions::UploadFile($file);
         if($uploadresponse['status'] == 200){
             show_header_message('File <i>'.$file['name'].'</i> is uploaded.');
         }
@@ -64,8 +64,7 @@ function upload_file(){
 function delete_file(){
     $filename = $_POST['filename'];
     if(!empty($filename)){
-        $params = array(Parameters::FileName => $filename);
-        $filedeleted = SpreadsheetRequest::deletefile($params);
+        $filedeleted = SpreadsheetCloudAPIActions::DeleteFile($filename);
         if($filedeleted['status'] == 200){
             show_header_message('File <i>'.$filename.'</i> is deleted.');
             update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
