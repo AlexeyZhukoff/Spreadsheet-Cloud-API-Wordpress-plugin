@@ -48,7 +48,9 @@ function download_file(){
     if(!empty($filename)){
         $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile($filename);
         if($downloadresponse['status'] == 200){
-            show_header_message('File <i>'.$file['name'].'</i> is downloaded.');
+            include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\download.html');
+            
+            show_header_message('File <i>'.$filename.'</i> is downloaded.');
         }
         else {
             show_header_message($downloadresponse['data']);
@@ -105,5 +107,4 @@ function show_options_form($hidden_field_name, $data_field_name, $opt_val){
     $servicefilelist = SpreadsheetCloudAPIActions::GetFileList(3);
     include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\Options.html');
 }
-
 ?>
