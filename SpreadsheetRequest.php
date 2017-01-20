@@ -92,6 +92,14 @@ class SpreadsheetRequest {
             ),
         ));
     }
+
+    public static function downloadfile($filename) {
+        if (empty($filename))
+            return;
+        echo $filename;
+        return self::get($json, '/download');
+    }
+
     #endregion
 
     #region Helper

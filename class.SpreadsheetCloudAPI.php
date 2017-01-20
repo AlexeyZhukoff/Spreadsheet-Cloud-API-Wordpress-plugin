@@ -49,6 +49,9 @@ class SpreadsheetCloudAPIActions {
     public function UploadFile($file){
         return SpreadsheetRequest::uploadFile($file);
     }
+    public function DownloadFile($filename){
+        return SpreadsheetRequest::downloadfile($filename);
+    }
     public function DeleteFile($filename){
         $params = array(Parameters::FileName => $filename);
         return SpreadsheetRequest::deletefile($params);

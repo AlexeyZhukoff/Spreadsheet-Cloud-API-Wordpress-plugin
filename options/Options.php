@@ -44,7 +44,20 @@ function rename_file(){
     echo 'rename';
 }
 function download_file(){
-    echo 'download';
+    $filename = $_POST['filename'];
+    if(!empty($filename)){
+        $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile($filename);
+        if($downloadresponse['status'] == 200){
+            show_header_message('File <i>'.$file['name'].'</i> is downloaded.');
+        }
+        else {
+            show_header_message($downloadresponse['data']);
+        }
+        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+    }
+    else {
+        show_header_message('Please select file to download.');
+    }
 }
 function upload_file(){
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
