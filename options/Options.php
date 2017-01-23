@@ -20,6 +20,8 @@ function mt_options_page() {
     }
 
     $fileoperation = $_POST['my_file_operation'];
+    $continueoperation = '';
+    $downloadfilebits = '';
     if(!empty($fileoperation)){
         switch ( $fileoperation ){
             case FileOperations::Upload:
@@ -32,25 +34,28 @@ function mt_options_page() {
                 rename_file();
                 break;
             case FileOperations::Download:
-                download_file();
+                $downloadresponse = download_file();
+                if($downloadresponse['status'] == 200){
+                    $continueoperation = FileOperations::ContinueDownload;
+                    $downloadfilebits = base64_encode($downloadresponse['data']);
+                }
                 break;
             default:
                 break;
         };
     }
-    show_options_form($hidden_field_name, $data_field_name, $opt_val);
+    show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfilebits, $_POST['filename']);
 }
 function rename_file(){
-    echo 'rename';
+    show_header_message('rename file');
 }
 function download_file(){
     $filename = $_POST['filename'];
     if(!empty($filename)){
         $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile($filename);
         if($downloadresponse['status'] == 200){
-            include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\download.html');
-            
             show_header_message('File <i>'.$filename.'</i> is downloaded.');
+            return $downloadresponse;
         }
         else {
             show_header_message($downloadresponse['data']);
@@ -99,7 +104,7 @@ function show_header_message($message){
     _e($message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form($hidden_field_name, $data_field_name, $opt_val){
+function show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfile, $filename){
     $optionsheader = __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' );
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
     $optionsapikey = __("API Key:", 'API_Key' );

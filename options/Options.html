@@ -25,6 +25,11 @@
                 $('.wrap').on('click', '.renamebutton', rename);
                 $('.wrap').on('click', '.deletebutton', deleteclk);
                 $('.wrap').on('change', '.file_input_text', upload);
+
+                if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>")
+                    enddownload();
+
+
                 function fileselect() {
                     $('.file_input_text').click();
                 }
@@ -43,6 +48,13 @@
                 function deleteclk() {
                     $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
                     $('.user_file_manager').submit();
+                }
+                function enddownload() {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', 'data:application/octet-stream; charset=utf-8; base64,' + '<?= $downloadfile; ?>');
+                    element.setAttribute('download', "<?= $filename; ?>");
+                    element.click();
+                    document.body.removeChild(element);
                 }
             })
         </script>
