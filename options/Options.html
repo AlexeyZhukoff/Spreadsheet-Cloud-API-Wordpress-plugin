@@ -19,6 +19,7 @@
         <input class="renamebutton" type="button" value="<?= FileOperations::Rename; ?>" />
         <input class="deletebutton" type="button" value="<?= FileOperations::Delete; ?>" />
         <dialog class="renamedialog" >
+            <label class="existtext"  style="color:#f00; display:none">File with this name already exist.</label><br />
             <input class="file_new_name" type="text" name="newfilename">
             <button class="closedg">Rename</button>
             <button class="canceldg">Cancel</button>
@@ -58,7 +59,7 @@
                         var newfilename = $('.file_new_name').val() + '.' + fileextension;
                         $('.filename option').each(function (index, element) {
                             if ($(element).text() == newfilename) {
-                                //alert('File ' + $(element).text() + ' already exist.');
+                                $('.existtext').show();
                                 filenotexists = false;
                                 return;
                             }
