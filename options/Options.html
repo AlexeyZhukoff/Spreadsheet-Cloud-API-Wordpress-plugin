@@ -3,7 +3,8 @@
     <form name="form1" method="post" action="<?= $optionsaction; ?>">
         <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
         <p><?= $optionsapikey; ?> 
-        <input type="text" name="<?= $data_field_name; ?>" value="<?= $opt_val; ?>" size="50">
+            <input type="text" name="<?= $data_field_name; ?>" value="<?= $opt_val; ?>" size="50">
+            <input type="submit" name="oauthaut" value="Authorize and get API Key" />
         </p>
         <hr />
         <p class="submit">

@@ -13,7 +13,12 @@ function mt_options_page() {
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
 
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
-        $opt_val = $_POST[ $data_field_name ];
+        if(!empty($_POST[ 'oauthaut' ]) ) {
+            $opt_val = get_newapikey();
+        }
+        else {
+            $opt_val = $_POST[ $data_field_name ];
+        }
         update_option( $apiKey, $opt_val );
         update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
         show_header_message('Options saved.');
@@ -45,6 +50,9 @@ function mt_options_page() {
         };
     }
     show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfilebits, $_POST['filename']);
+}
+function get_newapikey(){
+    
 }
 function rename_file(){
     $filename = $_POST['filename'];
