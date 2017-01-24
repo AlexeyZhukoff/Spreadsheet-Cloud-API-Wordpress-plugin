@@ -18,6 +18,11 @@
         <input class="downloadbutton" type="button" value="<?= FileOperations::Download; ?>" />
         <input class="renamebutton" type="button" value="<?= FileOperations::Rename; ?>" />
         <input class="deletebutton" type="button" value="<?= FileOperations::Delete; ?>" />
+        <dialog title="NewName" >
+            <input class="file_new_name" type="text" name="newfilename">
+            <button class="closedg">Rename</button>
+            <button class="canceldg">Cancel</button>
+        </dialog>
         <script type="text/javascript">
             jQuery(function ($) {
                 $('.wrap').on('click', '.uploadbutton', fileselect);
@@ -28,7 +33,6 @@
 
                 if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>")
                     enddownload();
-
 
                 function fileselect() {
                     $('.file_input_text').click();
@@ -42,8 +46,19 @@
                     $('.user_file_manager').submit();
                 }
                 function rename() {
-                    $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
-                    $('.user_file_manager').submit();
+                    var dialog = document.querySelector('dialog');
+                    $('.file_new_name').val($('.filename').val());
+                    
+                    dialog.show(); 
+                    document.querySelector('.closedg').onclick = function() {
+                        dialog.close();
+                        $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+                        $('.user_file_manager').submit();
+                    };
+                    document.querySelector('.canceldg').onclick = function() {
+                        dialog.close();
+                    };
+
                 }
                 function deleteclk() {
                     $('.my_file_operation').val("<?= FileOperations::Delete; ?>");

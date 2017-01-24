@@ -47,7 +47,9 @@ function mt_options_page() {
     show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfilebits, $_POST['filename']);
 }
 function rename_file(){
-    show_header_message('rename file');
+    $filename = $_POST['filename'];
+    $newfilename = $_POST['newfilename'];
+    show_header_message('File <i>'.$filename.'</i> renamed to <i>'.$newfilename.'</i>.');
 }
 function download_file(){
     $filename = $_POST['filename'];
