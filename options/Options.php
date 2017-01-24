@@ -50,8 +50,12 @@ function rename_file(){
     $filename = $_POST['filename'];
     $newfilename = $_POST['newfilename'];
     $filerenamed = SpreadsheetCloudAPIActions::RenameFile($filename, $newfilename);
-    if($filerenamed['status'] == 200)
+    if($filerenamed['status'] == 200){
         show_header_message('File <i>'.$filename.'</i> renamed to <i>'.$newfilename.'</i>.');
+    }
+    else{
+        show_header_message($filerenamed['data']);
+    }
 }
 function download_file(){
     $filename = $_POST['filename'];

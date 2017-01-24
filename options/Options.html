@@ -18,7 +18,7 @@
         <input class="downloadbutton" type="button" value="<?= FileOperations::Download; ?>" />
         <input class="renamebutton" type="button" value="<?= FileOperations::Rename; ?>" />
         <input class="deletebutton" type="button" value="<?= FileOperations::Delete; ?>" />
-        <dialog title="NewName" >
+        <dialog class="renamedialog" >
             <input class="file_new_name" type="text" name="newfilename">
             <button class="closedg">Rename</button>
             <button class="canceldg">Cancel</button>
@@ -46,16 +46,34 @@
                     $('.user_file_manager').submit();
                 }
                 function rename() {
-                    var dialog = document.querySelector('dialog');
-                    $('.file_new_name').val($('.filename').val());
-                    
-                    dialog.show(); 
-                    document.querySelector('.closedg').onclick = function() {
-                        dialog.close();
-                        $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
-                        $('.user_file_manager').submit();
-                    };
-                    document.querySelector('.canceldg').onclick = function() {
+                    var filearray = $('.filename').val().split('.');
+                    var renamedfilename = filearray[0];
+                    var fileextension = filearray[1];
+                    var dialog = $('.renamedialog')[0];
+                    $('.file_new_name').val(renamedfilename);
+                    dialog.show();
+
+                    $('.closedg').click(function () {
+                        var filenotexists = true;
+                        var newfilename = $('.file_new_name').val() + '.' + fileextension;
+                        $('.filename option').each(function (index, element) {
+                            if ($(element).text() == newfilename) {
+                                //alert('File ' + $(element).text() + ' already exist.');
+                                filenotexists = false;
+                                return;
+                            }
+                        });
+                        if (filenotexists) {
+                            dialog.close();
+                            $('.file_new_name').val(newfilename);
+                            $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+                            $('.user_file_manager').submit();
+                        }
+                        else {
+                            return;
+                        }
+                    });
+                    document.querySelector('.canceldg').onclick = function () {
                         dialog.close();
                     };
 
