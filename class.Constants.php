@@ -8,6 +8,7 @@ class Commands{
 class Parameters{
     const Command = "command";
     const FileName = "filename";
+    const NewFileName = "newfilename";
     const SheetIndex = "sheetindex";
     const SheetName = "sheetname";
     const StartRowIndex = "startrowindex";

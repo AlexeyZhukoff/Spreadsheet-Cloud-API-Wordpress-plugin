@@ -58,6 +58,11 @@ class SpreadsheetCloudAPIActions {
         $params = array(Parameters::FileName => $filename);
         return SpreadsheetRequest::deletefile($params);
     }
+    public function RenameFile($filename, $newfilename){
+        $params = array(Parameters::FileName => $filename,
+        Parameters::NewFileName => $newfilename,);
+        return SpreadsheetRequest::renamefile($params);
+    }
 
     function GetHTMLRange ($atts) {
         $params = self::ExtractGetHTMLRangeParams($atts);

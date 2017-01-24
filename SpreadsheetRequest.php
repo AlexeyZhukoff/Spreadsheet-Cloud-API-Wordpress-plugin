@@ -35,6 +35,9 @@ class SpreadsheetRequest {
     public static function deletefile($params){
         return self::delete($params, '/deletefile');
     }
+    public static function renamefile($params){
+        return self::post($params, '/renamefile');
+    }
     public static function getFilesList() {
         return self::getWithoutParams('/getfilelist');
     }
