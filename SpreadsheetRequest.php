@@ -4,8 +4,34 @@ class SpreadsheetRequest {
     //const baseUri = 'http://localhost:54306/odata';
     //const baseUri = 'http://localhost:54306/api/spreadsheet';
     const baseUri = 'http://spreadsheetcloud.azurewebsites.net/api/spreadsheet';
+    const basewpUri = 'http://localhost:54306/wpusers/getapikey';
     const scheme = "amx";
     #endregion
+
+
+    public static function GetAPIKey($mail){
+        if (empty($mail))
+            return null;
+
+        $params = array('cemail' => base64_encode($mail));
+        $header = ['Content-type: application/json',];
+
+        $request = curl_init();
+        curl_setopt_array($request, [
+            CURLOPT_URL => self::basewpUri.'?'.http_build_query($params),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => $header,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_AUTOREFERER => true
+        ]);
+
+        $response = curl_exec($request);
+        $info = curl_getinfo($request);
+
+        curl_close($request);
+        
+        return array('status' => $info['http_code'], 'data' => $response);
+    }
 
     #region public interface
     public static function uploadFile($file) {
