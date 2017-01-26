@@ -2,16 +2,19 @@
     <h2> <?= $optionsheader; ?> </h2>
     <form class="autorization_manager" method="post" action="<?= $optionsaction; ?>">
         <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
-        <p><?= $optionsapikey; ?> 
-            <input type="text" name="<?= $data_field_name; ?>" value="<?= $opt_val; ?>" size="50">
-            <input type="submit" name="oauthaut" value="Authorize and get API Key" />
+        <p>
+            <?= $optionsapikey; ?> 
+            <input type="text" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" size="50">
+        </p>
+        <p>
+            <input type="submit" name="oauthaut" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
         </p>
         <hr />
         <p class="submit">
             <input type="submit" name="Submit" value="<?= $optionsupdate; ?>" />
         </p>
     </form>
-    <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
+    <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>
         <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
         <?= $servicefilelist; ?>
         <input class="file_input_text" type="file" name="my_file_upload" style="display: none">

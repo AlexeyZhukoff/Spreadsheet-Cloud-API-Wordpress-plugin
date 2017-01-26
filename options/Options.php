@@ -6,26 +6,30 @@ function mt_add_pages() {
 function mt_options_page() {
     $apiKey = 'API_Key';
     $hidden_field_name = 'mt_submit_hidden';
-    $data_field_name = 'API_Key';
-    $opt_val = get_option( $apiKey );
+    $apikey_field_name = 'API_Key';
+    $opt_api_key = get_option( $apiKey );
     
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
 
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
-        if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $data_field_name ]) ) {
+        $needsaveoption = TRUE;
+        if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $apikey_field_name ]) ) {
             $response = get_newapikey();
             if($response['status'] == 200){
-                $_POST[ $data_field_name ] = base64_decode($response['data']);
+                $_POST[ $apikey_field_name ] = base64_decode($response['data']);
             }
             else{
                 show_header_message($response['data']);
             }
+            $needsaveoption = FALSE;
         }
-        $opt_val = $_POST[ $data_field_name ];
-        update_option( $apiKey, $opt_val );
-        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
-        show_header_message('Options saved.');
+        if($needsaveoption){
+            $opt_api_key = $_POST[ $apikey_field_name ];
+            update_option( $apiKey, $opt_api_key );
+            update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+            show_header_message('Options saved.');
+        }
     }
 
     $fileoperation = $_POST['my_file_operation'];
@@ -53,7 +57,7 @@ function mt_options_page() {
                 break;
         };
     }
-    show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfilebits, $_POST['filename']);
+    show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfilebits, $_POST['filename']);
 }
 function get_newapikey(){
     $useremail = wp_get_current_user()->user_email;
@@ -125,7 +129,13 @@ function show_header_message($message){
     _e($message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form($hidden_field_name, $data_field_name, $opt_val, $continueoperation, $downloadfile, $filename){
+function show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfile, $filename){
+    $haveapikey = '';
+    $unhaveapikey = 'style="display: none"';
+    if(empty($opt_api_key)){
+        $haveapikey = 'style="display: none"';
+        $unhaveapikey = '';
+    }
     $optionsheader = __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' );
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
     $optionsapikey = __("API Key:", 'API_Key' );
