@@ -13,7 +13,7 @@ function mt_options_page() {
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
 
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
-        if( !empty($_POST[ 'oauthaut' ]) && empty($opt_val) ) {
+        if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $data_field_name ]) ) {
             $response = get_newapikey();
             if($response['status'] == 200){
                 $_POST[ $data_field_name ] = base64_decode($response['data']);
