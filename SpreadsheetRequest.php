@@ -79,7 +79,7 @@ class SpreadsheetRequest {
     #region Helper
     private static function getAPIKey() {
         $actiontype = get_option(PluginConst::ActionType);
-        if($actiontype == PluginConst::ExampleActionType)) {
+        if($actiontype == PluginConst::ExampleActionType) {
             return self::exampleAPIKey;  
         }
         return get_option( PluginConst::APIKey );

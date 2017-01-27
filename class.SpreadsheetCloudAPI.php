@@ -178,7 +178,7 @@ class SpreadsheetCloudAPIActions {
         $response = json_decode($output[PluginConst::ResponseData], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if($size == 1){
-            $result = '<span>File Name: </span>'.result;
+            $result = '<span>File Name: </span>'.$result;
         }
         else{
             $result = $result.'style="height: 200px; width: 321px"';

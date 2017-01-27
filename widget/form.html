@@ -11,20 +11,17 @@
 
         <script type="text/javascript">
             jQuery(function ($) {
-                    $.get("getfilelist.php", function (htmlFilesList) {
-                        $(".filelist").append(htmlFilesList);
-                        $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
-                        CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
-                    });
+                $.get("getfilelist.php", function (htmlFilesList) {
+                    $(".filelist").append(htmlFilesList);
+                    $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
+                    CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                });
                 $('body').on('change', '.range', rangeChange);
                 $('body').on('change', '.command', commandChange);
 
                 $(document).ready(function () {
-
-                    
-
                     $("#insert").click(function () {
-                        var shortcode = "[sclapi ";
+                        var shortcode = "[";
                         $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
                             var att_name = $(this).attr("name"),
                                att_value = $(this).val(),
@@ -34,10 +31,16 @@
                                     att_value = "true";
                                 else att_value = undefined;
                             }
-                            if (att_name == "command" && shortcode.length > 8)
-                                shortcode += "]<br />[sclapi ";
-                            if (att_value != undefined && att_value.length != 0)
+                            //if (att_name == "command" && shortcode.length > 8)
+                            //    shortcode += "]<br />[sclapi ";
+                            if (att_value != undefined && att_value.length != 0 && att_name != "shortcode")
                                 att_result = att_name + '="' + att_value + '" ';
+                            if (att_name == "shortcode") {
+                                if (shortcode.length > 1) {
+                                    shortcode += "]<br />["
+                                }
+                                 att_result = att_value;
+                            }
                             shortcode += att_result;
                         })
                         shortcode += ']';
@@ -45,6 +48,28 @@
                         tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
                         tinyMCEPopup.close();
                     })
+                    //$("#create_example").click(function () {
+                    //    var shortcode = "[sclapi ";
+                    //    $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
+                    //        var att_name = $(this).attr("name"),
+                    //           att_value = $(this).val(),
+                    //           att_result = '';
+                    //        if (att_name == "exportgridlines") {
+                    //            if ($(this).prop("checked"))
+                    //                att_value = "true";
+                    //            else att_value = undefined;
+                    //        }
+                    //        if (att_name == "command" && shortcode.length > 8)
+                    //            shortcode += "]<br />[sclapi ";
+                    //        if (att_value != undefined && att_value.length != 0)
+                    //            att_result = att_name + '="' + att_value + '" ';
+                    //        shortcode += att_result;
+                    //    })
+                    //    shortcode += ']';
+
+                    //    tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
+                    //    tinyMCEPopup.close();
+                    //})
 
                     $("#add_shortcode").click(function () {
                         output = $("#sclapi-container-template").find("fieldset").clone(false);
@@ -83,11 +108,11 @@
             })
 
         </script>
-
         <form id="sclapi-generator">
             <div id="sclapi-container">
             </div>
             <div>
+                <input type="button" id="create_example" name="create_example" value="Create example" class="mceButton" style="float:right" />
                 <input type="button" id="add_shortcode" name="add_shortcode" value=" + " class="mceButton" />
                 <input type="button" id="insert" name="insert" value="Insert" />
                 <input type="button" id="cancel" name="cancel" value="Cancel" />
@@ -96,6 +121,7 @@
         <div id="sclapi-container-template" style="display:none">
             <fieldset>
                 <legend>Shortcode parameters</legend>
+                <input type="hidden" name="shortcode" value="sclapi ">
                 <span>Command: </span><select class="command" name="command">
                     <option value="GetHTMLRange">GetHTMLRange</option>
                     <option>GetImage</option>
