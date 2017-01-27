@@ -21,8 +21,8 @@ function mt_options_page() {
             }
             else{
                 show_header_message($response['data']);
+                $needsaveoption = FALSE;
             }
-            $needsaveoption = FALSE;
         }
         if($needsaveoption){
             $opt_api_key = $_POST[ $apikey_field_name ];
@@ -61,11 +61,15 @@ function mt_options_page() {
 }
 function get_newapikey(){
     $useremail = wp_get_current_user()->user_email;
-    return SpreadsheetRequest::GetAPIKey($useremail);
+    return SpreadsheetRequest::GenerateNewAPIKey($useremail);
 }
 function rename_file(){
     $filename = $_POST['filename'];
     $newfilename = $_POST['newfilename'];
+    if(empty($filename)){
+        show_header_message('Please select file to rename.');
+        return;
+    }
     $filerenamed = SpreadsheetCloudAPIActions::RenameFile($filename, $newfilename);
     if($filerenamed['status'] == 200){
         show_header_message('File <i>'.$filename.'</i> renamed to <i>'.$newfilename.'</i>.');
@@ -121,7 +125,7 @@ function delete_file(){
         }
     }
     else {
-        show_header_message('Please select name of file to delete.');
+        show_header_message('Please select file to delete.');
     }
 }
 function show_header_message($message){

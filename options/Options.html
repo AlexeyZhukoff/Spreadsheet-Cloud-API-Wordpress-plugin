@@ -51,6 +51,10 @@
                     $('.user_file_manager').submit();
                 }
                 function rename() {
+                    if($('.filename').val() == null){
+                            $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+                            $('.user_file_manager').submit();
+                    }
                     var filearray = $('.filename').val().split('.');
                     var renamedfilename = filearray[0];
                     var fileextension = filearray[1];
