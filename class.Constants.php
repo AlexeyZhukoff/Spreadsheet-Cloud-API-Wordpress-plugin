@@ -1,6 +1,7 @@
 <?php
 class Commands{
     const ShortcodeName = "sclapi";
+    const ExampleShortcodeName = "sclapiexample";
     const GetHtmlRange = "GetHTMLRange";
     const GetImage = "GetImage";
     const GetImageBytes = "GetImageBytes";
