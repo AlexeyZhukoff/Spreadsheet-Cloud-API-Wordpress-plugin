@@ -77,7 +77,7 @@ class SpreadsheetRequest {
     #endregion
 
     #region Helper
-    private static function GetAPIKey() {
+    private static function getAPIKey() {
         $actiontype = get_option(PluginConst::ActionType);
         if($actiontype == PluginConst::ExampleActionType)) {
             return self::exampleAPIKey;  
@@ -85,7 +85,7 @@ class SpreadsheetRequest {
         return get_option( PluginConst::APIKey );
     }
     private static function generateHeader($contentlength, $contenttype) {
-        $apiKey = self::GetAPIKey();
+        $apiKey = self::getAPIKey();
 
         if(is_null($contenttype))
             $contenttype = 'application/json';
