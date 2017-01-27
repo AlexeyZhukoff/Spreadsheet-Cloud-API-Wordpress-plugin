@@ -67,10 +67,10 @@ class SpreadsheetCloudAPIActions {
     function GetHTMLRange ($atts) {
         $params = self::ExtractGetHTMLRangeParams($atts);
         $output = SpreadsheetRequest::getHtml($params);
-        if($output['status'] != 200){
+        if($output[PluginConst::ResponseStatus] != 200){
             return "Error";
         } else
-            return self::FixHTMLStyle($output['data']);
+            return self::FixHTMLStyle($output[PluginConst::ResponseData]);
     }
     function FixHTMLStyle($HtmlCode){
         $style = "<style>
@@ -120,10 +120,10 @@ class SpreadsheetCloudAPIActions {
     function GetImageBytes ($atts) {
         $params = self::ExtractGetImageParams($atts);
         $output = SpreadsheetRequest::getPictures($params);
-        if($output['status'] != 200){
+        if($output[PluginConst::ResponseStatus] != 200){
             return "Error";
         } else{
-            $imgJSON = $output['data'];
+            $imgJSON = $output[PluginConst::ResponseData];
             $response = json_decode($imgJSON, true);
             return $response[0]['PictureBytes'];;
         }
@@ -168,8 +168,8 @@ class SpreadsheetCloudAPIActions {
     }
     function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
-        //echo '<pre>'.print_r($output['data'],1).'</pre>';
-        $response = json_decode($output['data'], true);
+        //echo '<pre>'.print_r($output[PluginConst::ResponseData],1).'</pre>';
+        $response = json_decode($output[PluginConst::ResponseData], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if($size == 1){
             $result = '<span>File Name: </span>'.result;

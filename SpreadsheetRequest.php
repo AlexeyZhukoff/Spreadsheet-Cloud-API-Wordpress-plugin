@@ -30,7 +30,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
         
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     public static function GetAPIKey() {
         $actiontype = get_option(PluginConst::ActionType);
@@ -62,7 +62,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
 
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     public static function downloadfile($params) {
         return self::get($params, '/download');
@@ -123,7 +123,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
 
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function post($params, $url) {
         if (empty($params))
@@ -148,7 +148,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
 
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function delete($params, $url) {
         if (empty($params))
@@ -173,7 +173,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
         
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function get($params, $url) {
         if (empty($params))
@@ -195,7 +195,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
         
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function getWithoutParams($url) {
         $header = self::generateHeader(null, null);
@@ -214,7 +214,7 @@ class SpreadsheetRequest {
 
         curl_close($request);
         
-        return array('status' => $info['http_code'], 'data' => $response);
+        return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function curl_custom_postfields($ch, array $assoc = array(), array $files = array()) {
     

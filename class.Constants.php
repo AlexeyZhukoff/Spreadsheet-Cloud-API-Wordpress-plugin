@@ -6,6 +6,8 @@ class PluginConst{
     const ActionType = 'actiontype';
     const FullActionType = 'action';
     const ExampleActionType = 'example';
+    const ResponseData = 'data';
+    const ResponseStatus = 'status';
 }
 
 class Commands{

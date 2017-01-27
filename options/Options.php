@@ -16,11 +16,11 @@ function mt_options_page() {
         $needsaveoption = TRUE;
         if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $apikey_field_name ]) ) {
             $response = get_newapikey();
-            if($response['status'] == 200){
-                $_POST[ $apikey_field_name ] = base64_decode($response['data']);
+            if($response[PluginConst::ResponseStatus] == 200){
+                $_POST[ $apikey_field_name ] = base64_decode($response[PluginConst::ResponseData]);
             }
             else{
-                show_header_message($response['data']);
+                show_header_message($response[PluginConst::ResponseData]);
                 $needsaveoption = FALSE;
             }
         }
@@ -48,9 +48,9 @@ function mt_options_page() {
                 break;
             case FileOperations::Download:
                 $downloadresponse = download_file();
-                if($downloadresponse['status'] == 200){
+                if($downloadresponse[PluginConst::ResponseStatus] == 200){
                     $continueoperation = FileOperations::ContinueDownload;
-                    $downloadfilebits = base64_encode($downloadresponse['data']);
+                    $downloadfilebits = base64_encode($downloadresponse[PluginConst::ResponseData]);
                 }
                 break;
             default:
@@ -71,23 +71,23 @@ function rename_file(){
         return;
     }
     $filerenamed = SpreadsheetCloudAPIActions::RenameFile($filename, $newfilename);
-    if($filerenamed['status'] == 200){
+    if($filerenamed[PluginConst::ResponseStatus] == 200){
         show_header_message('File <i>'.$filename.'</i> renamed to <i>'.$newfilename.'</i>.');
     }
     else{
-        show_header_message($filerenamed['data']);
+        show_header_message($filerenamed[PluginConst::ResponseData]);
     }
 }
 function download_file(){
     $filename = $_POST['filename'];
     if(!empty($filename)){
         $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile($filename);
-        if($downloadresponse['status'] == 200){
+        if($downloadresponse[PluginConst::ResponseStatus] == 200){
             show_header_message('File <i>'.$filename.'</i> is downloaded.');
             return $downloadresponse;
         }
         else {
-            show_header_message($downloadresponse['data']);
+            show_header_message($downloadresponse[PluginConst::ResponseData]);
         }
         update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
     }
@@ -100,11 +100,11 @@ function upload_file(){
     $file = &$_FILES['my_file_upload'];
     if(!empty($file['name'])){
         $uploadresponse = SpreadsheetCloudAPIActions::UploadFile($file);
-        if($uploadresponse['status'] == 200){
+        if($uploadresponse[PluginConst::ResponseStatus] == 200){
             show_header_message('File <i>'.$file['name'].'</i> is uploaded.');
         }
         else {
-            show_header_message($uploadresponse['data']);
+            show_header_message($uploadresponse[PluginConst::ResponseData]);
         }
         update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
     }
@@ -116,12 +116,12 @@ function delete_file(){
     $filename = $_POST['filename'];
     if(!empty($filename)){
         $filedeleted = SpreadsheetCloudAPIActions::DeleteFile($filename);
-        if($filedeleted['status'] == 200){
+        if($filedeleted[PluginConst::ResponseStatus] == 200){
             show_header_message('File <i>'.$filename.'</i> is deleted.');
             update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
         }
         else {
-            show_header_message($filedeleted['data']);
+            show_header_message($filedeleted[PluginConst::ResponseData]);
         }
     }
     else {
