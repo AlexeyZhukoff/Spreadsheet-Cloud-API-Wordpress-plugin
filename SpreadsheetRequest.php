@@ -8,7 +8,6 @@ class SpreadsheetRequest {
     const scheme = "amx";
     const exampleAPIKey = "be2f9a7544131bb0a048af5c4f8fcfcb";
     #endregion
-    public $example = FALSE;
 
     public static function GenerateNewAPIKey($mail){
         if (empty($mail))
@@ -33,10 +32,14 @@ class SpreadsheetRequest {
         
         return array('status' => $info['http_code'], 'data' => $response);
     }
-    public static function GetAPIKey(){
-        if ($example == NULL || $example == FALSE)
+    public static function GetAPIKey() {
+        $actiontype = get_option('actiontype');
+        if(empty($actiontype)) {
             return get_option( 'API_Key' );
-        return self::exampleAPIKey;
+        }
+        else {
+          return self::exampleAPIKey;  
+        }
     }
 
     #region public interface
