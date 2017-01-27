@@ -190,4 +190,50 @@ class SpreadsheetCloudAPIActions {
         return $result;
     }
 }
+class SpreadsheetCloudAPIExamples {
+    public function GetAction ($atts) {
+        $command = $atts[Parameters::Command];
+        switch ( $command ){
+            case Commands::GetHtmlRange:
+                $response = self::GetHTMLRange($atts);
+                break;
+            case Commands::GetImage:
+                $response = self::GetImage($atts);
+                break;
+            case Commands::GetImageBytes:
+                $response = self::GetImageBytes($atts);
+                break;
+            default:
+                $response = 'Method error!';
+                break;
+        };
+        return $response;
+    }
+
+    function GetHTMLRange ($atts) {
+        $params = self::ExtractGetHTMLRangeParams($atts);
+        $output = SpreadsheetRequest::getHtml($params);
+        if($output['status'] != 200){
+            return "Error";
+        } else
+            return self::FixHTMLStyle($output['data']);
+    }
+
+    function GetImage ($atts) {
+        $style = self::GetImageStyle($atts);
+        $imgBytes = self::GetImageBytes($atts);
+        return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."'/>";
+    }
+    function GetImageBytes ($atts) {
+        $params = self::ExtractGetImageParams($atts);
+        $output = SpreadsheetRequest::getPictures($params);
+        if($output['status'] != 200){
+            return "Error";
+        } else{
+            $imgJSON = $output['data'];
+            $response = json_decode($imgJSON, true);
+            return $response[0]['PictureBytes'];;
+        }
+    }
+}
 ?>

@@ -6,10 +6,11 @@ class SpreadsheetRequest {
     const baseUri = 'http://spreadsheetcloud.azurewebsites.net/api/spreadsheet';
     const basewpUri = 'http://localhost:54306/wpusers/getapikey';
     const scheme = "amx";
+    const exampleAPIKey = "be2f9a7544131bb0a048af5c4f8fcfcb";
     #endregion
+    public $example = FALSE;
 
-
-    public static function GetAPIKey($mail){
+    public static function GenerateNewAPIKey($mail){
         if (empty($mail))
             return null;
 
@@ -31,6 +32,11 @@ class SpreadsheetRequest {
         curl_close($request);
         
         return array('status' => $info['http_code'], 'data' => $response);
+    }
+    public static function GetAPIKey(){
+        if ($example == NULL || $example == FALSE)
+            return get_option( 'API_Key' );
+        return self::exampleAPIKey;
     }
 
     #region public interface
@@ -77,7 +83,7 @@ class SpreadsheetRequest {
 
     #region Helper
     private static function generateHeader($contentlength, $contenttype) {
-        $apiKey = get_option( 'API_Key' );
+        $apiKey = self::GetAPIKey();
 
         if(is_null($contenttype))
             $contenttype = 'application/json';
