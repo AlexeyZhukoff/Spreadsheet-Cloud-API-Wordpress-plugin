@@ -39,7 +39,7 @@
                                 if (shortcode.length > 1) {
                                     shortcode += "]<br />["
                                 }
-                                 att_result = att_value;
+                                att_result = att_value;
                             }
                             shortcode += att_result;
                         })
@@ -48,28 +48,12 @@
                         tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
                         tinyMCEPopup.close();
                     })
-                    //$("#create_example").click(function () {
-                    //    var shortcode = "[sclapi ";
-                    //    $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
-                    //        var att_name = $(this).attr("name"),
-                    //           att_value = $(this).val(),
-                    //           att_result = '';
-                    //        if (att_name == "exportgridlines") {
-                    //            if ($(this).prop("checked"))
-                    //                att_value = "true";
-                    //            else att_value = undefined;
-                    //        }
-                    //        if (att_name == "command" && shortcode.length > 8)
-                    //            shortcode += "]<br />[sclapi ";
-                    //        if (att_value != undefined && att_value.length != 0)
-                    //            att_result = att_name + '="' + att_value + '" ';
-                    //        shortcode += att_result;
-                    //    })
-                    //    shortcode += ']';
-
-                    //    tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
-                    //    tinyMCEPopup.close();
-                    //})
+                    $("#create_example").click(function () {
+                        output = $("#sclapi-container-template").find("fieldset").clone(false);
+                        output.find(".shortcode").val("sclapiexample ");
+                        $("#sclapi-container").append(output);
+                        CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                    })
 
                     $("#add_shortcode").click(function () {
                         output = $("#sclapi-container-template").find("fieldset").clone(false);
@@ -121,7 +105,7 @@
         <div id="sclapi-container-template" style="display:none">
             <fieldset>
                 <legend>Shortcode parameters</legend>
-                <input type="hidden" name="shortcode" value="sclapi ">
+                <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command: </span><select class="command" name="command">
                     <option value="GetHTMLRange">GetHTMLRange</option>
                     <option>GetImage</option>
