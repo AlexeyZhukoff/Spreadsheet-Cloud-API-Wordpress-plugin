@@ -1,7 +1,14 @@
 <?php
-class Commands{
+class PluginConst{
     const ShortcodeName = "sclapi";
     const ExampleShortcodeName = "sclapiexample";
+    const APIKey = 'API_Key';
+    const ActionType = 'actiontype';
+    const FullActionType = 'action';
+    const ExampleActionType = 'example';
+}
+
+class Commands{
     const GetHtmlRange = "GetHTMLRange";
     const GetImage = "GetImage";
     const GetImageBytes = "GetImageBytes";

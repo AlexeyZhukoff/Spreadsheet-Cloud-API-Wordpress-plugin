@@ -192,9 +192,9 @@ class SpreadsheetCloudAPIActions {
 }
 class SpreadsheetCloudAPIExamples {
     public function GetAction ($atts) {
-        update_option( 'actiontype', 'example' );
+        update_option( PluginConst::ActionType, PluginConst::ExampleActionType );
         $response = SpreadsheetCloudAPIActions::GetAction($atts);
-        update_option( 'actiontype', '' );
+        update_option( PluginConst::ActionType, PluginConst::FullActionType );
         return $response;
     }
 }

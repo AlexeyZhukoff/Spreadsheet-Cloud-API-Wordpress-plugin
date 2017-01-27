@@ -4,9 +4,9 @@ function mt_add_pages() {
 }
 
 function mt_options_page() {
-    $apiKey = 'API_Key';
+    $apiKey = PluginConst::APIKey;
     $hidden_field_name = 'mt_submit_hidden';
-    $apikey_field_name = 'API_Key';
+    $apikey_field_name = PluginConst::APIKey;
     $opt_api_key = get_option( $apiKey );
     
     //echo '<pre>'.print_r($_POST,1).'</pre>';
@@ -142,7 +142,7 @@ function show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key,
     }
     $optionsheader = __( 'Spreadsheet Cloud API Plugin Options', 'mt_trans_domain' );
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
-    $optionsapikey = __("API Key:", 'API_Key' );
+    $optionsapikey = __("API Key:", PluginConst::APIKey );
     $optionsupdate = __('Update Options', 'mt_trans_domain' );
     $servicefilelist = SpreadsheetCloudAPIActions::GetFileList(3);
     include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\Options.html');

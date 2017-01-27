@@ -33,9 +33,9 @@ class SpreadsheetRequest {
         return array('status' => $info['http_code'], 'data' => $response);
     }
     public static function GetAPIKey() {
-        $actiontype = get_option('actiontype');
-        if(empty($actiontype)) {
-            return get_option( 'API_Key' );
+        $actiontype = get_option(PluginConst::ActionType);
+        if($actiontype == PluginConst::FullActionType)) {
+            return get_option( PluginConst::APIKey );
         }
         else {
           return self::exampleAPIKey;  
@@ -266,7 +266,7 @@ class SpreadsheetRequest {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => implode("\r\n", $body),
             CURLOPT_HTTPHEADER => array(
-                "Authorization: amx ".get_option( 'API_Key' ),
+                "Authorization: amx ".get_option( PluginConst::APIKey ),
                 "Expect: 100-continue",
                 "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
             ),
