@@ -32,15 +32,7 @@ class SpreadsheetRequest {
         
         return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
-    public static function GetAPIKey() {
-        $actiontype = get_option(PluginConst::ActionType);
-        if($actiontype == PluginConst::FullActionType)) {
-            return get_option( PluginConst::APIKey );
-        }
-        else {
-          return self::exampleAPIKey;  
-        }
-    }
+    
 
     #region public interface
     public static function uploadFile($file) {
@@ -85,6 +77,13 @@ class SpreadsheetRequest {
     #endregion
 
     #region Helper
+    private static function GetAPIKey() {
+        $actiontype = get_option(PluginConst::ActionType);
+        if($actiontype == PluginConst::ExampleActionType)) {
+            return self::exampleAPIKey;  
+        }
+        return get_option( PluginConst::APIKey );
+    }
     private static function generateHeader($contentlength, $contenttype) {
         $apiKey = self::GetAPIKey();
 
@@ -217,7 +216,6 @@ class SpreadsheetRequest {
         return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
     private static function curl_custom_postfields($ch, array $assoc = array(), array $files = array()) {
-    
         // invalid characters for "name" and "filename"
         static $disallow = array("\0", "\"", "\r", "\n");
 

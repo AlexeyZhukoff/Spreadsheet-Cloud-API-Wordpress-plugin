@@ -45,6 +45,12 @@ class SpreadsheetCloudAPIActions {
         };
         return $response;
     }
+    public function GetExampleAction ($atts) {
+        update_option( PluginConst::ActionType, PluginConst::ExampleActionType );
+        $response = SpreadsheetCloudAPIActions::GetAction($atts);
+        update_option( PluginConst::ActionType, PluginConst::FullActionType );
+        return $response;
+    }
 
     public function UploadFile($file){
         return SpreadsheetRequest::uploadFile($file);
@@ -188,14 +194,6 @@ class SpreadsheetCloudAPIActions {
         }
         $result = $result.'</select><br />';
         return $result;
-    }
-}
-class SpreadsheetCloudAPIExamples {
-    public function GetAction ($atts) {
-        update_option( PluginConst::ActionType, PluginConst::ExampleActionType );
-        $response = SpreadsheetCloudAPIActions::GetAction($atts);
-        update_option( PluginConst::ActionType, PluginConst::FullActionType );
-        return $response;
     }
 }
 ?>
