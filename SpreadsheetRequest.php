@@ -6,7 +6,7 @@ class SpreadsheetRequest {
     const baseUri = 'http://spreadsheetcloud.azurewebsites.net/api/spreadsheet';
     const basewpUri = 'http://localhost:54306/wpusers/getapikey';
     const scheme = "amx";
-    const exampleAPIKey = "be2f9a7544131bb0a048af5c4f8fcfcb";
+    const exampleAPIKey = "6a9048ae54537fd88847f242519a563e";
     #endregion
 
     public static function GenerateNewAPIKey($mail){

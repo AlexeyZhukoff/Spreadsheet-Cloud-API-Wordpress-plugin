@@ -18,6 +18,7 @@
                 });
                 $('body').on('change', '.range', rangeChange);
                 $('body').on('change', '.command', commandChange);
+                $('body').on('change', '.examplecommand', exampleCommandChange);
 
                 $(document).ready(function () {
                     $("#insert").click(function () {
@@ -49,7 +50,7 @@
                     $("#create_example").click(function () {
                         output = $("#example-container-template").find("fieldset").clone(false);
                         $("#sclapi-container").append(output);
-                        CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+                        CommandChangeCore($("#sclapi-container").find("fieldset").find(".examplecommand"));
                     })
 
                     $("#add_shortcode").click(function () {
@@ -85,6 +86,17 @@
                     form.find(".endrowindex").attr('disabled', disabled);
                     form.find(".startcolumnindex").attr('disabled', disabled);
                     form.find(".endcolumnindex").attr('disabled', disabled);
+                }
+                function exampleCommandChange() {
+                    var command = $(this);
+                    CommandChangeCore(command);
+                    var sheetindex = command.closest("fieldset").find(".sheet").find(".sheetindex");
+                    if (command.val() == "GetHTMLRange") {
+                        sheetindex.val(0);
+                    }
+                    else {
+                        sheetindex.val(1);
+                    }
                 }
             })
 
@@ -131,31 +143,31 @@
         </div>
         <div id="example-container-template" style="display:none">
             <fieldset>
-                <legend>Shortcode parameters</legend>
+                <legend>Example shortcode parameters</legend>
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapiexample ">
-                <span>Command: </span><select class="command" name="command">
+                <span>Command: </span><select class="examplecommand" name="command">
                     <option value="GetHTMLRange">GetHTMLRange</option>
                     <option>GetImage</option>
                     <option>GetImageBytes</option>
                 </select><br />
                 <div class="examplefiles">
                     <span>File Name: </span>
-                    <select class="filename" name="filename" size="1">
-                        <option value="htmlExample.xlsx">htmlExample.xlsx</option>
-                        <option>imageExample.xlsx</option>
+                    <select class="examplefilename" name="filename" size="1">
+                        <option value="example.xlsx">example.xlsx</option>
                     </select><br />
                 </div>
                 <div class="sheet">
-                    <span>Sheet Name: </span><input type="text" class="sheetname" name="sheetname" />
-                    <span> Sheet Index: </span><input type="number" class="sheetindex" name="sheetindex" value="0"/><br />
+                    <span>Sheet Name: </span><input type="text" class="sheetname" name="sheetname" readonly="readonly"/>
+                    <span> Sheet Index: </span><input type="number" class="sheetindex" name="sheetindex" value="0" readonly="readonly"/><br />
                 </div>
-                <div class="rangegrouppar"><span>Range: </span><input type="text" class="range" name="range" /><br />
-                    <span>Start Row Index: </span><input type="number" class="startrowindex" name="startrowindex" />
-                    <span> End Row Index: </span><input type="number" class="endrowindex" name="endrowindex" /><br />
-                    <span>Start Column Index: </span><input type="number" class="startcolumnindex" name="startcolumnindex" />
-                    <span> End Column Index: </span><input type="number" class="endcolumnindex" name="endcolumnindex" /><br /></div>
+                <div class="rangegrouppar"><span>Range: </span><input type="text" class="range" name="range" value="A1:E7" readonly="readonly"/><br />
+                    <span>Start Row Index: </span><input type="number" class="startrowindex" name="startrowindex" readonly="readonly"/>
+                    <span> End Row Index: </span><input type="number" class="endrowindex" name="endrowindex" readonly="readonly"/><br />
+                    <span>Start Column Index: </span><input type="number" class="startcolumnindex" name="startcolumnindex" readonly="readonly"/>
+                    <span> End Column Index: </span><input type="number" class="endcolumnindex" name="endcolumnindex" readonly="readonly"/><br /></div>
                 <div class="htmlgrouppar">
-                    <span style="vertical-align: top">Export Grid Lines: </span><input type="checkbox" class="exportgridlines" name="exportgridlines" style="vertical-align: top" /><br /></div>
+                    <span style="vertical-align: top">Export Grid Lines: </span><input type="checkbox" class="exportgridlines" name="exportgridlines" style="vertical-align: top" /><br />
+                </div>
                 <div class="imggrouppar"><span>Object Index: </span><input type="number" class="objectindex" name="objectindex" value="0" /><br />
                     <span>Picture Type: </span><select class="picturetype" name="picturetype">
                         <option>picture</option>
