@@ -1,23 +1,51 @@
         fieldset{
             margin: 5px 0 10px 0;
-            height: 290px;
+            height: auto;
             line-height: 15px;
             overflow: hidden;
         }
         
         fieldset span{
-            width: 120px;
+            /*width: 120px;
             float: intrude;
-            clear: left;
+            clear: left;*/
         }
-        
+        span.startindex, span.endindex {
+            float: left;
+        }
+        span.endindex {
+            margin-top: 6px;
+        }
+        input.startrowindex, input.startcolumnindex, input.endrowindex, input.endcolumnindex {
+            float: right;
+        }
         fieldset input, select {
             margin-bottom: 5px;
         }
-        div.rangegrouppar, div.htmlgrouppar, div.imggrouppar, div.filelist, div.sheet{
+        div.htmlgrouppar, div.imggrouppar, div.filelist, div.sheet {
              border:inherit; 
              padding-top: 5px; 
              padding-left: 5px;
              margin-bottom: 0px;
              margin-top: 5px;
+             
+        }
+        div.rangegrouppar {
+             border:inherit; 
+             padding-top: 5px; 
+             padding-left: 5px;
+             padding-right: 5px;
+             margin-bottom: 0px;
+             margin-top: 5px;
+             height: 80px;
+        }
+        div.columnparameters, div.rowparameters {
+             border:inherit; 
+             padding-top: 5px; 
+             padding-bottom: 5px; 
+             padding-left: 5px;
+             padding-right: 5px;
+             width: 250px;
+             /*margin-bottom: 5px;
+             margin-top: 5px;*/
         }
