@@ -11,6 +11,14 @@
 
         <script type="text/javascript">
             jQuery(function ($) {
+                $.get("createexample.php", function (createexample) {
+                    if (createexample == 1){
+                        $("#create_example").attr('style', 'float:right');  
+                    }
+                    else{
+                        $("#create_example").attr('style', 'display:none');  
+                    }
+                });
                 $.get("getfilelist.php", function (htmlFilesList) {
                     $(".filelist").append(htmlFilesList);
                     $("#sclapi-container").append($("#sclapi-container-template").find("fieldset").clone(false));
@@ -80,6 +88,14 @@
                     form.find(".imggrouppar").find("input, select").each(function () {
                         $(this).attr('disabled', disabled);
                     })
+                    if (disabled == true) {
+                        form.find(".imggrouppar").attr('style', 'display:none');
+                        form.find(".htmlgrouppar").attr('style', '');
+                    }
+                    else {
+                        form.find(".imggrouppar").attr('style', '');
+                        form.find(".htmlgrouppar").attr('style', 'display:none');
+                    }
                 }
                 function disableIndexParameters(form, disabled) {
                     form.find(".startrowindex").attr('disabled', disabled);
@@ -105,7 +121,7 @@
             <div id="sclapi-container">
             </div>
             <div>
-                <input type="button" id="create_example" name="create_example" value="Create example" class="mceButton" style="float:right" />
+                <input type="button" id="create_example" name="create_example" value="Create example" class="mceButton" style="display:none" />
                 <input type="button" id="add_shortcode" name="add_shortcode" value=" + " class="mceButton" />
                 <input type="button" id="insert" name="insert" value="Insert" />
                 <input type="button" id="cancel" name="cancel" value="Cancel" />

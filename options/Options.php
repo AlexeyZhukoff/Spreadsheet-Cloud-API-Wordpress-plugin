@@ -8,12 +8,17 @@ function mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
     $apikey_field_name = PluginConst::APIKey;
     $opt_api_key = get_option( $apiKey );
-    
+    $opt_create_example = get_option( PluginConst::ShowCreateExample );
+
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
 
     if( $_POST[ $hidden_field_name ] == 'Y' ) {
         $needsaveoption = TRUE;
+        if($opt_create_example != ($_POST[ PluginConst::ShowCreateExample ]=='on')){
+            $opt_create_example = $_POST[ PluginConst::ShowCreateExample ]=='on';
+            update_option( PluginConst::ShowCreateExample, $opt_create_example ); 
+        }
         if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $apikey_field_name ]) ) {
             $response = get_newapikey();
             if($response[PluginConst::ResponseStatus] == 200){
@@ -27,7 +32,7 @@ function mt_options_page() {
         if($needsaveoption){
             $opt_api_key = $_POST[ $apikey_field_name ];
             update_option( $apiKey, $opt_api_key );
-            update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+            update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
             show_header_message('Options saved.');
         }
     }
@@ -57,7 +62,12 @@ function mt_options_page() {
                 break;
         };
     }
-    show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfilebits, $_POST['filename']);
+
+    $createexample = '';
+    if ($opt_create_example){
+        $createexample = 'checked="checked"';
+    }
+    show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfilebits, $_POST['filename'], $createexample);
 }
 function get_newapikey(){
     $useremail = wp_get_current_user()->user_email;
@@ -89,7 +99,7 @@ function download_file(){
         else {
             show_header_message($downloadresponse[PluginConst::ResponseData]);
         }
-        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+        update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
     }
     else {
         show_header_message('Please select file to download.');
@@ -106,7 +116,7 @@ function upload_file(){
         else {
             show_header_message($uploadresponse[PluginConst::ResponseData]);
         }
-        update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+        update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
     }
     else {
         show_header_message('Please select file to upload.');
@@ -118,7 +128,7 @@ function delete_file(){
         $filedeleted = SpreadsheetCloudAPIActions::DeleteFile($filename);
         if($filedeleted[PluginConst::ResponseStatus] == 200){
             show_header_message('File <i>'.$filename.'</i> is deleted.');
-            update_option( 'userFilesList', SpreadsheetCloudAPIActions::GetFileList(1));
+            update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
         }
         else {
             show_header_message($filedeleted[PluginConst::ResponseData]);
@@ -133,7 +143,7 @@ function show_header_message($message){
     _e($message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfile, $filename){
+function show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfile, $filename, $createexample){
     $haveapikey = '';
     $unhaveapikey = 'style="display: none"';
     if(empty($opt_api_key)){

@@ -3,6 +3,8 @@ class PluginConst{
     const ShortcodeName = "sclapi";
     const ExampleShortcodeName = "sclapiexample";
     const APIKey = 'API_Key';
+    const ShowCreateExample = 'showcreateexample';
+    const UserFileList = 'userfileslist';
     const ActionType = 'actiontype';
     const FullActionType = 'action';
     const ExampleActionType = 'example';

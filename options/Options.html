@@ -7,6 +7,10 @@
             <input type="text" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" size="50">
         </p>
         <p>
+            Show "Create example" button in generator: 
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top" <?= $createexample; ?> /><br />
+        </p>
+        <p>
             <input type="submit" name="oauthaut" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
         </p>
         <hr />
