@@ -9,10 +9,10 @@ jQuery(function ($) {
     });
     $.get("getfilelist.php", function (htmlFilesList) {
         $(".filelist").append(htmlFilesList);
-        output = $("#sclapi-container-template").find("fieldset").clone(false);
-        output.attr("id", "last");
-        $("#sclapi-container").append(output);
-        CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+        output = $(".sclapi-container-template").find("fieldset").clone(false);
+        output.attr("class", "last");
+        $(".sclapi-container").append(output);
+        CommandChangeCore($(".sclapi-container").find("fieldset").find(".command"));
     });
     $('body').on('change', '.range', rangeChange);
     $('body').on('change', '.command', commandChange);
@@ -21,7 +21,7 @@ jQuery(function ($) {
     $(document).ready(function () {
         $("#insert").click(function () {
             var shortcode = "[";
-            $("form #sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
+            $("form .sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
                 var att_name = $(this).attr("name"),
                                att_value = $(this).val(),
                                att_result = '';
@@ -45,24 +45,25 @@ jQuery(function ($) {
             tinyMCEPopup.editor.execCommand('mceInsertContent', false, shortcode);
             tinyMCEPopup.close();
         })
+
         $("#create_example").click(function () {
-            output = $("#example-container-template").find("fieldset").clone(false);
-            replacement = $("#sclapi-container").find("#last");
+            output = $(".example-container-template").find("fieldset").clone(false);
+            replacement = $(".sclapi-container").find(".last");
             if (replacement.length != 0) {
                 replacement.replaceWith(output);
             }
             else {
-                $("#sclapi-container").append(output);
+                $(".sclapi-container").append(output);
             }
-            CommandChangeCore($("#sclapi-container").find("fieldset").find(".examplecommand"));
+            CommandChangeCore($(".sclapi-container").find("fieldset").find(".examplecommand"));
         })
 
         $("#add_shortcode").click(function () {
-            output = $("#sclapi-container-template").find("fieldset").clone(false);
-            output.attr("id", "last");
-            $("#sclapi-container").find("#last").attr("id", '');
-            $("#sclapi-container").append(output);
-            CommandChangeCore($("#sclapi-container").find("fieldset").find(".command"));
+            output = $(".sclapi-container-template").find("fieldset").clone(false);
+            output.attr("class", "last");
+            $(".sclapi-container").find(".last").attr("class", '');
+            $(".sclapi-container").append(output);
+            CommandChangeCore($(".sclapi-container").find("fieldset").find(".command"));
         })
 
         $("#cancel").click(function () {

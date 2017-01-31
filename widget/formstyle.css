@@ -10,6 +10,9 @@
             float: intrude;
             clear: left;*/
         }
+        form.sclapi-generator {
+            padding-bottom: 6px;
+        }
         span.startindex, span.endindex {
             float: left;
         }
