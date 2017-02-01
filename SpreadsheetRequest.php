@@ -32,7 +32,6 @@ class SpreadsheetRequest {
         
         return array(PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response);
     }
-    
 
     #region public interface
     public static function uploadFile($file) {

@@ -19,7 +19,7 @@ function mt_options_page() {
             $opt_create_example = $_POST[ PluginConst::ShowCreateExample ]=='on';
             update_option( PluginConst::ShowCreateExample, $opt_create_example ); 
         }
-        if( !empty($_POST[ 'oauthaut' ]) && empty($_POST[ $apikey_field_name ]) ) {
+        if( !empty($_POST[ PluginConst::GetNewAPIKey ]) && empty($_POST[ $apikey_field_name ]) ) {
             $response = get_newapikey();
             if($response[PluginConst::ResponseStatus] == 200){
                 $_POST[ $apikey_field_name ] = base64_decode($response[PluginConst::ResponseData]);

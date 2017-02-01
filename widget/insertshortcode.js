@@ -11,7 +11,7 @@
             });
            
             a.addButton("sclapi_insert_shortcode",{
-                title: "insert_shortcode.desc",
+                title: "Generate SCLAPI shortcode",
                 cmd: "sclapiInsert",
                 image: b + "/images/icon.png"
             });
