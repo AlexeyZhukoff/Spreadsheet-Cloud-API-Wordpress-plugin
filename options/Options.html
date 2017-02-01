@@ -11,21 +11,21 @@
             <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top" <?= $createexample; ?> /><br />
         </p>
         <p>
-            <input type="submit" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
+            <input type="submit" class="button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
         </p>
         <hr />
         <p class="submit">
-            <input type="submit" name="Submit" value="<?= $optionsupdate; ?>" />
+            <input type="submit" class="button" name="Submit" value="<?= $optionsupdate; ?>" />
         </p>
     </form>
     <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>
         <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
         <?= $servicefilelist; ?>
         <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
-        <input class="uploadbutton"type="button" value="<?= FileOperations::Upload; ?>" />
-        <input class="downloadbutton" type="button" value="<?= FileOperations::Download; ?>" />
-        <input class="renamebutton" type="button" value="<?= FileOperations::Rename; ?>" />
-        <input class="deletebutton" type="button" value="<?= FileOperations::Delete; ?>" />
+        <input class="uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
+        <input class="downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" />
+        <input class="renamebutton button" type="button" value="<?= FileOperations::Rename; ?>" />
+        <input class="deletebutton button" type="button"  value="<?= FileOperations::Delete; ?>" />
         <dialog class="renamedialog" >
             <label class="existtext"  style="color:#f00; display:none">File with this name already exist.</label><br />
             <input class="file_new_name" type="text" name="newfilename">
@@ -34,6 +34,7 @@
         </dialog>
         
     </form>
+    <!--<script type="text/javascript" src="<?= $jspath ?>"></script>-->
     <script type="text/javascript">
         <?php include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\Options.js'); ?>
     </script>

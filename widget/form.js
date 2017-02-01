@@ -21,7 +21,7 @@ jQuery(function ($) {
 
     $(document).ready(function () 
     {
-        $("#insert").click(function () {
+        $("#insert_button").click(function () {
             var shortcode = "[";
             $("form .sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
                 var att_name = $(this).attr("name"),
@@ -68,7 +68,7 @@ jQuery(function ($) {
             $('body').on('change', '.last', fieldsetChange);
         })
 
-        $("#cancel").click(function () {
+        $("#cancel_button").click(function () {
             tinyMCEPopup.close();
         })
     })
