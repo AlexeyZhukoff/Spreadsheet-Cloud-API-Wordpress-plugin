@@ -17,8 +17,10 @@ jQuery(function ($) {
     $('body').on('change', '.range', rangeChange);
     $('body').on('change', '.command', commandChange);
     $('body').on('change', '.examplecommand', exampleCommandChange);
+    $('body').on('change', '.last', fieldsetChange);
 
-    $(document).ready(function () {
+    $(document).ready(function () 
+    {
         $("#insert").click(function () {
             var shortcode = "[";
             $("form .sclapi-container").find("input:not(:disabled), select:not(:disabled)").each(function () {
@@ -63,7 +65,7 @@ jQuery(function ($) {
             output.attr("class", "last");
             $(".sclapi-container").find(".last").attr("class", '');
             $(".sclapi-container").append(output);
-            CommandChangeCore($(".sclapi-container").find("fieldset").find(".command"));
+            $('body').on('change', '.last', fieldsetChange);
         })
 
         $("#cancel").click(function () {
@@ -81,6 +83,9 @@ jQuery(function ($) {
     }
     function CommandChangeCore(command) {
         disableCommandParameters(command.closest("fieldset"), command.val() == "GetHTMLRange");
+    }
+    function fieldsetChange() {
+        $(".sclapi-container").find(".last").attr("class", '');
     }
     function disableCommandParameters(form, disabled) {
         form.find(".exportgridlines").attr('disabled', !disabled);
