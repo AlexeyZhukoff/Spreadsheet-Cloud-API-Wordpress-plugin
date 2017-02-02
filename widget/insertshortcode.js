@@ -4,7 +4,7 @@
             a.addCommand("sclapiInsert", function(){
                 a.windowManager.open({
                     file: b + "/form.html",
-                    width: 500,
+                    width: 395,
                     height: 385,
                     inline: 1
                 })
