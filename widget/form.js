@@ -13,9 +13,7 @@ jQuery(function ($) {
         CommandChangeCore($(".command"));
     })
 
-    $('body').on('change', '.range', rangeChange);
     $('body').on('change', '.command', commandChange);
-    $('body').on('change', '.examplecommand', exampleCommandChange);
 
     $(document).ready(function () {
         $("#insert_button").click(function () {
@@ -52,7 +50,6 @@ jQuery(function ($) {
             $(".sheetindex").attr("disabled", true);
             $(".sheetname").attr("disabled", true);
             exampleCommandChangeCore($(".command"));
-            rangeChangeCore($(".range"));
             $('body').on('change', '.command', exampleCommandChange);
         })
 
@@ -60,13 +57,6 @@ jQuery(function ($) {
             tinyMCEPopup.close();
         })
     })
-    function rangeChange() {
-        rangeChangeCore($(this));
-    }
-    function rangeChangeCore(range) {
-        var form = range.closest("fieldset");
-        disableIndexParameters(form, range.val().length > 0);
-    }
     function commandChange() {
         var command = $(this);
         CommandChangeCore(command);
@@ -80,12 +70,6 @@ jQuery(function ($) {
         form.find(".picturetype").attr('disabled', disabled);
         form.find(".height").attr('disabled', disabled);
         form.find(".width").attr('disabled', disabled);
-    }
-    function disableIndexParameters(form, disabled) {
-        form.find(".startrowindex").attr('disabled', disabled);
-        form.find(".endrowindex").attr('disabled', disabled);
-        form.find(".startcolumnindex").attr('disabled', disabled);
-        form.find(".endcolumnindex").attr('disabled', disabled);
     }
     function exampleCommandChange() {
         exampleCommandChangeCore($(this));
