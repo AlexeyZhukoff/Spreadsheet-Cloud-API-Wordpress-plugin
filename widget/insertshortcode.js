@@ -5,7 +5,7 @@
                 a.windowManager.open({
                     file: b + "/form.html",
                     width: 500,
-                    height: 505,
+                    height: 385,
                     inline: 1
                 })
             });

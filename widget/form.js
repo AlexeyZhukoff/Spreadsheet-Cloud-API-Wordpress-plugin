@@ -47,8 +47,8 @@ jQuery(function ($) {
             $(".shortcode").attr("value", "sclapiexample ");
             $(".filename").replaceWith('<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>');
             $(".range").attr("value", "A1:E7");
-            $(".sheetindex").attr("disabled", true);
-            $(".sheetname").attr("disabled", true);
+            $(".sheetindex").attr("readonly", true);
+            $(".sheetname").attr("readonly", true);
             exampleCommandChangeCore($(".command"));
             $('body').on('change', '.command', exampleCommandChange);
         })
