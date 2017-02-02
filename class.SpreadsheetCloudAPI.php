@@ -192,7 +192,7 @@ class SpreadsheetCloudAPIActions {
             $result = $result.$current['Name'].'</option>';
             $counter = $counter + 1;
         }
-        $result = $result.'</select><br />';
+        $result = $result.'</select>';
         return $result;
     }
 }

@@ -20,7 +20,7 @@
     </form>
     <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>
         <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
-        <?= $servicefilelist; ?>
+        <?= $servicefilelist; ?><br />
         <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
         <input class="uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
         <input class="downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" />

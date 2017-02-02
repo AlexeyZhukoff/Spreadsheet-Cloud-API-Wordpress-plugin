@@ -9,119 +9,29 @@
     </head>
     <body>
         <form id="sclapi-generator" class="sclapi-generator">
-            <div class="sclapi-container">
-            </div>
+            <fieldset class="sclapi-container">
+                <legend class="parametersheader">Shortcode parameters</legend>
+                <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
+                <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
+                <select class="filelist" name="filename"></select><br />
+                <span>Sheet Index:</span><input type="number" class="sheetindex" name="sheetindex" value="0"/><br />
+                <span>Sheet Name:</span><input type="text" class="sheetname" name="sheetname" /><br />
+                <span>Range:</span><input type="text" class="range" name="range" /><br />
+                <span>Start Column Index:</span><input class="startcolumnindex" type="number" name="startcolumnindex" /><br />
+                <span>End Column Index:</span><input class="endcolumnindex" type="number" name="endcolumnindex" /><br />
+                <span>Start Row Index:</span><input class="startrowindex" type="number" name="startrowindex" /><br />
+                <span>End Row Index:</span><input class="endrowindex" type="number" name="endrowindex" /><br />
+                <span class="htmspan">Export Grid Lines:</span><input type="checkbox" class="exportgridlines" name="exportgridlines"/><br />
+                <span class="picspan">Object Index:</span><input type="number" class="objectindex" name="objectindex" value="0" /><br />
+                <span class="picspan">Picture Type:</span><select class="picturetype" name="picturetype"><option>picture</option><option>chart</option></select><br />
+                <span class="picspan">Height:</span><input type="number" class="height" name="height"/><br />
+                <span class="picspan">Width:</span><input type="number" class="width" name="width"/><br />
+            </fieldset>
             <div>
                 <input type="button" class="button" id="create_example" name="create_example" value="Create example" style="display:none" />
-                <input type="button" class="button" id="add_shortcode" name="add_shortcode" value=" + " />
-                <input type="button" class="button" id="insert_button" name="insert" value="Insert" />
-                <input type="button" class="button" id="cancel_button" name="cancel" value="Cancel" />
+                <input type="button" class="button" id="insert_button" name="insert" value="Insert" style="float: left"/>
+                <input type="button" class="button" id="cancel_button" name="cancel" value="Cancel" style="float: left"/>
             </div>
         </form>
-        <div class="sclapi-container-template" style="display:none">
-            <fieldset>
-                <legend>Shortcode parameters</legend>
-                <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
-                <div class="filelist">
-                    <span>Command: </span>
-                    <select class="command" name="command">
-                        <option value="GetHTMLRange">GetHTMLRange</option>
-                        <option>GetImage</option>
-                        <option>GetImageBytes</option>
-                    </select>
-                </div>
-                <div class="sheet">
-                    <span> Sheet Index: </span><input type="number" class="sheetindex" name="sheetindex" value="0"/>
-                    <span>Sheet Name: </span><input type="text" class="sheetname" name="sheetname" />
-                    <br />
-                </div>
-                <div class="rangegrouppar">
-                    <span>Range: </span><input type="text" class="range" name="range" />
-                    <br />
-                    <div class="columnparameters"  title="Column" style="float:left">
-                        <span class="startindex">Start Column Index: </span>
-                        <input class="startcolumnindex" type="number" name="startcolumnindex" />
-                        <br />
-                        <span class="endindex">End Column Index:   </span>
-                        <input class="endcolumnindex" type="number" name="endcolumnindex" />
-                    </div>
-                    <div class="rowparameters"  title="Row" style="float:right">
-                        <span class="startindex">Start Row Index: </span>
-                        <input class="startrowindex" type="number" name="startrowindex" />
-                        <br />
-                        <span class="endindex">End Row Index: </span>
-                        <input class="endrowindex" type="number" name="endrowindex" />
-                    </div>
-                </div>
-                <div class="htmlgrouppar">
-                    <span style="vertical-align: top">Export Grid Lines: </span><input type="checkbox" class="exportgridlines" name="exportgridlines" style="vertical-align: top" />
-                    <br />
-                </div>
-                <div class="imggrouppar" style="display: none">
-                    <span>Object Index: </span><input type="number" class="objectindex" name="objectindex" value="0" disabled="disabled" /><br />
-                    <span>Picture Type: </span><select class="picturetype" name="picturetype" disabled="disabled">
-                        <option>picture</option>
-                        <option>chart</option>
-                    </select><br />
-                    <span>Height: </span><input type="number" class="height" name="height" disabled="disabled" />
-                    <span> Width: </span><input type="number" class="width" name="width" disabled="disabled" /></div>
-            </fieldset>
-        </div>
-        <div class="example-container-template" style="display:none">
-            <fieldset>
-                <legend>Example shortcode parameters</legend>
-                <input type="hidden" class="shortcode" name="shortcode" value="sclapiexample ">
-                <div class="examplefiles">
-                    <span>Command: </span>
-                    <select class="examplecommand" name="command">
-                        <option value="GetHTMLRange">GetHTMLRange</option>
-                        <option>GetImage</option>
-                        <option>GetImageBytes</option>
-                    </select>
-                    <span>File Name: </span>
-                    <select class="examplefilename" name="filename" size="1">
-                        <option value="example.xlsx">example.xlsx</option>
-                    </select><br />
-                </div>
-                <div class="sheet">
-                    <span> Sheet Index: </span><input type="number" class="sheetindex" name="sheetindex" value="0" readonly="readonly" />
-                    <span>Sheet Name: </span><input type="text" class="sheetname" name="sheetname" readonly="readonly" />
-                    <br />
-                </div>
-                <div class="rangegrouppar">
-                    <span>Range: </span><input type="text" class="range" name="range" value="A1:E7" readonly="readonly" />
-                    <br />
-                    <div class="columnparameters"  title="Column" style="float:left">
-                        <span class="startindex">Start Column Index: </span>
-                        <input class="startcolumnindex" type="number" name="startcolumnindex" readonly="readonly" />
-                        <br />
-                        <span class="endindex">End Column Index:   </span>
-                        <input class="endcolumnindex" type="number" name="endcolumnindex" readonly="readonly" />
-                    </div>
-                    <div class="rowparameters"  title="Row" style="float:right">
-                        <span class="startindex">Start Row Index: </span>
-                        <input class="startrowindex" type="number" name="startrowindex" readonly="readonly" />
-                        <br />
-                        <span class="endindex">End Row Index: </span>
-                        <input class="endrowindex" type="number" name="endrowindex" readonly="readonly" />
-                    </div>
-                </div>
-                <div class="htmlgrouppar">
-                    <span style="vertical-align: top">Export Grid Lines: </span><input type="checkbox" class="exportgridlines" name="exportgridlines" style="vertical-align: top" />
-                    <br />
-                </div>
-                <div class="imggrouppar" style="display: none">
-                    <span>Object Index: </span>
-                    <input type="number" class="objectindex" name="objectindex" value="0" disabled="disabled" />
-                    <br />
-                    <span>Picture Type: </span><select class="picturetype" name="picturetype" disabled="disabled">
-                        <option>picture</option>
-                        <option>chart</option>
-                    </select>
-                    <br />
-                    <span>Height: </span><input type="number" class="height" name="height" disabled="disabled" />
-                    <span> Width: </span><input type="number" class="width" name="width" disabled="disabled" /></div>
-            </fieldset>
-        </div>
     </body>
 </html>
