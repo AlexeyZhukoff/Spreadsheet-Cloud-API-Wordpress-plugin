@@ -49,6 +49,8 @@ jQuery(function ($) {
             $(".range").attr("value", "A1:E7");
             $(".sheetindex").attr("readonly", true);
             $(".sheetname").attr("readonly", true);
+            $(".objectindex").attr("readonly", true);
+            $(".picturetype").attr("readonly", true);
             exampleCommandChangeCore($(".command"));
             $('body').on('change', '.command', exampleCommandChange);
         })

@@ -1,37 +1,40 @@
-        fieldset{
-            margin: 5px 0 10px 0;
-            height: auto;
-            line-height: 30px;
-            overflow: hidden;
-        }
-        
-        fieldset span, input, select {
-            float: right;
-            font-size: 10pt;
-            width: 200px;
-        }
-        fieldset span {
-            float: left;
-        }
-        #cancel_button, #add_shortcode, #create_example {
-            font-size: 10pt;
-            background: #cfcfcf;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
-            border-color: #b0b0b0;
-            width: auto;
-        }
-        #cancel_button:hover, #add_shortcode:hover, #create_example:hover {
-            background: #a4a4a4;
-            color: #fff;
-        }
-        #insert_button {
-            font-size: 10pt;
-            background: #2ea2cc;
-            box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
-            border-color: #0074a2;
-            color: #fff;
-            width: auto;
-        }
-        #insert_button:hover {
-            background: #1e8cbe;
-        }
+fieldset {
+    margin: 0 0 10px 0;
+    height: auto;
+    line-height: 30px;
+    overflow: hidden;
+    font-size: 10pt;
+}
+legend.parametersheader {
+    font-size: 10pt;
+}
+fieldset span, input, select {
+    float: right;
+    font-size: 10pt;
+    width: 200px;
+}
+fieldset span {
+    float: left;
+}
+#cancel_button, #add_shortcode, #create_example {
+    font-size: 10pt;
+    background: #cfcfcf;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    border-color: #b0b0b0;
+    width: auto;
+}
+#cancel_button:hover, #add_shortcode:hover, #create_example:hover {
+    background: #a4a4a4;
+    color: #fff;
+}
+#insert_button {
+    font-size: 10pt;
+    background: #2ea2cc;
+    box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
+    border-color: #0074a2;
+    color: #fff;
+    width: auto;
+}
+#insert_button:hover {
+    background: #1e8cbe;
+}
