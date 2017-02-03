@@ -1,25 +1,19 @@
 <div class="wrap">
     <h2> <?= $optionsheader; ?> </h2>
-    <form class="autorization_manager" method="post" action="<?= $optionsaction; ?>">
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
         <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
-        <p>
             <?= $optionsapikey; ?> 
-            <input type="text" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" size="50">
-        </p>
-        <p>
-            Show "Create example" button in generator: 
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top" <?= $createexample; ?> /><br />
-        </p>
-        <p>
-            <input type="submit" class="button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
-        </p>
-        <hr />
-        <p class="submit">
+            <input type="text" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" style="width: 321px"><br />
+            <span>Show "Create example" button in generator: </span>
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top; margin: 2px 0 5px 0;" <?= $createexample; ?> /><br />
+            <input type="submit" class="button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/><br />
             <input type="submit" class="button" name="Submit" value="<?= $optionsupdate; ?>" />
-        </p>
-    </form>
-    <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>
+    <!--</form>
+    <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>-->
+        <hr />
+        <div <?= $haveapikey; ?> style="margin-left: 51px" >
         <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
+        <h3>Spreadsheet Cloud API Service file manager</h3>
         <?= $servicefilelist; ?><br />
         <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
         <input class="uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
@@ -32,7 +26,7 @@
             <button class="closedg">Rename</button>
             <button class="canceldg">Cancel</button>
         </dialog>
-        
+        </div>
     </form>
     <!--<script type="text/javascript" src="<?= $jspath ?>"></script>-->
     <script type="text/javascript">

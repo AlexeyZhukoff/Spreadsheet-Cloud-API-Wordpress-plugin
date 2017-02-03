@@ -43,16 +43,18 @@ jQuery(function ($) {
         })
 
         $("#create_example").click(function () {
-            $(".parametersheader").text("Example shortcode parameters");
-            $(".shortcode").attr("value", "sclapiexample ");
-            $(".filename").replaceWith('<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>');
-            $(".range").attr("value", "A1:E7");
-            $(".sheetindex").attr("readonly", true);
-            $(".sheetname").attr("readonly", true);
-            $(".objectindex").attr("readonly", true);
-            $(".picturetype").attr("readonly", true);
-            exampleCommandChangeCore($(".command"));
-            $('body').on('change', '.command', exampleCommandChange);
+            if ($(".parametersheader").text() != "Example shortcode parameters") {
+                $(".parametersheader").text("Example shortcode parameters");
+                $(".shortcode").attr("value", "sclapiexample ");
+                $(".filename").replaceWith('<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>');
+                $(".range").attr("value", "A1:E7");
+                $(".sheetindex").attr("readonly", true);
+                $(".sheetname").attr("readonly", true);
+                $(".objectindex").attr("readonly", true);
+                $(".picturetype").attr("readonly", true);
+                exampleCommandChangeCore($(".command"));
+                $('body').on('change', '.command', exampleCommandChange);
+            }
         })
 
         $("#cancel_button").click(function () {

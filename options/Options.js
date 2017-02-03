@@ -13,16 +13,16 @@ jQuery(function ($) {
     }
     function upload() {
         $('.my_file_operation').val("<?= FileOperations::Upload; ?>");
-        $('.user_file_manager').submit();
+        $('.autorization_manager').submit();
     }
     function download() {
         $('.my_file_operation').val("<?= FileOperations::Download; ?>");
-        $('.user_file_manager').submit();
+        $('.autorization_manager').submit();
     }
     function rename() {
         if ($('.filename').val() == null) {
             $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
-            $('.user_file_manager').submit();
+            $('.autorization_manager').submit();
         }
         var filearray = $('.filename').val().split('.');
         var renamedfilename = filearray[0];
@@ -45,7 +45,7 @@ jQuery(function ($) {
                 dialog.close();
                 $('.file_new_name').val(newfilename);
                 $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
-                $('.user_file_manager').submit();
+                $('.autorization_manager').submit();
             }
             else {
                 return;
@@ -58,7 +58,7 @@ jQuery(function ($) {
     }
     function deleteclk() {
         $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
-        $('.user_file_manager').submit();
+        $('.autorization_manager').submit();
     }
     function enddownload() {
         var element = document.createElement('a');

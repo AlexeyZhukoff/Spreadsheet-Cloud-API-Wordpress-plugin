@@ -9,11 +9,12 @@ function mt_options_page() {
     $apikey_field_name = PluginConst::APIKey;
     $opt_api_key = get_option( $apiKey );
     $opt_create_example = get_option( PluginConst::ShowCreateExample );
+    $fileoperation = $_POST['my_file_operation'];
 
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
-
-    if( $_POST[ $hidden_field_name ] == 'Y' ) {
+    
+    if( $_POST[ $hidden_field_name ] == 'Y' && empty($fileoperation)) {
         $needsaveoption = TRUE;
         if($opt_create_example != ($_POST[ PluginConst::ShowCreateExample ]=='on')){
             $opt_create_example = $_POST[ PluginConst::ShowCreateExample ]=='on';
@@ -36,8 +37,7 @@ function mt_options_page() {
             show_header_message('Options saved.');
         }
     }
-
-    $fileoperation = $_POST['my_file_operation'];
+    
     $continueoperation = '';
     $downloadfilebits = '';
     if(!empty($fileoperation)){

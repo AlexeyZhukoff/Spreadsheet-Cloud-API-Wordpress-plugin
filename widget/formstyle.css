@@ -8,10 +8,24 @@ fieldset {
 legend.parametersheader {
     font-size: 10pt;
 }
+fieldset hr {
+    border: none;
+    height: 1px;
+    background: #dfdfdf;
+}
 fieldset input, select {
     float: right;
     font-size: 10pt;
     width: 210px;
+}
+input.exportgridlines {
+    float: left;
+    width: 20px;
+    margin-top: 10px;
+}
+span.htmspan{
+    float:  left;
+    margin-left: 10px;
 }
 fieldset span {
     float: left;
