@@ -19,7 +19,6 @@
             float: right;
             margin-right: 28px;
         }
-
         input.filemanagerbutton {
             padding-left: 22px!important;
             padding-right: 21px!important;
@@ -36,6 +35,9 @@
         }
         span.filemanagerheader{
              font-size: 12pt;
+        }
+        span.createexamplespan{
+            cursor: pointer;
         }
         select.filename{
             margin-top: 10px;
@@ -54,7 +56,7 @@
             <?= $optionsapikey; ?> 
             <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" ><br />
             <input type="checkbox" class="showcreateexample" name="showcreateexample" <?= $createexample; ?> />
-            <span>Show "Create example" button in generator.</span><br />
+            <span class="createexamplespan">Show "Create example" button in generator.</span><br />
             <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
             <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
         </div><br /><br />

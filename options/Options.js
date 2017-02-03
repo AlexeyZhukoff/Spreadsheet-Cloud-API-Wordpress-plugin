@@ -7,12 +7,16 @@ jQuery(function ($) {
     $('.wrap').on('change', '.apikeyfield', optionschange);
     $('.wrap').on('change', '.showcreateexample', optionschange);
     $('.wrap').on('click', '.filename', selectfile);
+    $('.wrap').on('click', '.createexamplespan', createexampleclick);
 
     if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>") {
         enddownload();
     }
-    function selectfile(){
-        if($('.filename').val() != null){
+    function createexampleclick() {
+        $('.showcreateexample').click();
+    }
+    function selectfile() {
+        if ($('.filename').val() != null) {
             $('.downloadbutton').attr('disabled', false);
             $('.renamebutton').attr('disabled', false);
             $('.deletebutton').attr('disabled', false);
