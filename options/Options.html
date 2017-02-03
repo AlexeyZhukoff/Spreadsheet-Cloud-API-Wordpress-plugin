@@ -1,31 +1,45 @@
 <div class="wrap">
-    <h2> <?= $optionsheader; ?> </h2>
+    <style>
+        input.filemanagerbutton {
+            padding-left: 22px!important;
+            padding-right: 21px!important;
+        }
+        input.deletebutton {
+            padding-left: 21px!important;
+        }
+        input.getnewapikey{
+            float:  left;
+        }
+    </style>
+    <h1> <?= $optionsheader; ?> </h1>
+    <br />
     <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
         <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
+        <div style="width: 400px; line-height: 30px;">
             <?= $optionsapikey; ?> 
-            <input type="text" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" style="width: 321px"><br />
-            <span>Show "Create example" button in generator: </span>
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top; margin: 2px 0 5px 0;" <?= $createexample; ?> /><br />
-            <input type="submit" class="button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/><br />
-            <input type="submit" class="button" name="Submit" value="<?= $optionsupdate; ?>" />
-    <!--</form>
-    <form class="user_file_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>" <?= $haveapikey; ?>>-->
-        <hr />
-        <div <?= $haveapikey; ?> style="margin-left: 51px" >
-        <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
-        <h3>Spreadsheet Cloud API Service file manager</h3>
-        <?= $servicefilelist; ?><br />
-        <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
-        <input class="uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
-        <input class="downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" />
-        <input class="renamebutton button" type="button" value="<?= FileOperations::Rename; ?>" />
-        <input class="deletebutton button" type="button"  value="<?= FileOperations::Delete; ?>" />
-        <dialog class="renamedialog" >
-            <label class="existtext"  style="color:#f00; display:none">File with this name already exist.</label><br />
-            <input class="file_new_name" type="text" name="newfilename">
-            <button class="closedg">Rename</button>
-            <button class="canceldg">Cancel</button>
-        </dialog>
+            <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" style="width: 321px"><br />
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top; margin-top: 7px" <?= $createexample; ?> />
+            <span>Show "Create example" button in generator.</span><br />
+            <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
+            <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" style="float: right; margin-right: 28px" disabled="disabled"/>
+        </div><br /><br />
+        <div <?= $haveapikey; ?>>
+            <hr />
+            <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
+            <p style="font-size: 12pt">Spreadsheet Cloud API Service file manager</p>
+            <?= $servicefilelist; ?><br />
+            <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
+            <input class="uploadbutton filemanagerbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
+            <input class="downloadbutton filemanagerbutton button" type="button" value="<?= FileOperations::Download; ?>" />
+            <input class="renamebutton filemanagerbutton button" type="button" value="<?= FileOperations::Rename; ?>" />
+            <input class="deletebutton filemanagerbutton button" type="button"  value="<?= FileOperations::Delete; ?>" />
+            <dialog class="renamedialog" >
+                <label class="existtext"  style="color:#f00; display:none">File with this name already exist.</label><br />
+                <input class="file_new_name" type="text" name="newfilename">
+                <button class="closedg">Rename</button>
+                <button class="canceldg">Cancel</button>
+            </dialog>
+            <br /><br /><hr />
         </div>
     </form>
     <!--<script type="text/javascript" src="<?= $jspath ?>"></script>-->

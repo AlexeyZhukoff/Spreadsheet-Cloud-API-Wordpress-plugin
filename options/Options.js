@@ -4,10 +4,16 @@ jQuery(function ($) {
     $('.wrap').on('click', '.renamebutton', rename);
     $('.wrap').on('click', '.deletebutton', deleteclk);
     $('.wrap').on('change', '.file_input_text', upload);
+    $('.wrap').on('change', '.apikeyfield', optionschange);
+    $('.wrap').on('change', '.showcreateexample', optionschange);
 
-    if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>")
+    if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>") {
         enddownload();
+    }
 
+    function optionschange() {
+        $('.updateoptions').attr('disabled', false);
+    }
     function fileselect() {
         $('.file_input_text').click();
     }
@@ -54,7 +60,6 @@ jQuery(function ($) {
         document.querySelector('.canceldg').onclick = function () {
             dialog.close();
         };
-
     }
     function deleteclk() {
         $('.my_file_operation').val("<?= FileOperations::Delete; ?>");

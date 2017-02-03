@@ -181,7 +181,7 @@ class SpreadsheetCloudAPIActions {
             $result = '<span>File Name: </span>'.$result;
         }
         else{
-            $result = $result.'style="height: 200px; width: 321px"';
+            $result = $result.'style="height: 200px; width: 372px"';
         }
         $result = $result.'>';
         $counter = 0;
