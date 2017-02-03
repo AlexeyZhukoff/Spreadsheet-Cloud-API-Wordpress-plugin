@@ -1,5 +1,25 @@
 <div class="wrap">
     <style>
+        div.optionsmanager{
+            width: 372px;
+            line-height: 30px;
+        }
+        input.getnewapikey{
+            float:  left;
+        }
+        input.apikeyfield{
+            float: right;
+            width: 310px;
+        }
+        input.showcreateexample{
+            vertical-align: top;
+            margin-top: 7px; 
+        }
+        input.updateoptions {
+            float: right;
+            margin-right: 28px;
+        }
+
         input.filemanagerbutton {
             padding-left: 22px!important;
             padding-right: 21px!important;
@@ -7,34 +27,49 @@
         input.deletebutton {
             padding-left: 21px!important;
         }
-        input.getnewapikey{
-            float:  left;
+        input.file_input_text{
+            display: none;
+        }
+        label.existtext{
+            color:#f00;
+            display:none;
+        }
+        span.filemanagerheader{
+             font-size: 12pt;
+        }
+        select.filename{
+            margin-top: 10px;
+            height: 200px; 
+            width: 372px;
+        }
+        h1{
+            font-size: 16pt!important;
         }
     </style>
     <h1> <?= $optionsheader; ?> </h1>
     <br />
     <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
         <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
-        <div style="width: 400px; line-height: 30px;">
+        <div class="optionsmanager">
             <?= $optionsapikey; ?> 
-            <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" style="width: 321px"><br />
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" style="vertical-align: top; margin-top: 7px" <?= $createexample; ?> />
+            <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" ><br />
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?= $createexample; ?> />
             <span>Show "Create example" button in generator.</span><br />
             <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
-            <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" style="float: right; margin-right: 28px" disabled="disabled"/>
+            <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
         </div><br /><br />
         <div <?= $haveapikey; ?>>
             <hr />
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
-            <p style="font-size: 12pt">Spreadsheet Cloud API Service file manager</p>
+            <span class="filemanagerheader">Spreadsheet Cloud API Service file manager</span><br />
             <?= $servicefilelist; ?><br />
-            <input class="file_input_text" type="file" name="my_file_upload" style="display: none">
-            <input class="uploadbutton filemanagerbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
-            <input class="downloadbutton filemanagerbutton button" type="button" value="<?= FileOperations::Download; ?>" />
-            <input class="renamebutton filemanagerbutton button" type="button" value="<?= FileOperations::Rename; ?>" />
-            <input class="deletebutton filemanagerbutton button" type="button"  value="<?= FileOperations::Delete; ?>" />
+            <input class="file_input_text" type="file" name="my_file_upload">
+            <input class="filemanagerbutton uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
+            <input class="filemanagerbutton downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" disabled="disabled" />
+            <input class="filemanagerbutton renamebutton button" type="button" value="<?= FileOperations::Rename; ?>" disabled="disabled" />
+            <input class="filemanagerbutton deletebutton button" type="button"  value="<?= FileOperations::Delete; ?>" disabled="disabled" />
             <dialog class="renamedialog" >
-                <label class="existtext"  style="color:#f00; display:none">File with this name already exist.</label><br />
+                <label class="existtext">File with this name already exist.</label><br />
                 <input class="file_new_name" type="text" name="newfilename">
                 <button class="closedg">Rename</button>
                 <button class="canceldg">Cancel</button>

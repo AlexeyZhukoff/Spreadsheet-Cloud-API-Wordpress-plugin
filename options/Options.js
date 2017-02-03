@@ -6,11 +6,18 @@ jQuery(function ($) {
     $('.wrap').on('change', '.file_input_text', upload);
     $('.wrap').on('change', '.apikeyfield', optionschange);
     $('.wrap').on('change', '.showcreateexample', optionschange);
+    $('.wrap').on('click', '.filename', selectfile);
 
     if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>") {
         enddownload();
     }
-
+    function selectfile(){
+        if($('.filename').val() != null){
+            $('.downloadbutton').attr('disabled', false);
+            $('.renamebutton').attr('disabled', false);
+            $('.deletebutton').attr('disabled', false);
+        }
+    }
     function optionschange() {
         $('.updateoptions').attr('disabled', false);
     }
