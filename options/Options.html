@@ -5,10 +5,17 @@
             width: 372px;
             line-height: 30px;
         }
+        div.filemanager{
+            float: left;
+        }
         div.optionsmanagerdescription{
-            /*//float: right;*/
             width: 600px;
             margin-left: 450px;
+        }
+        div.filemanagerdescription{
+            width: 600px;
+            margin-left: 450px;
+            margin-top: 34px;
         }
         
         input.getnewapikey{
@@ -68,11 +75,11 @@
             <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
         </div>
         <div class="optionsmanagerdescription">
-            APIKey is option what you need for worked with Spreadsheet cloud API service. You can create account on service by link, or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
+            APIKey is option what you need for worked with Spreadsheet cloud API service. You can create account on service by [link to service], or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
         </div>
         <br /><br />
-        <div <?= $haveapikey; ?>>
-            <hr />
+        <hr <?= $haveapikey; ?> />
+        <div class="filemanager" <?= $haveapikey; ?>>
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
             <span class="filemanagerheader">Spreadsheet Cloud API Service file manager</span><br />
             <?= $servicefilelist; ?><br />
@@ -81,13 +88,15 @@
             <input class="filemanagerbutton downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" disabled="disabled" />
             <input class="filemanagerbutton renamebutton button" type="button" value="<?= FileOperations::Rename; ?>" disabled="disabled" />
             <input class="filemanagerbutton deletebutton button" type="button"  value="<?= FileOperations::Delete; ?>" disabled="disabled" />
-            <dialog class="renamedialog" >
+            <dialog class="renamedialog">
                 <label class="existtext">File with this name already exist.</label><br />
                 <input class="file_new_name" type="text" name="newfilename">
                 <button class="closedg">Rename</button>
                 <button class="canceldg">Cancel</button>
             </dialog>
-            <br /><br /><hr />
+        </div>
+        <div class="filemanagerdescription" <?= $haveapikey; ?>>
+            File manager whith youre files uploaded on youre service account. It's help you rule youre files on service. Our service have limits for uploading files, all files sizes may be less 100MB and one file size may be less 10MB.
         </div>
     </form>
     <!--<script type="text/javascript" src="<?= $jspath ?>"></script>-->

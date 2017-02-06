@@ -75,8 +75,11 @@ jQuery(function ($) {
         };
     }
     function deleteclk() {
-        $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
-        $('.autorization_manager').submit();
+        var choice = confirm('Are you really want to delte file "' + $('.filename').val() + '" ?');
+        if (choice) {
+            $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
+            $('.autorization_manager').submit();
+        }
     }
     function enddownload() {
         var element = document.createElement('a');

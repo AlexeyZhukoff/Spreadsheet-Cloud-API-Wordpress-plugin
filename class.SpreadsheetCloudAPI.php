@@ -174,17 +174,11 @@ class SpreadsheetCloudAPIActions {
     }
     function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
-        //echo '<pre>'.print_r($output[PluginConst::ResponseStatus],1).'</pre>';
-        //echo '<pre>'.print_r($output[PluginConst::ResponseData],1).'</pre>';
         $response = json_decode($output[PluginConst::ResponseData], true);
-        //echo '<pre>'.print_r($response,1).'</pre>';
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if($size == 1){
             $result = '<span>File Name: </span>'.$result;
         }
-        //else{
-        //    $result = $result.'style="height: 200px; width: 372px"';
-        //}
         $baseconnected = $output[PluginConst::ResponseStatus] == 200;
         if(!$baseconnected){
             $result = $result.'disabled="disabled"';
