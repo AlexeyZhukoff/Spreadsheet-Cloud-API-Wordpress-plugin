@@ -9,6 +9,8 @@ jQuery(function ($) {
     $('.wrap').on('click', '.filename', selectfile);
     $('.wrap').on('click', '.createexamplespan', createexampleclick);
 
+    $('.uploadbutton').attr('disabled', $('.filename').attr('disabled'));
+
     if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>") {
         enddownload();
     }
