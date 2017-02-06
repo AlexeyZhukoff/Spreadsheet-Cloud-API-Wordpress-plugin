@@ -1,9 +1,16 @@
 <div class="wrap">
     <style>
         div.optionsmanager{
+            float: left;
             width: 372px;
             line-height: 30px;
         }
+        div.optionsmanagerdescription{
+            /*//float: right;*/
+            width: 600px;
+            margin-left: 450px;
+        }
+        
         input.getnewapikey{
             float:  left;
         }
@@ -59,7 +66,11 @@
             <span class="createexamplespan">Show "Create example" button in generator.</span><br />
             <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
             <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
-        </div><br /><br />
+        </div>
+        <div class="optionsmanagerdescription">
+            APIKey is option what you need for worked with Spreadsheet cloud API service. You can create account on service by link, or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
+        </div>
+        <br /><br />
         <div <?= $haveapikey; ?>>
             <hr />
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
