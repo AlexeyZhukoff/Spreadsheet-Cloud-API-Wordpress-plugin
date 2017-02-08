@@ -2,11 +2,11 @@
 class SpreadsheetRequest {
     #region Fields
     //const baseUri = 'http://localhost:54306/odata';
-    //const baseUri = 'http://localhost:54306/api/spreadsheet';
-    const baseUri = 'http://spreadsheetcloud.azurewebsites.net/api/spreadsheet';
+    const baseUri = 'http://localhost:54306/api/spreadsheet';
+    //const baseUri = 'http://spreadsheetcloud.azurewebsites.net/api/spreadsheet';
     const basewpUri = 'http://localhost:54306/wpusers/getapikey';
     const scheme = "amx";
-    const exampleAPIKey = "6a9048ae54537fd88847f242519a563e";
+    const exampleAPIKey = "46d5f47b12f52f16658c6622069065c6";
     #endregion
 
     public static function GenerateNewAPIKey($mail){

@@ -176,7 +176,7 @@ class SpreadsheetCloudAPIActions {
         $output = SpreadsheetRequest::getFilesList();
         $response = json_decode($output[PluginConst::ResponseData], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
-        if($size == 1){
+        if($size == 1)  {
             $result = '<span>File Name: </span>'.$result;
         }
         $baseconnected = $output[PluginConst::ResponseStatus] == 200;
@@ -184,8 +184,8 @@ class SpreadsheetCloudAPIActions {
             $result = $result.'disabled="disabled"';
         }
         $result = $result.'>';
-        $counter = 0;
-        if($baseconnected){
+        if($baseconnected) {
+            $counter = 0;
             foreach($response as $current){
                 if($counter == 0 && $size == 1){
                     $result = $result.'<option value="'.$current['Name'].'">';
