@@ -50,11 +50,13 @@ jQuery(function ($) {
         $('.file_new_name').val(renamedfilename);
         dialog.show();
 
-        $('.closedg').click(function () {
+        $('.closedg').click(function (event) {
+            event.preventDefault();
             var filenotexists = true;
             var newfilename = $('.file_new_name').val() + '.' + fileextension;
             $('.filename option').each(function (index, element) {
                 if ($(element).text() == newfilename) {
+                    $('.existtext').text('File ' + newfilename + ' already exists.');
                     $('.existtext').show();
                     filenotexists = false;
                     return;
