@@ -75,13 +75,13 @@
             <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
         </div>
         <div class="optionsmanagerdescription">
-            APIKey is option what you need for worked with Spreadsheet cloud API service. You can create account on service by [link to service], or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
+            APIKey is option what you need for worked with SpreadsheetCloudAPI service. You can create account on service by [link to service], or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
         </div>
         <br /><br />
         <hr <?= $haveapikey; ?> />
         <div class="filemanager" <?= $haveapikey; ?>>
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
-            <span class="filemanagerheader">Spreadsheet Cloud API Service file manager</span><br />
+            <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
             <?= $servicefilelist; ?><br />
             <input class="file_input_text" type="file" name="my_file_upload">
             <input class="filemanagerbutton uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />

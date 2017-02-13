@@ -5,7 +5,7 @@
  * @version 1.0
  */
 /*
-Plugin Name: Spreadsheet Cloud API
+Plugin Name: SpreadsheetCloudAPI
 Plugin URI: http://sclapi.com
 Description: Used by peoples, spreadsheet cloud api is quite possibly the best way in the world to <strong>use your spreadsheet files in your wordpress</strong>. To get started: 1) <a target="_blank" href="http://spreadsheetadmin.azurewebsites.net/">Create your account</a> to get an API key, and 2) Go to your Sclapi wordpress options, and save your API key.
 Author: 
