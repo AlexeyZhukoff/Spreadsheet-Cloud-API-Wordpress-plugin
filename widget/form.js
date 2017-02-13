@@ -43,8 +43,8 @@ jQuery(function ($) {
         })
 
         $("#create_example").click(function () {
-            if ($(".parametersheader").text() != "Example shortcode parameters") {
-                $(".parametersheader").text("Example shortcode parameters");
+            if ($(".parametersheader").text() != "Test shortcode parameters") {
+                $(".parametersheader").text("Test shortcode parameters");
                 $(".shortcode").attr("value", "sclapiexample ");
                 $(".filename").replaceWith('<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>');
                 $(".range").attr("value", "A1:E7");

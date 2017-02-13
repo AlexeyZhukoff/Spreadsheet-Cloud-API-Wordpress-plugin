@@ -196,8 +196,8 @@ class SpreadsheetCloudAPIActions {
                 $result = $result.$current['Name'].'</option>';
                 $counter = $counter + 1;
             }
-        }else{
-            $result = $result.'<option>Sorry.</option><option>Connect with base falling.</option>';
+        } else {
+            $result = $result.'<option>Sorry, there is a database connection problem.</option><option>Please try again shortly.</option>';
         }
         $result = $result.'</select>';
         return $result;

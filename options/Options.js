@@ -75,7 +75,7 @@ jQuery(function ($) {
         };
     }
     function deleteclk() {
-        var choice = confirm('Are you really want to delte file "' + $('.filename').val() + '" ?');
+        var choice = confirm('Do you really want to delete the "' + $('.filename').val() + '" file?');
         if (choice) {
             $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
             $('.autorization_manager').submit();

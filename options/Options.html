@@ -8,9 +8,12 @@
         div.filemanager{
             float: left;
         }
-        div.optionsmanagerdescription{
+        div.optionsmanagerdescription1, div.optionsmanagerdescription2 {
             width: 600px;
             margin-left: 450px;
+        }
+        div.optionsmanagerdescription2 {
+            height: 60px;
         }
         div.filemanagerdescription{
             width: 600px;
@@ -70,12 +73,15 @@
             <?= $optionsapikey; ?> 
             <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" ><br />
             <input type="checkbox" class="showcreateexample" name="showcreateexample" <?= $createexample; ?> />
-            <span class="createexamplespan">Show "Create example" button in generator.</span><br />
-            <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Authorize and get API Key" <?= $unhaveapikey; ?>/>
+            <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
+            <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Generate API key" <?= $unhaveapikey; ?>/>
             <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
         </div>
-        <div class="optionsmanagerdescription">
-            APIKey is option what you need for worked with SpreadsheetCloudAPI service. You can create account on service by [link to service], or just push "Authorize and get API Key" this create accout and APIKey whith yours email which you registered on wordpres, and send email whith you service login and pasword, for this operation your email addres sending on service.
+        <div class="optionsmanagerdescription1" <?= $unhaveapikey; ?>>
+            SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
+        </div>
+        <div class="optionsmanagerdescription2" <?= $haveapikey; ?>>
+            The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
         <br /><br />
         <hr <?= $haveapikey; ?> />
@@ -96,7 +102,7 @@
             </dialog>
         </div>
         <div class="filemanagerdescription" <?= $haveapikey; ?>>
-            File manager whith youre files uploaded on youre service account. It's help you rule youre files on service. Our service have limits for uploading files, all files sizes may be less 100MB and one file size may be less 10MB.
+            File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
     </form>
     <!--<script type="text/javascript" src="<?= $jspath ?>"></script>-->

@@ -153,7 +153,7 @@ function show_options_form($hidden_field_name, $apikey_field_name, $opt_api_key,
     $optionsheader = __( 'SpreadsheetCloudAPI Plugin Options', 'mt_trans_domain' );
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
     $optionsapikey = __("API Key:", PluginConst::APIKey );
-    $optionsupdate = __('Update Options', 'mt_trans_domain' );
+    $optionsupdate = __('Update', 'mt_trans_domain' );
     $servicefilelist = SpreadsheetCloudAPIActions::GetFileList(3);
     include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\Options.html');
 }
