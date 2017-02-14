@@ -1,6 +1,16 @@
 <?php
 class SpreadsheetCloudAPIActions {
     public static function init() {
+        $options = get_option( PluginConst::SclapiOptions );
+        if(empty($options)){
+            $options = array(
+                PluginConst::APIKey  => '',
+                PluginConst::ShowCreateExample => 1,
+                PluginConst::UserFileList => '<select class="filename" name="filename" size="1"></select>',
+                PluginConst::ActionType => PluginConst::FullActionType,
+            );
+            update_option( PluginConst::SclapiOptions, $options ); 
+        }
 	}
     public static function plugin_activation() {
 	}
@@ -16,7 +26,6 @@ class SpreadsheetCloudAPIActions {
 					$update = true;
 				}
 			}
-
 			if ( $update ) {
 				update_option( 'active_plugins', array_filter( $plugins ) );
 			}
@@ -46,9 +55,16 @@ class SpreadsheetCloudAPIActions {
         return $response;
     }
     public function GetExampleAction ($atts) {
-        update_option( PluginConst::ActionType, PluginConst::ExampleActionType );
+        $options = get_option( PluginConst::SclapiOptions );
+        
+        $options[PluginConst::ActionType] = PluginConst::ExampleActionType;
+        update_option( PluginConst::SclapiOptions, $options );
+
         $response = SpreadsheetCloudAPIActions::GetAction($atts);
-        update_option( PluginConst::ActionType, PluginConst::FullActionType );
+
+        $options[PluginConst::ActionType] = PluginConst::FullActionType;
+        update_option( PluginConst::SclapiOptions, $options );
+
         return $response;
     }
 
@@ -172,7 +188,7 @@ class SpreadsheetCloudAPIActions {
         Parameters::WPP => 'true');
         return $params;
     }
-    function GetFileList ($size){
+    public static function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
         $response = json_decode($output[PluginConst::ResponseData], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';

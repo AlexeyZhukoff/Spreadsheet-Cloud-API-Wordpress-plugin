@@ -1,24 +1,27 @@
 <?php
 function mt_add_pages() {
-    add_options_page('SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 8, 'spreadsheetcloudapioptions', 'mt_options_page');
+    //add_options_page('SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 8, 'spreadsheetcloudapioptions', 'mt_options_page');
+    add_options_page('SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 'manage_options', 'spreadsheetcloudapioptions', 'mt_options_page');
 }
 
 function mt_options_page() {
-    $apiKey = PluginConst::APIKey;
     $hidden_field_name = 'mt_submit_hidden';
     $apikey_field_name = PluginConst::APIKey;
-    $opt_api_key = get_option( $apiKey );
-    $opt_create_example = get_option( PluginConst::ShowCreateExample );
+    $opt_api_key = get_option( PluginConst::SclapiOptions )[PluginConst::APIKey];
+    $opt_create_example =  get_option( PluginConst::SclapiOptions )[PluginConst::ShowCreateExample];
     $fileoperation = $_POST['my_file_operation'];
 
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
-    
+    //echo '<pre>'.print_r($options,1).'</pre>';
+
+    $options = get_option( PluginConst::SclapiOptions );
     if( $_POST[ $hidden_field_name ] == 'Y' && empty($fileoperation)) {
         $needsaveoption = TRUE;
         if($opt_create_example != ($_POST[ PluginConst::ShowCreateExample ]=='on')){
             $opt_create_example = $_POST[ PluginConst::ShowCreateExample ]=='on';
-            update_option( PluginConst::ShowCreateExample, $opt_create_example ); 
+            $options[PluginConst::ShowCreateExample] = $opt_create_example;
+            update_option( PluginConst::SclapiOptions, $options ); 
         }
         if( !empty($_POST[ PluginConst::GetNewAPIKey ]) && empty($_POST[ $apikey_field_name ]) ) {
             $response = get_newapikey();
@@ -32,8 +35,14 @@ function mt_options_page() {
         }
         if($needsaveoption){
             $opt_api_key = $_POST[ $apikey_field_name ];
-            update_option( $apiKey, $opt_api_key );
-            update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
+            $options[ PluginConst::APIKey] = $opt_api_key;
+            
+            if(!empty($opt_api_key)){
+                $options[PluginConst::UserFileList] = SpreadsheetCloudAPIActions::GetFileList(1);
+            } else{
+                $options[PluginConst::UserFileList] = '<select class="filename" name="filename" size="1"></select>';
+            }
+            update_option( PluginConst::SclapiOptions, $options );
             show_header_message(HeaderMessages::OptionsSaved);
         }
     }
@@ -99,7 +108,7 @@ function download_file(){
         else {
             show_header_message($downloadresponse[PluginConst::ResponseData]);
         }
-        update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
+        update_sclapi_option(PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
     }
     else {
         show_header_message(HeaderMessages::NoSelectDownload);
@@ -116,7 +125,7 @@ function upload_file(){
         else {
             show_header_message($uploadresponse[PluginConst::ResponseData]);
         }
-        update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
+        update_sclapi_option(PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
     }
     else {
         show_header_message(HeaderMessages::NoSelectUpload);
@@ -128,7 +137,7 @@ function delete_file(){
         $filedeleted = SpreadsheetCloudAPIActions::DeleteFile($filename);
         if($filedeleted[PluginConst::ResponseStatus] == 200){
             show_header_message(sprintf(HeaderMessages::FileDeleted, $filename));
-            update_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
+            update_sclapi_option(PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1));
         }
         else {
             show_header_message($filedeleted[PluginConst::ResponseData]);
@@ -138,6 +147,13 @@ function delete_file(){
         show_header_message(HeaderMessages::NoSelectDelete);
     }
 }
+
+function update_sclapi_option($optionkey, $optionvalue){
+    $options = get_option( PluginConst::SclapiOptions );
+    $options[$optionkey] = $optionvalue;
+    update_option( PluginConst::SclapiOptions, $options);
+}
+
 function show_header_message($message){
     echo '<div class="updated"><p><strong>';
     _e($message, 'mt_trans_domain' ); 

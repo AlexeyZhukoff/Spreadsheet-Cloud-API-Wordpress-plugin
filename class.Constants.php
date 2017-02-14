@@ -11,6 +11,7 @@ class PluginConst{
     const ExampleActionType = 'example';
     const ResponseData = 'data';
     const ResponseStatus = 'status';
+    const SclapiOptions = 'sclapi_options';
 }
 class HeaderMessages{
     const OptionsSaved = 'Options have been saved';

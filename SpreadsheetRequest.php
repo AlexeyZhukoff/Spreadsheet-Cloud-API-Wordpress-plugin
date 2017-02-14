@@ -77,11 +77,11 @@ class SpreadsheetRequest {
 
     #region Helper
     private static function getAPIKey() {
-        $actiontype = get_option(PluginConst::ActionType);
+        $actiontype = get_option(PluginConst::SclapiOptions)[PluginConst::ActionType];
         if($actiontype == PluginConst::ExampleActionType) {
             return self::exampleAPIKey;  
         }
-        return get_option( PluginConst::APIKey );
+        return get_option(PluginConst::SclapiOptions)[ PluginConst::APIKey ];
     }
     private static function generateHeader($contentlength, $contenttype) {
         $apiKey = self::getAPIKey();
@@ -263,7 +263,7 @@ class SpreadsheetRequest {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => implode("\r\n", $body),
             CURLOPT_HTTPHEADER => array(
-                "Authorization: amx ".get_option( PluginConst::APIKey ),
+                "Authorization: amx ".get_option(PluginConst::SclapiOptions)[ PluginConst::APIKey ],
                 "Expect: 100-continue",
                 "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
             ),

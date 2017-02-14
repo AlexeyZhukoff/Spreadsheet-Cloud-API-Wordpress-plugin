@@ -1,6 +1,5 @@
 <?php
-
-/**
+ /**
  * @package SpreadsheetCloudAPI
  * @version 1.0
  */
