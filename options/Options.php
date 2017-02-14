@@ -1,6 +1,5 @@
 <?php
 function mt_add_pages() {
-    //add_options_page('SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 8, 'spreadsheetcloudapioptions', 'mt_options_page');
     add_options_page('SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 'manage_options', 'spreadsheetcloudapioptions', 'mt_options_page');
 }
 
