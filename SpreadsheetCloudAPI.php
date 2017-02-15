@@ -38,14 +38,14 @@ require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\options.php' );
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\widget\generator.php' );
 
 
-register_activation_hook( __FILE__, array( 'SpreadsheetCloudAPIActions', 'plugin_activation' ) );
-register_deactivation_hook( __FILE__, array( 'SpreadsheetCloudAPIActions', 'plugin_deactivation' ) );
+register_activation_hook( __FILE__, array( 'Spreadsheet_Cloud_API_Actions', 'plugin_activation' ) );
+register_deactivation_hook( __FILE__, array( 'Spreadsheet_Cloud_API_Actions', 'plugin_deactivation' ) );
 
-add_action( 'init', array( 'SpreadsheetCloudAPIActions', 'init' ) );
+add_action( 'init', array( 'Spreadsheet_Cloud_API_Actions', 'init' ) );
 add_action( 'admin_menu', 'mt_add_pages' );
 add_action( 'init', 'sclapi_custom_button' );
 
-add_shortcode( PluginConst::ShortcodeName, array( 'SpreadsheetCloudAPIActions', 'GetAction' ) );
-add_shortcode( PluginConst::ExampleShortcodeName, array( 'SpreadsheetCloudAPIActions', 'GetExampleAction' ) );
+add_shortcode( PluginConst::ShortcodeName, array( 'Spreadsheet_Cloud_API_Actions', 'GetAction' ) );
+add_shortcode( PluginConst::ExampleShortcodeName, array( 'Spreadsheet_Cloud_API_Actions', 'GetExampleAction' ) );
 
 ?>

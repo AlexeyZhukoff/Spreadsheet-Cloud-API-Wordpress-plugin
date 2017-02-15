@@ -1,5 +1,5 @@
 <?php
-class SpreadsheetCloudAPIActions {
+class Spreadsheet_Cloud_API_Actions {
     public static function init() {
         $options = get_option( PluginConst::SclapiOptions );
         if ( empty( $options ) ) {
@@ -60,7 +60,7 @@ class SpreadsheetCloudAPIActions {
         $options[ PluginConst::ActionType ] = PluginConst::ExampleActionType;
         update_option( PluginConst::SclapiOptions, $options );
 
-        $response = SpreadsheetCloudAPIActions::GetAction( $atts );
+        $response = Spreadsheet_Cloud_API_Actions::GetAction( $atts );
 
         $options[ PluginConst::ActionType ] = PluginConst::FullActionType;
         update_option( PluginConst::SclapiOptions, $options );
@@ -69,26 +69,26 @@ class SpreadsheetCloudAPIActions {
     }
 
     public function UploadFile( $file ) {
-        return SpreadsheetRequest::uploadFile( $file );
+        return Spreadsheet_Request::uploadFile( $file );
     }
     public function DownloadFile( $filename ) {
         $params = array( Parameters::FileName => $filename );
-        $downloadresponse = SpreadsheetRequest::downloadfile( $params );
+        $downloadresponse = Spreadsheet_Request::downloadfile( $params );
         return $downloadresponse;
     }
     public function DeleteFile( $filename ) {
         $params = array( Parameters::FileName => $filename );
-        return SpreadsheetRequest::deletefile( $params );
+        return Spreadsheet_Request::deletefile( $params );
     }
     public function RenameFile( $filename, $newfilename ) {
         $params = array( Parameters::FileName => $filename,
         Parameters::NewFileName => $newfilename, );
-        return SpreadsheetRequest::renamefile( $params );
+        return Spreadsheet_Request::renamefile( $params );
     }
 
     function GetHTMLRange( $atts ) {
         $params = self::ExtractGetHTMLRangeParams( $atts );
-        $output = SpreadsheetRequest::getHtml( $params );
+        $output = Spreadsheet_Request::getHtml( $params );
         if ( $output[ PluginConst::ResponseStatus ] != 200 ) {
             return "Error";
         } else
@@ -141,7 +141,7 @@ class SpreadsheetCloudAPIActions {
     }
     function GetImageBytes( $atts ) {
         $params = self::ExtractGetImageParams( $atts );
-        $output = SpreadsheetRequest::getPictures( $params );
+        $output = Spreadsheet_Request::getPictures( $params );
         if ( $output[ PluginConst::ResponseStatus ] != 200 ) {
             return "Error";
         } else{
@@ -189,7 +189,7 @@ class SpreadsheetCloudAPIActions {
         return $params;
     }
     public static function GetFileList( $size ) {
-        $output = SpreadsheetRequest::getFilesList();
+        $output = Spreadsheet_Request::getFilesList();
         $response = json_decode( $output[ PluginConst::ResponseData ], true );
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if ( $size == 1 )  {

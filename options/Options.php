@@ -37,7 +37,7 @@ function mt_options_page() {
             $options[ PluginConst::APIKey ] = $opt_api_key;
             
             if ( ! empty( $opt_api_key ) ) {
-                $options[ PluginConst::UserFileList ] = SpreadsheetCloudAPIActions::GetFileList(1);
+                $options[ PluginConst::UserFileList ] = Spreadsheet_Cloud_API_Actions::GetFileList(1);
             } else {
                 $options[ PluginConst::UserFileList ] = '<select class="filename" name="filename" size="1"></select>';
             } 
@@ -79,7 +79,7 @@ function mt_options_page() {
 }
 function get_newapikey() {
     $useremail = wp_get_current_user()->user_email;
-    return SpreadsheetRequest::GenerateNewAPIKey( $useremail );
+    return Spreadsheet_Request::GenerateNewAPIKey( $useremail );
 }
 function rename_file() {
     $filename = $_POST['filename'];
@@ -88,7 +88,7 @@ function rename_file() {
         show_header_message( HeaderMessages::NoSelectRename );
         return;
     }
-    $filerenamed = SpreadsheetCloudAPIActions::RenameFile( $filename, $newfilename );
+    $filerenamed = Spreadsheet_Cloud_API_Actions::RenameFile( $filename, $newfilename );
     if ( $filerenamed[ PluginConst::ResponseStatus ] == 200 ) {
         show_header_message( sprintf(HeaderMessages::FileRenamed, $filename, $newfilename) );
     }
@@ -99,7 +99,7 @@ function rename_file() {
 function download_file() {
     $filename = $_POST['filename'];
     if ( ! empty( $filename ) ) {
-        $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile( $filename );
+        $downloadresponse = Spreadsheet_Cloud_API_Actions::DownloadFile( $filename );
         if ( $downloadresponse[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf(HeaderMessages::FileDownloaded, $filename) );
             return $downloadresponse;
@@ -107,7 +107,7 @@ function download_file() {
         else {
             show_header_message( $downloadresponse[ PluginConst::ResponseData ] );
         }
-        update_sclapi_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1) );
+        update_sclapi_option( PluginConst::UserFileList, Spreadsheet_Cloud_API_Actions::GetFileList(1) );
     }
     else {
         show_header_message( HeaderMessages::NoSelectDownload );
@@ -117,14 +117,14 @@ function upload_file() {
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
     $file = &$_FILES['my_file_upload'];
     if ( ! empty( $file['name'] ) ) {
-        $uploadresponse = SpreadsheetCloudAPIActions::UploadFile( $file );
+        $uploadresponse = Spreadsheet_Cloud_API_Actions::UploadFile( $file );
         if ( $uploadresponse[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf( HeaderMessages::FileUploaded, $file['name'] ) );
         }
         else {
             show_header_message( $uploadresponse[ PluginConst::ResponseData ] );
         }
-        update_sclapi_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1) );
+        update_sclapi_option( PluginConst::UserFileList, Spreadsheet_Cloud_API_Actions::GetFileList(1) );
     }
     else {
         show_header_message( HeaderMessages::NoSelectUpload );
@@ -133,10 +133,10 @@ function upload_file() {
 function delete_file() {
     $filename = $_POST['filename'];
     if ( ! empty( $filename ) ) {
-        $filedeleted = SpreadsheetCloudAPIActions::DeleteFile( $filename );
+        $filedeleted = Spreadsheet_Cloud_API_Actions::DeleteFile( $filename );
         if ( $filedeleted[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf( HeaderMessages::FileDeleted, $filename ) );
-            update_sclapi_option( PluginConst::UserFileList, SpreadsheetCloudAPIActions::GetFileList(1) );
+            update_sclapi_option( PluginConst::UserFileList, Spreadsheet_Cloud_API_Actions::GetFileList(1) );
         }
         else {
             show_header_message( $filedeleted[ PluginConst::ResponseData ] );
@@ -169,7 +169,7 @@ function show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key
     $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] );
     $optionsapikey = __( "API Key:", PluginConst::APIKey );
     $optionsupdate = __( 'Update', 'mt_trans_domain' );
-    $servicefilelist = SpreadsheetCloudAPIActions::GetFileList(3);
+    $servicefilelist = Spreadsheet_Cloud_API_Actions::GetFileList(3);
     include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.html' );
 }
 ?>

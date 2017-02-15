@@ -1,5 +1,5 @@
 <?php
-class SpreadsheetRequest {
+class Spreadsheet_Request {
     #region Fields
     //const baseUri = 'http://localhost:54306/api/spreadsheet';
     //const basewpUri = 'http://localhost:54306/wpusers/getapikey';
