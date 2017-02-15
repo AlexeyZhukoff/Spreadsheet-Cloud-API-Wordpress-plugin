@@ -9,8 +9,8 @@ class SpreadsheetRequest {
     const exampleAPIKey = "24c95646ebd272ff55856413befc97ae";
     #endregion
 
-    public static function GenerateNewAPIKey( $mail ){
-        if( empty( $mail ) )
+    public static function GenerateNewAPIKey( $mail ) {
+        if ( empty( $mail ) )
             return null;
 
         $params = array( 'cemail' => base64_encode( $mail ) );
@@ -35,7 +35,7 @@ class SpreadsheetRequest {
 
     #region public interface
     public static function uploadFile( $file ) {
-        if( empty( $file ) )
+        if ( empty( $file ) )
             return;
         $request = curl_init();
         
@@ -58,10 +58,10 @@ class SpreadsheetRequest {
     public static function downloadfile( $params ) {
         return self::get( $params, '/download' );
     }
-    public static function deletefile( $params ){
+    public static function deletefile( $params ) {
         return self::delete( $params, '/deletefile' );
     }
-    public static function renamefile( $params ){
+    public static function renamefile( $params ) {
         return self::post( $params, '/renamefile' );
     }
     public static function getFilesList() {
@@ -78,7 +78,7 @@ class SpreadsheetRequest {
     #region Helper
     private static function getAPIKey() {
         $actiontype = get_option( PluginConst::SclapiOptions )[ PluginConst::ActionType ];
-        if( $actiontype == PluginConst::ExampleActionType ) {
+        if ( $actiontype == PluginConst::ExampleActionType ) {
             return self::exampleAPIKey;  
         }
         return get_option( PluginConst::SclapiOptions )[ PluginConst::APIKey ];
@@ -86,20 +86,20 @@ class SpreadsheetRequest {
     private static function generateHeader( $contentlength, $contenttype ) {
         $apiKey = self::getAPIKey();
 
-        if( is_null( $contenttype ) )
+        if ( is_null( $contenttype ) )
             $contenttype = 'application/json';
 
         $header = [
             'Content-type: '.$contenttype,
             'Authorization: '.self::scheme.' '.$apiKey,
         ];
-        if( !empty( $contentlength ) || !is_null( $contentlength ) ) {
+        if ( !empty( $contentlength ) || !is_null( $contentlength ) ) {
             $header[] = 'Content-Length: '.$contentlength;
         }        
         return $header;
     }
     private static function put( $params, $url ) {
-        if( empty( $params ) )
+        if ( empty( $params ) )
             return null;
 
         $json = json_encode( $params );
@@ -124,7 +124,7 @@ class SpreadsheetRequest {
         return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
     }
     private static function post( $params, $url ) {
-        if( empty( $params ) )
+        if ( empty( $params ) )
             return null;
 
         $json = json_encode( $params );
@@ -149,7 +149,7 @@ class SpreadsheetRequest {
         return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
     }
     private static function delete( $params, $url ) {
-        if( empty( $params ) )
+        if ( empty( $params ) )
             return null;
 
         $filename = "=".$params["filename"];
@@ -174,7 +174,7 @@ class SpreadsheetRequest {
         return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
     }
     private static function get( $params, $url ) {
-        if( empty( $params ) )
+        if ( empty( $params ) )
             return null;
         
         $header = self::generateHeader( null, null );
