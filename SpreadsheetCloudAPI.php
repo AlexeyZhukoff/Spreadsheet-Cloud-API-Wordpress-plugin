@@ -31,10 +31,10 @@ Text Domain: sclapi
 
 define( 'SPREADSHEEETCLOUDAPI__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class.SpreadsheetCloudAPI.php' );
-require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class.Constants.php' );
-require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'SpreadsheetRequest.php' );
-require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\Options.php' );
+require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class-spreadsheetcloudapiactions.php' );
+require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class-constants.php' );
+require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class-spreadsheetrequest.php' );
+require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\options.php' );
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\widget\generator.php' );
 
 
