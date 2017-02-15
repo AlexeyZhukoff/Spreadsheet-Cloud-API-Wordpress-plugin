@@ -74,7 +74,7 @@
             <input type="text" class="apikeyfield" name="<?php echo $apikey_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
             <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $createexample; ?> />
             <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
-            <input type="submit" class="getnewapikey button" name="<?php echo PluginConst::GetNewAPIKey; ?>" value="Generate API key" <?php echo $unhaveapikey; ?>/>
+            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhaveapikey; ?>/>
             <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $optionsupdate; ?>" disabled="disabled"/>
         </div>
         <div class="optionsmanagerdescription1" <?php echo $unhaveapikey; ?>>
@@ -90,10 +90,10 @@
             <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $servicefilelist; ?><br />
             <input class="file_input_text" type="file" name="my_file_upload">
-            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo FileOperations::Upload; ?>" />
-            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo FileOperations::Download; ?>" disabled="disabled" />
-            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo FileOperations::Rename; ?>" disabled="disabled" />
-            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo FileOperations::Delete; ?>" disabled="disabled" />
+            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo File_Operations::Upload; ?>" />
+            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo File_Operations::Download; ?>" disabled="disabled" />
+            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo File_Operations::Rename; ?>" disabled="disabled" />
+            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo File_Operations::Delete; ?>" disabled="disabled" />
             <dialog class="renamedialog">
                 <label class="existtext">File with this name already exists.</label><br />
                 <input class="file_new_name" type="text" name="newfilename">

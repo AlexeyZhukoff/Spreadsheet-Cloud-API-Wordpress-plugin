@@ -11,7 +11,7 @@ jQuery(function ($) {
 
     $('.uploadbutton').attr('disabled', $('.filename').attr('disabled'));
 
-    if ("<?php echo $continueoperation ?>" == "<?php echo FileOperations::ContinueDownload; ?>") {
+    if ("<?php echo $continueoperation ?>" == "<?php echo File_Operations::ContinueDownload; ?>") {
         enddownload();
     }
     function createexampleclick() {
@@ -31,16 +31,16 @@ jQuery(function ($) {
         $('.file_input_text').click();
     }
     function upload() {
-        $('.my_file_operation').val("<?php echo FileOperations::Upload; ?>");
+        $('.my_file_operation').val("<?php echo File_Operations::Upload; ?>");
         $('.autorization_manager').submit();
     }
     function download() {
-        $('.my_file_operation').val("<?php echo FileOperations::Download; ?>");
+        $('.my_file_operation').val("<?php echo File_Operations::Download; ?>");
         $('.autorization_manager').submit();
     }
     function rename() {
         if ($('.filename').val() == null) {
-            $('.my_file_operation').val("<?php echo FileOperations::Rename; ?>");
+            $('.my_file_operation').val("<?php echo File_Operations::Rename; ?>");
             $('.autorization_manager').submit();
         }
         var filearray = $('.filename').val().split('.');
@@ -65,7 +65,7 @@ jQuery(function ($) {
             if (filenotexists) {
                 dialog.close();
                 $('.file_new_name').val(newfilename);
-                $('.my_file_operation').val("<?php echo FileOperations::Rename; ?>");
+                $('.my_file_operation').val("<?php echo File_Operations::Rename; ?>");
                 $('.autorization_manager').submit();
             }
             else {
@@ -79,7 +79,7 @@ jQuery(function ($) {
     function deleteclk() {
         var choice = confirm('Do you really want to delete the "' + $('.filename').val() + '" file?');
         if (choice) {
-            $('.my_file_operation').val("<?php echo FileOperations::Delete; ?>");
+            $('.my_file_operation').val("<?php echo File_Operations::Delete; ?>");
             $('.autorization_manager').submit();
         }
     }

@@ -1,15 +1,15 @@
 <?php
 class Spreadsheet_Cloud_API_Actions {
     public static function init() {
-        $options = get_option( PluginConst::SclapiOptions );
+        $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
         if ( empty( $options ) ) {
             $options = array(
-                PluginConst::APIKey  => '',
-                PluginConst::ShowCreateExample => 1,
-                PluginConst::UserFileList => '<select class="filename" name="filename" size="1"></select>',
-                PluginConst::ActionType => PluginConst::FullActionType,
+                Plugin_Const::API_KEY  => '',
+                Plugin_Const::SHOW_CREATE_EXAMPLE => 1,
+                Plugin_Const::USER_FILE_LIST => '<select class="filename" name="filename" size="1"></select>',
+                Plugin_Const::ACTION_TYPE => Plugin_Const::FULL_ACTION_TYPE,
             );
-            update_option( PluginConst::SclapiOptions, $options ); 
+            update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
 	}
     public static function plugin_activation() {
@@ -37,7 +37,7 @@ class Spreadsheet_Cloud_API_Actions {
    	public static function deactivate_key( $key ) {
 	}
     public function GetAction ( $atts ) {
-        $command = $atts[Parameters::Command];
+        $command = $atts[ Parameters::COMMAND ];
         switch ( $command ) {
             case Commands::GetHtmlRange:
                 $response = self::GetHTMLRange( $atts );
@@ -55,44 +55,44 @@ class Spreadsheet_Cloud_API_Actions {
         return $response;
     }
     public function GetExampleAction ( $atts ) {
-        $options = get_option( PluginConst::SclapiOptions );
+        $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
         
-        $options[ PluginConst::ActionType ] = PluginConst::ExampleActionType;
-        update_option( PluginConst::SclapiOptions, $options );
+        $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::EXAMPLE_ACTION_TYPE;
+        update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
 
         $response = Spreadsheet_Cloud_API_Actions::GetAction( $atts );
 
-        $options[ PluginConst::ActionType ] = PluginConst::FullActionType;
-        update_option( PluginConst::SclapiOptions, $options );
+        $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::FULL_ACTION_TYPE;
+        update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
 
         return $response;
     }
 
-    public function UploadFile( $file ) {
-        return Spreadsheet_Request::uploadFile( $file );
+    public function upload_file( $file ) {
+        return Spreadsheet_Request::upload_file( $file );
     }
-    public function DownloadFile( $filename ) {
-        $params = array( Parameters::FileName => $filename );
-        $downloadresponse = Spreadsheet_Request::downloadfile( $params );
+    public function download_file( $filename ) {
+        $params = array( Parameters::FILE_NAME => $filename );
+        $downloadresponse = Spreadsheet_Request::download_file( $params );
         return $downloadresponse;
     }
-    public function DeleteFile( $filename ) {
-        $params = array( Parameters::FileName => $filename );
-        return Spreadsheet_Request::deletefile( $params );
+    public function delete_file( $filename ) {
+        $params = array( Parameters::FILE_NAME => $filename );
+        return Spreadsheet_Request::delete_file( $params );
     }
-    public function RenameFile( $filename, $newfilename ) {
-        $params = array( Parameters::FileName => $filename,
-        Parameters::NewFileName => $newfilename, );
-        return Spreadsheet_Request::renamefile( $params );
+    public function rename_file( $filename, $newfilename ) {
+        $params = array( Parameters::FILE_NAME => $filename,
+        Parameters::NEW_FILE_NAME => $newfilename, );
+        return Spreadsheet_Request::rename_file( $params );
     }
 
     function GetHTMLRange( $atts ) {
         $params = self::ExtractGetHTMLRangeParams( $atts );
-        $output = Spreadsheet_Request::getHtml( $params );
-        if ( $output[ PluginConst::ResponseStatus ] != 200 ) {
+        $output = Spreadsheet_Request::get_HTML( $params );
+        if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
         } else
-            return self::FixHTMLStyle( $output[ PluginConst::ResponseData ] );
+            return self::FixHTMLStyle( $output[ Plugin_Const::RESPONSE_DATA ] );
     }
     function FixHTMLStyle( $HtmlCode ) {
         $style = "<style>
@@ -109,27 +109,27 @@ class Spreadsheet_Cloud_API_Actions {
     }
     function ExtractGetHTMLRangeParams( $atts ) {
         extract(shortcode_atts(array(
-            Parameters::FileName                =>'',
-            Parameters::SheetIndex              =>NULL,
+            Parameters::FILE_NAME                =>'',
+            Parameters::SHEET_INDEX              =>NULL,
             Parameters::Range                   =>'',
-            Parameters::SheetName               =>'',
-            Parameters::StartRowIndex           =>NULL,
-            Parameters::StartColumnIndex        =>NULL,
+            Parameters::SHEET_NAME               =>'',
+            Parameters::START_ROW_INDEX           =>NULL,
+            Parameters::START_COLUMN_INDEX        =>NULL,
             Parameters::EndRowIndex             =>NULL,
             Parameters::EndColumnIndex          =>NULL,
             Parameters::ExportDrawingObjects    =>'true',
             Parameters::ExportGridlines    =>'false'), $atts));
         $params = array(
-        Parameters::FileName => $atts[Parameters::FileName], 
-        Parameters::SheetIndex => $atts[Parameters::SheetIndex], 
-        Parameters::Range => $atts[Parameters::Range],
-        Parameters::SheetName => $atts[Parameters::SheetName],
-        Parameters::StartRowIndex => $atts[Parameters::StartRowIndex],
-        Parameters::StartColumnIndex => $atts[Parameters::StartColumnIndex],
-        Parameters::EndRowIndex => $atts[Parameters::EndRowIndex],
-        Parameters::EndColumnIndex => $atts[Parameters::EndColumnIndex],
-        Parameters::ExportDrawingObjects => $atts[Parameters::ExportDrawingObjects],
-        Parameters::ExportGridlines => $atts[Parameters::ExportGridlines],
+        Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ],
+        Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ],
+        Parameters::Range => $atts[ Parameters::Range ],
+        Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
+        Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
+        Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
+        Parameters::EndRowIndex => $atts[ Parameters::EndRowIndex ],
+        Parameters::EndColumnIndex => $atts[ Parameters::EndColumnIndex ],
+        Parameters::ExportDrawingObjects => $atts[ Parameters::ExportDrawingObjects ],
+        Parameters::ExportGridlines => $atts[ Parameters::ExportGridlines ],
         Parameters::WPP => 'true');
         return $params;
     }
@@ -141,11 +141,11 @@ class Spreadsheet_Cloud_API_Actions {
     }
     function GetImageBytes( $atts ) {
         $params = self::ExtractGetImageParams( $atts );
-        $output = Spreadsheet_Request::getPictures( $params );
-        if ( $output[ PluginConst::ResponseStatus ] != 200 ) {
+        $output = Spreadsheet_Request::get_pictures( $params );
+        if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
         } else{
-            $imgJSON = $output[ PluginConst::ResponseData ];
+            $imgJSON = $output[ Plugin_Const::RESPONSE_DATA ];
             $response = json_decode( $imgJSON, true );
             return $response[0]['PictureBytes'];;
         }
@@ -162,40 +162,40 @@ class Spreadsheet_Cloud_API_Actions {
     }
     function ExtractGetImageParams( $atts ) {
         extract(shortcode_atts( array(
-            Parameters::FileName                =>'',
-            Parameters::SheetIndex              =>NULL,
-            Parameters::SheetName               =>'',
+            Parameters::FILE_NAME                =>'',
+            Parameters::SHEET_INDEX              =>NULL,
+            Parameters::SHEET_NAME               =>'',
             Parameters::Range                   =>'',
-            Parameters::StartRowIndex           =>NULL,
-            Parameters::StartColumnIndex        =>NULL,
+            Parameters::START_ROW_INDEX           =>NULL,
+            Parameters::START_COLUMN_INDEX        =>NULL,
             Parameters::EndRowIndex             =>NULL,
             Parameters::EndColumnIndex          =>NULL,
             Parameters::ObjectIndex             =>NULL,
             Parameters::Scale                   =>NULL,
-            Parameters::PictureType             =>PictureType::Picture), $atts ) );
+            Parameters::Picture_Type             =>Picture_Type::Picture), $atts ) );
         $params = array(
-        Parameters::FileName => $atts[ Parameters::FileName ], 
-        Parameters::SheetIndex => $atts[ Parameters::SheetIndex ], 
-        Parameters::SheetName => $atts[ Parameters::SheetName ],
+        Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ], 
+        Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ], 
+        Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
         Parameters::Range => $atts[ Parameters::Range ],
-        Parameters::StartRowIndex => $atts[ Parameters::StartRowIndex ],
-        Parameters::StartColumnIndex => $atts[ Parameters::StartColumnIndex ],
+        Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
+        Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
         Parameters::EndRowIndex => $atts[ Parameters::EndRowIndex ],
         Parameters::EndColumnIndex => $atts[ Parameters::EndColumnIndex ],
         Parameters::ObjectIndex => $atts[ Parameters::ObjectIndex ],
         Parameters::Scale => $atts[ Parameters::Scale ],
-        Parameters::PictureType => $atts[ Parameters::PictureType ],
+        Parameters::Picture_Type => $atts[ Parameters::Picture_Type ],
         Parameters::WPP => 'true', );
         return $params;
     }
-    public static function GetFileList( $size ) {
-        $output = Spreadsheet_Request::getFilesList();
-        $response = json_decode( $output[ PluginConst::ResponseData ], true );
+    public static function get_files_list( $size ) {
+        $output = Spreadsheet_Request::get_files_list();
+        $response = json_decode( $output[ Plugin_Const::RESPONSE_DATA ], true );
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if ( $size == 1 )  {
             $result = '<span>File Name: </span>'.$result;
         }
-        $baseconnected = $output[ PluginConst::ResponseStatus ] == 200;
+        $baseconnected = $output[ Plugin_Const::RESPONSE_STATUS ] == 200;
         if ( ! $baseconnected ) {
             $result = $result.'disabled="disabled"';
         }

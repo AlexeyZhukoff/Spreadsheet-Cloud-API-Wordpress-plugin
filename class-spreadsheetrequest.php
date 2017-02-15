@@ -1,15 +1,15 @@
 <?php
 class Spreadsheet_Request {
     #region Fields
-    //const baseUri = 'http://localhost:54306/api/spreadsheet';
-    //const basewpUri = 'http://localhost:54306/wpusers/getapikey';
-    const baseUri = 'http://spreadsheetcloudapi.azurewebsites.net/api/spreadsheet';
-    const basewpUri = 'http://spreadsheetcloudapi.azurewebsites.net/wpusers/getapikey';
-    const scheme = "amx";
-    const exampleAPIKey = "24c95646ebd272ff55856413befc97ae";
+    //const BASE_URI = 'http://localhost:54306/api/spreadsheet';
+    //const BASE_WP_URI = 'http://localhost:54306/wpusers/getapikey';
+    const BASE_URI = 'http://spreadsheetcloudapi.azurewebsites.net/api/spreadsheet';
+    const BASE_WP_URI = 'http://spreadsheetcloudapi.azurewebsites.net/wpusers/getapikey';
+    const SCHEME = "amx";
+    const EXAMPLE_API_KEY = "24c95646ebd272ff55856413befc97ae";
     #endregion
 
-    public static function GenerateNewAPIKey( $mail ) {
+    public static function generate_new_API_key( $mail ) {
         if ( empty( $mail ) )
             return null;
 
@@ -18,7 +18,7 @@ class Spreadsheet_Request {
 
         $request = curl_init();
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::basewpUri.'?'.http_build_query( $params ),
+            CURLOPT_URL => self::BASE_WP_URI.'?'.http_build_query( $params ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_FOLLOWLOCATION => true,
@@ -30,11 +30,11 @@ class Spreadsheet_Request {
 
         curl_close( $request );
         
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
 
     #region public interface
-    public static function uploadFile( $file ) {
+    public static function upload_file( $file ) {
         if ( empty( $file ) )
             return;
         $request = curl_init();
@@ -46,52 +46,52 @@ class Spreadsheet_Request {
         curl_setopt(
             $request,
             CURLOPT_URL,
-            self::baseUri.'/upload'
+            self::BASE_URI.'/upload'
         );
         $response = curl_exec( $request );
         $info = curl_getinfo( $request );
 
         curl_close( $request );
 
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
-    public static function downloadfile( $params ) {
+    public static function download_file( $params ) {
         return self::get( $params, '/download' );
     }
-    public static function deletefile( $params ) {
+    public static function delete_file( $params ) {
         return self::delete( $params, '/deletefile' );
     }
-    public static function renamefile( $params ) {
+    public static function rename_file( $params ) {
         return self::post( $params, '/renamefile' );
     }
-    public static function getFilesList() {
-        return self::getWithoutParams( '/getfilelist' );
+    public static function get_files_list() {
+        return self::get_without_params( '/getfilelist' );
     }
-    public static function getHtml( $params ) {
+    public static function get_HTML( $params ) {
         return self::get( $params, '/exporttohtml' );
     }
-    public static function getPictures( $params ) {
+    public static function get_pictures( $params ) {
         return self::get( $params, '/getpictures' );
     }
     #endregion
 
     #region Helper
-    private static function getAPIKey() {
-        $actiontype = get_option( PluginConst::SclapiOptions )[ PluginConst::ActionType ];
-        if ( $actiontype == PluginConst::ExampleActionType ) {
-            return self::exampleAPIKey;  
+    private static function get_API_key() {
+        $actiontype = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::ACTION_TYPE ];
+        if ( $actiontype == Plugin_Const::EXAMPLE_ACTION_TYPE ) {
+            return self::EXAMPLE_API_KEY;  
         }
-        return get_option( PluginConst::SclapiOptions )[ PluginConst::APIKey ];
+        return get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     }
-    private static function generateHeader( $contentlength, $contenttype ) {
-        $apiKey = self::getAPIKey();
+    private static function generate_header( $contentlength, $contenttype ) {
+        $apiKey = self::get_API_key();
 
         if ( is_null( $contenttype ) )
             $contenttype = 'application/json';
 
         $header = [
             'Content-type: '.$contenttype,
-            'Authorization: '.self::scheme.' '.$apiKey,
+            'Authorization: '.self::SCHEME.' '.$apiKey,
         ];
         if ( ! empty( $contentlength ) || ! is_null( $contentlength ) ) {
             $header[] = 'Content-Length: '.$contentlength;
@@ -104,12 +104,12 @@ class Spreadsheet_Request {
 
         $json = json_encode( $params );
 
-        $header = self::generateHeader( strlen( $json ), null );
+        $header = self::generate_header( strlen( $json ), null );
 
         $request = curl_init();
 
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::baseUri.$url,
+            CURLOPT_URL => self::BASE_URI.$url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_CUSTOMREQUEST => 'PUT',
@@ -121,7 +121,7 @@ class Spreadsheet_Request {
 
         curl_close( $request );
 
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function post( $params, $url ) {
         if ( empty( $params ) )
@@ -129,12 +129,12 @@ class Spreadsheet_Request {
 
         $json = json_encode( $params );
 
-        $header = self::generateHeader( null, null );
+        $header = self::generate_header( null, null );
 
         $request = curl_init();
 
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::baseUri.$url,
+            CURLOPT_URL => self::BASE_URI.$url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_POSTFIELDS => $json,
@@ -146,19 +146,19 @@ class Spreadsheet_Request {
 
         curl_close( $request );
 
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function delete( $params, $url ) {
         if ( empty( $params ) )
             return null;
 
         $filename = "=".$params["filename"];
-        $header = self::generateHeader( strlen( $filename ), 'application/x-www-form-urlencoded' );
+        $header = self::generate_header( strlen( $filename ), 'application/x-www-form-urlencoded' );
         
         $request = curl_init();
 
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::baseUri.$url,
+            CURLOPT_URL => self::BASE_URI.$url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_CUSTOMREQUEST => "DELETE",
@@ -171,17 +171,17 @@ class Spreadsheet_Request {
 
         curl_close( $request );
         
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function get( $params, $url ) {
         if ( empty( $params ) )
             return null;
         
-        $header = self::generateHeader( null, null );
+        $header = self::generate_header( null, null );
 
         $request = curl_init();
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::baseUri.$url.'?'.http_build_query( $params ),
+            CURLOPT_URL => self::BASE_URI.$url.'?'.http_build_query( $params ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_FOLLOWLOCATION => true,
@@ -193,14 +193,14 @@ class Spreadsheet_Request {
 
         curl_close( $request );
         
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
-    private static function getWithoutParams( $url ) {
-        $header = self::generateHeader( null, null );
+    private static function get_without_params( $url ) {
+        $header = self::generate_header( null, null );
 
         $request = curl_init();
         curl_setopt_array( $request, [
-            CURLOPT_URL => self::baseUri.$url,
+            CURLOPT_URL => self::BASE_URI.$url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_FOLLOWLOCATION => true,
@@ -212,7 +212,7 @@ class Spreadsheet_Request {
 
         curl_close( $request );
         
-        return array( PluginConst::ResponseStatus => $info['http_code'], PluginConst::ResponseData => $response );
+        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function curl_custom_postfields( $ch, array $assoc = array(), array $files = array() ) {
         // invalid characters for "name" and "filename"
@@ -263,7 +263,7 @@ class Spreadsheet_Request {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => implode( "\r\n", $body ),
             CURLOPT_HTTPHEADER => array(
-                "Authorization: amx ".get_option( PluginConst::SclapiOptions )[ PluginConst::APIKey ],
+                "Authorization: amx ".get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ],
                 "Expect: 100-continue",
                 "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
             ),

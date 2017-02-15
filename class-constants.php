@@ -1,28 +1,28 @@
 <?php
-class PluginConst{
-    const ShortcodeName = 'sclapi';
-    const ExampleShortcodeName = 'sclapiexample';
-    const APIKey = 'API_Key';
-    const GetNewAPIKey = 'getnewapikey';
-    const ShowCreateExample = 'showcreateexample';
-    const UserFileList = 'userfileslist';
-    const ActionType = 'actiontype';
-    const FullActionType = 'action';
-    const ExampleActionType = 'example';
-    const ResponseData = 'data';
-    const ResponseStatus = 'status';
-    const SclapiOptions = 'sclapi_options';
+class Plugin_Const{
+    const SHORTCODE_NAME = 'sclapi';
+    const EXAMPLE_SHORTCODE_NAME = 'sclapiexample';
+    const API_KEY = 'API_Key';
+    const GET_NEW_API_KEY = 'getnewapikey';
+    const SHOW_CREATE_EXAMPLE = 'showcreateexample';
+    const USER_FILE_LIST = 'userfileslist';
+    const ACTION_TYPE = 'actiontype';
+    const FULL_ACTION_TYPE = 'action';
+    const EXAMPLE_ACTION_TYPE = 'example';
+    const RESPONSE_DATA = 'data';
+    const RESPONSE_STATUS = 'status';
+    const SCLAPI_OPTIONS = 'sclapi_options';
 }
-class HeaderMessages{
-    const OptionsSaved = 'Options have been saved';
-    const NoSelectRename = 'Select a file to be renamed';
-    const FileRenamed = 'File <i>%1$s</i> has been renamed to <i>%2$s</i>.';
-    const FileDownloaded = 'File <i>%s</i> has been downloaded';
-    const NoSelectDownload = 'Select a file to be downloaded';
-    const FileUploaded = 'File <i>%s</i> has been uploaded';
-    const NoSelectUpload = 'Select a file to be uploaded';
-    const FileDeleted = 'File <i>%s</i> has been deleted';
-    const NoSelectDelete = 'Select a file to be deleted';
+class Header_Messages{
+    const OPTIONS_SAVED = 'Options have been saved';
+    const SELECT_RENAME = 'Select a file to be renamed';
+    const FILE_RENAMED = 'File <i>%1$s</i> has been renamed to <i>%2$s</i>.';
+    const FILE_DOWNLOADED = 'File <i>%s</i> has been downloaded';
+    const SELECT_DOWNLOAD = 'Select a file to be downloaded';
+    const FILE_UPLOADED = 'File <i>%s</i> has been uploaded';
+    const SELECT_UPLOAD = 'Select a file to be uploaded';
+    const FILE_DELETED = 'File <i>%s</i> has been deleted';
+    const SELECT_DELETE = 'Select a file to be deleted';
 }
 class Commands{
     const GetHtmlRange = 'GetHTMLRange';
@@ -30,13 +30,13 @@ class Commands{
     const GetImageBytes = 'GetImageBytes';
 }
 class Parameters{
-    const Command = 'command';
-    const FileName = 'filename';
-    const NewFileName = 'newfilename';
-    const SheetIndex = 'sheetindex';
-    const SheetName = 'sheetname';
-    const StartRowIndex = 'startrowindex';
-    const StartColumnIndex = 'startcolumnindex';
+    const COMMAND = 'command';
+    const FILE_NAME = 'filename';
+    const NEW_FILE_NAME = 'newfilename';
+    const SHEET_INDEX = 'sheetindex';
+    const SHEET_NAME = 'sheetname';
+    const START_ROW_INDEX = 'startrowindex';
+    const START_COLUMN_INDEX = 'startcolumnindex';
     const EndRowIndex = 'endrowindex';
     const EndColumnIndex = 'endcolumnindex';
     const Range = 'range';
@@ -49,14 +49,14 @@ class Parameters{
     const Width = 'width';
     const WPP = 'wpp';
 }
-class PictureType{
+class Picture_Type{
     const Picture = 'picture';
     const Chart = 'chart';
     const Shape = 'shape';
     const ConnectionShape = 'connectionshape';
     const GroupShape = 'groupshape';
 }
-class FileOperations{
+class File_Operations{
     const Upload = 'Upload';
     const Delete = 'Delete';
     const Rename = 'Rename';
