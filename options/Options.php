@@ -22,7 +22,7 @@ function mt_options_page() {
             $options[ PluginConst::ShowCreateExample ] = $opt_create_example;
             update_option( PluginConst::SclapiOptions, $options ); 
         }
-        if ( !empty( $_POST[ PluginConst::GetNewAPIKey ] ) && empty( $_POST[ $apikey_field_name ] ) ) {
+        if ( ! empty( $_POST[ PluginConst::GetNewAPIKey ] ) && empty( $_POST[ $apikey_field_name ] ) ) {
             $response = get_newapikey();
             if ( $response[ PluginConst::ResponseStatus ] == 200 ) {
                 $_POST[ $apikey_field_name ] = base64_decode( $response[ PluginConst::ResponseData ] );
@@ -36,7 +36,7 @@ function mt_options_page() {
             $opt_api_key = $_POST[ $apikey_field_name ];
             $options[ PluginConst::APIKey ] = $opt_api_key;
             
-            if ( !empty( $opt_api_key ) ) {
+            if ( ! empty( $opt_api_key ) ) {
                 $options[ PluginConst::UserFileList ] = SpreadsheetCloudAPIActions::GetFileList(1);
             } else {
                 $options[ PluginConst::UserFileList ] = '<select class="filename" name="filename" size="1"></select>';
@@ -48,7 +48,7 @@ function mt_options_page() {
     
     $continueoperation = '';
     $downloadfilebits = '';
-    if ( !empty( $fileoperation ) ) {
+    if ( ! empty( $fileoperation ) ) {
         switch ( $fileoperation ) {
             case FileOperations::Upload:
                 upload_file();
@@ -98,7 +98,7 @@ function rename_file() {
 }
 function download_file() {
     $filename = $_POST['filename'];
-    if ( !empty( $filename ) ) {
+    if ( ! empty( $filename ) ) {
         $downloadresponse = SpreadsheetCloudAPIActions::DownloadFile( $filename );
         if ( $downloadresponse[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf(HeaderMessages::FileDownloaded, $filename) );
@@ -116,7 +116,7 @@ function download_file() {
 function upload_file() {
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
     $file = &$_FILES['my_file_upload'];
-    if ( !empty( $file['name'] ) ) {
+    if ( ! empty( $file['name'] ) ) {
         $uploadresponse = SpreadsheetCloudAPIActions::UploadFile( $file );
         if ( $uploadresponse[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf( HeaderMessages::FileUploaded, $file['name'] ) );
@@ -132,7 +132,7 @@ function upload_file() {
 }
 function delete_file() {
     $filename = $_POST['filename'];
-    if ( !empty( $filename ) ) {
+    if ( ! empty( $filename ) ) {
         $filedeleted = SpreadsheetCloudAPIActions::DeleteFile( $filename );
         if ( $filedeleted[ PluginConst::ResponseStatus ] == 200 ) {
             show_header_message( sprintf( HeaderMessages::FileDeleted, $filename ) );

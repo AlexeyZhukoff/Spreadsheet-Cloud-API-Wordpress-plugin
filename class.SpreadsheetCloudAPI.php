@@ -196,7 +196,7 @@ class SpreadsheetCloudAPIActions {
             $result = '<span>File Name: </span>'.$result;
         }
         $baseconnected = $output[ PluginConst::ResponseStatus ] == 200;
-        if ( !$baseconnected ) {
+        if ( ! $baseconnected ) {
             $result = $result.'disabled="disabled"';
         }
         $result = $result.'>';

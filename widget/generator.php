@@ -10,7 +10,7 @@ function sclapi_add_button( $buttons ) {
 }
  
 function sclapi_custom_button() {
-    if ( !current_user_can( 'edit_posts' ) && !current_user_can( 'edit_pages' ) )
+    if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) )
         return;
     if ( get_user_option( 'rich_editing' ) == 'true' ) {
        add_filter( 'mce_external_plugins', 'sclapi_insert_shortcode' );

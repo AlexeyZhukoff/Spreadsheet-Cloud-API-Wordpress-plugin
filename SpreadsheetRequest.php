@@ -93,7 +93,7 @@ class SpreadsheetRequest {
             'Content-type: '.$contenttype,
             'Authorization: '.self::scheme.' '.$apiKey,
         ];
-        if ( !empty( $contentlength ) || !is_null( $contentlength ) ) {
+        if ( ! empty( $contentlength ) || !is_null( $contentlength ) ) {
             $header[] = 'Content-Length: '.$contentlength;
         }        
         return $header;
