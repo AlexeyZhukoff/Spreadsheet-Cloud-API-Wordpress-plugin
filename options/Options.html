@@ -65,35 +65,35 @@
             font-size: 16pt!important;
         }
     </style>
-    <h1> <?= $optionsheader; ?> </h1>
+    <h1> <?php echo $optionsheader; ?> </h1>
     <br />
-    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?= $optionsaction; ?>">
-        <input type="hidden" name="<?= $hidden_field_name; ?>" value="Y">
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $optionsaction; ?>">
+        <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
         <div class="optionsmanager">
-            <?= $optionsapikey; ?> 
-            <input type="text" class="apikeyfield" name="<?= $apikey_field_name; ?>" value="<?= $opt_api_key; ?>" ><br />
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?= $createexample; ?> />
+            <?php echo $optionsapikey; ?> 
+            <input type="text" class="apikeyfield" name="<?php echo $apikey_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $createexample; ?> />
             <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
-            <input type="submit" class="getnewapikey button" name="<?= PluginConst::GetNewAPIKey; ?>" value="Generate API key" <?= $unhaveapikey; ?>/>
-            <input type="submit" class="updateoptions button" name="Submit" value="<?= $optionsupdate; ?>" disabled="disabled"/>
+            <input type="submit" class="getnewapikey button" name="<?php echo PluginConst::GetNewAPIKey; ?>" value="Generate API key" <?php echo $unhaveapikey; ?>/>
+            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $optionsupdate; ?>" disabled="disabled"/>
         </div>
-        <div class="optionsmanagerdescription1" <?= $unhaveapikey; ?>>
+        <div class="optionsmanagerdescription1" <?php echo $unhaveapikey; ?>>
             SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
         </div>
-        <div class="optionsmanagerdescription2" <?= $haveapikey; ?>>
+        <div class="optionsmanagerdescription2" <?php echo $haveapikey; ?>>
             The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
         <br /><br />
-        <hr <?= $haveapikey; ?> />
-        <div class="filemanager" <?= $haveapikey; ?>>
+        <hr <?php echo $haveapikey; ?> />
+        <div class="filemanager" <?php echo $haveapikey; ?>>
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
             <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
-            <?= $servicefilelist; ?><br />
+            <?php echo $servicefilelist; ?><br />
             <input class="file_input_text" type="file" name="my_file_upload">
-            <input class="filemanagerbutton uploadbutton button" type="button" value="<?= FileOperations::Upload; ?>" />
-            <input class="filemanagerbutton downloadbutton button" type="button" value="<?= FileOperations::Download; ?>" disabled="disabled" />
-            <input class="filemanagerbutton renamebutton button" type="button" value="<?= FileOperations::Rename; ?>" disabled="disabled" />
-            <input class="filemanagerbutton deletebutton button" type="button"  value="<?= FileOperations::Delete; ?>" disabled="disabled" />
+            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo FileOperations::Upload; ?>" />
+            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo FileOperations::Download; ?>" disabled="disabled" />
+            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo FileOperations::Rename; ?>" disabled="disabled" />
+            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo FileOperations::Delete; ?>" disabled="disabled" />
             <dialog class="renamedialog">
                 <label class="existtext">File with this name already exists.</label><br />
                 <input class="file_new_name" type="text" name="newfilename">
@@ -101,7 +101,7 @@
                 <button class="canceldg">Cancel</button>
             </dialog>
         </div>
-        <div class="filemanagerdescription" <?= $haveapikey; ?>>
+        <div class="filemanagerdescription" <?php echo $haveapikey; ?>>
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
     </form>

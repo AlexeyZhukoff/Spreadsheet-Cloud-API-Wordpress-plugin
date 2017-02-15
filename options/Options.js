@@ -11,7 +11,7 @@ jQuery(function ($) {
 
     $('.uploadbutton').attr('disabled', $('.filename').attr('disabled'));
 
-    if ("<?= $continueoperation ?>" == "<?= FileOperations::ContinueDownload; ?>") {
+    if ("<?php echo $continueoperation ?>" == "<?php echo FileOperations::ContinueDownload; ?>") {
         enddownload();
     }
     function createexampleclick() {
@@ -31,16 +31,16 @@ jQuery(function ($) {
         $('.file_input_text').click();
     }
     function upload() {
-        $('.my_file_operation').val("<?= FileOperations::Upload; ?>");
+        $('.my_file_operation').val("<?php echo FileOperations::Upload; ?>");
         $('.autorization_manager').submit();
     }
     function download() {
-        $('.my_file_operation').val("<?= FileOperations::Download; ?>");
+        $('.my_file_operation').val("<?php echo FileOperations::Download; ?>");
         $('.autorization_manager').submit();
     }
     function rename() {
         if ($('.filename').val() == null) {
-            $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+            $('.my_file_operation').val("<?php echo FileOperations::Rename; ?>");
             $('.autorization_manager').submit();
         }
         var filearray = $('.filename').val().split('.');
@@ -65,7 +65,7 @@ jQuery(function ($) {
             if (filenotexists) {
                 dialog.close();
                 $('.file_new_name').val(newfilename);
-                $('.my_file_operation').val("<?= FileOperations::Rename; ?>");
+                $('.my_file_operation').val("<?php echo FileOperations::Rename; ?>");
                 $('.autorization_manager').submit();
             }
             else {
@@ -79,14 +79,14 @@ jQuery(function ($) {
     function deleteclk() {
         var choice = confirm('Do you really want to delete the "' + $('.filename').val() + '" file?');
         if (choice) {
-            $('.my_file_operation').val("<?= FileOperations::Delete; ?>");
+            $('.my_file_operation').val("<?php echo FileOperations::Delete; ?>");
             $('.autorization_manager').submit();
         }
     }
     function enddownload() {
         var element = document.createElement('a');
-        element.setAttribute('href', 'data:application/octet-stream; charset=utf-8; base64,' + '<?= $downloadfile; ?>');
-        element.setAttribute('download', "<?= $filename; ?>");
+        element.setAttribute('href', 'data:application/octet-stream; charset=utf-8; base64,' + '<?php echo $downloadfile; ?>');
+        element.setAttribute('download', "<?php echo $filename; ?>");
         element.click();
         document.body.removeChild(element);
     }

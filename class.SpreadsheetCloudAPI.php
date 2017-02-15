@@ -57,12 +57,12 @@ class SpreadsheetCloudAPIActions {
     public function GetExampleAction ($atts) {
         $options = get_option( PluginConst::SclapiOptions );
         
-        $options[PluginConst::ActionType] = PluginConst::ExampleActionType;
+        $options[ PluginConst::ActionType ] = PluginConst::ExampleActionType;
         update_option( PluginConst::SclapiOptions, $options );
 
         $response = SpreadsheetCloudAPIActions::GetAction($atts);
 
-        $options[PluginConst::ActionType] = PluginConst::FullActionType;
+        $options[ PluginConst::ActionType ] = PluginConst::FullActionType;
         update_option( PluginConst::SclapiOptions, $options );
 
         return $response;
@@ -89,10 +89,10 @@ class SpreadsheetCloudAPIActions {
     function GetHTMLRange ($atts) {
         $params = self::ExtractGetHTMLRangeParams($atts);
         $output = SpreadsheetRequest::getHtml($params);
-        if($output[PluginConst::ResponseStatus] != 200){
+        if($output[ PluginConst::ResponseStatus ] != 200){
             return "Error";
         } else
-            return self::FixHTMLStyle($output[PluginConst::ResponseData]);
+            return self::FixHTMLStyle($output[ PluginConst::ResponseData ]);
     }
     function FixHTMLStyle($HtmlCode){
         $style = "<style>
@@ -142,10 +142,10 @@ class SpreadsheetCloudAPIActions {
     function GetImageBytes ($atts) {
         $params = self::ExtractGetImageParams($atts);
         $output = SpreadsheetRequest::getPictures($params);
-        if($output[PluginConst::ResponseStatus] != 200){
+        if($output[ PluginConst::ResponseStatus ] != 200){
             return "Error";
         } else{
-            $imgJSON = $output[PluginConst::ResponseData];
+            $imgJSON = $output[ PluginConst::ResponseData ];
             $response = json_decode($imgJSON, true);
             return $response[0]['PictureBytes'];;
         }
@@ -190,12 +190,12 @@ class SpreadsheetCloudAPIActions {
     }
     public static function GetFileList ($size){
         $output = SpreadsheetRequest::getFilesList();
-        $response = json_decode($output[PluginConst::ResponseData], true);
+        $response = json_decode($output[ PluginConst::ResponseData ], true);
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         if($size == 1)  {
             $result = '<span>File Name: </span>'.$result;
         }
-        $baseconnected = $output[PluginConst::ResponseStatus] == 200;
+        $baseconnected = $output[ PluginConst::ResponseStatus ] == 200;
         if(!$baseconnected){
             $result = $result.'disabled="disabled"';
         }
