@@ -25,9 +25,9 @@ class Header_Messages{
     const SELECT_DELETE = 'Select a file to be deleted';
 }
 class Commands{
-    const GetHtmlRange = 'GetHTMLRange';
-    const GetImage = 'GetImage';
-    const GetImageBytes = 'GetImageBytes';
+    const GET_HTML_RANGE = 'GetHTMLRange';
+    const GET_IMAGE = 'GetImage';
+    const GET_IMAGE_BYTES = 'GetImageBytes';
 }
 class Parameters{
     const COMMAND = 'command';
@@ -37,31 +37,31 @@ class Parameters{
     const SHEET_NAME = 'sheetname';
     const START_ROW_INDEX = 'startrowindex';
     const START_COLUMN_INDEX = 'startcolumnindex';
-    const EndRowIndex = 'endrowindex';
-    const EndColumnIndex = 'endcolumnindex';
-    const Range = 'range';
-    const ExportDrawingObjects = 'exportdrawingobjects';
-    const ExportGridlines = 'exportgridlines';
-    const ObjectIndex = 'objectindex';
-    const Scale = 'scale';
-    const PictureType = 'picturetype';
-    const Height = 'height';
-    const Width = 'width';
+    const END_ROW_INDEX = 'endrowindex';
+    const END_COLUMN_INDEX = 'endcolumnindex';
+    const RANGE = 'range';
+    const EXPORT_DRAWING_OBJECTS = 'exportdrawingobjects';
+    const EXPORT_GRID_LINES = 'exportgridlines';
+    const OBJECT_INDEX = 'objectindex';
+    const SCALE = 'scale';
+    const PICTURE_TYPE = 'picturetype';
+    const HEIGHT = 'height';
+    const WIDTH = 'width';
     const WPP = 'wpp';
 }
 class Picture_Type{
-    const Picture = 'picture';
-    const Chart = 'chart';
-    const Shape = 'shape';
-    const ConnectionShape = 'connectionshape';
-    const GroupShape = 'groupshape';
+    const PICTURE = 'picture';
+    const CHART = 'chart';
+    const SHAPE = 'shape';
+    const CONNECTION_SHAPE = 'connectionshape';
+    const GROUP_SHAPE = 'groupshape';
 }
 class File_Operations{
-    const Upload = 'Upload';
-    const Delete = 'Delete';
-    const Rename = 'Rename';
-    const Download = 'Download';
-    const ContinueDownload = 'continuedownload';
+    const UPLOAD = 'Upload';
+    const DELETE = 'Delete';
+    const RENAME = 'Rename';
+    const DOWNLOAD = 'Download';
+    const CONTINUE_DOWNLOAD = 'continuedownload';
 }
 ?>
 

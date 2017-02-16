@@ -90,10 +90,10 @@
             <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $servicefilelist; ?><br />
             <input class="file_input_text" type="file" name="my_file_upload">
-            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo File_Operations::Upload; ?>" />
-            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo File_Operations::Download; ?>" disabled="disabled" />
-            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo File_Operations::Rename; ?>" disabled="disabled" />
-            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo File_Operations::Delete; ?>" disabled="disabled" />
+            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo File_Operations::UPLOAD; ?>" />
+            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo File_Operations::DOWNLOAD; ?>" disabled="disabled" />
+            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo File_Operations::RENAME; ?>" disabled="disabled" />
+            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo File_Operations::DELETE; ?>" disabled="disabled" />
             <dialog class="renamedialog">
                 <label class="existtext">File with this name already exists.</label><br />
                 <input class="file_new_name" type="text" name="newfilename">

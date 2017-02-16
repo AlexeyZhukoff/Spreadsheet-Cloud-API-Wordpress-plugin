@@ -39,13 +39,13 @@ class Spreadsheet_Cloud_API_Actions {
     public function GetAction ( $atts ) {
         $command = $atts[ Parameters::COMMAND ];
         switch ( $command ) {
-            case Commands::GetHtmlRange:
+            case Commands::GET_HTML_RANGE:
                 $response = self::GetHTMLRange( $atts );
                 break;
-            case Commands::GetImage:
+            case Commands::GET_IMAGE:
                 $response = self::GetImage( $atts );
                 break;
-            case Commands::GetImageBytes:
+            case Commands::GET_IMAGE_BYTES:
                 $response = self::GetImageBytes( $atts );
                 break;
             default:
@@ -111,25 +111,25 @@ class Spreadsheet_Cloud_API_Actions {
         extract(shortcode_atts(array(
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
-            Parameters::Range                   =>'',
+            Parameters::RANGE                   =>'',
             Parameters::SHEET_NAME               =>'',
             Parameters::START_ROW_INDEX           =>NULL,
             Parameters::START_COLUMN_INDEX        =>NULL,
-            Parameters::EndRowIndex             =>NULL,
-            Parameters::EndColumnIndex          =>NULL,
-            Parameters::ExportDrawingObjects    =>'true',
-            Parameters::ExportGridlines    =>'false'), $atts));
+            Parameters::END_ROW_INDEX             =>NULL,
+            Parameters::END_COLUMN_INDEX          =>NULL,
+            Parameters::EXPORT_DRAWING_OBJECTS    =>'true',
+            Parameters::EXPORT_GRID_LINES    =>'false'), $atts));
         $params = array(
         Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ],
         Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ],
-        Parameters::Range => $atts[ Parameters::Range ],
+        Parameters::RANGE => $atts[ Parameters::RANGE ],
         Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
         Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
         Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
-        Parameters::EndRowIndex => $atts[ Parameters::EndRowIndex ],
-        Parameters::EndColumnIndex => $atts[ Parameters::EndColumnIndex ],
-        Parameters::ExportDrawingObjects => $atts[ Parameters::ExportDrawingObjects ],
-        Parameters::ExportGridlines => $atts[ Parameters::ExportGridlines ],
+        Parameters::END_ROW_INDEX => $atts[ Parameters::END_ROW_INDEX ],
+        Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
+        Parameters::EXPORT_DRAWING_OBJECTS => $atts[ Parameters::EXPORT_DRAWING_OBJECTS ],
+        Parameters::EXPORT_GRID_LINES => $atts[ Parameters::EXPORT_GRID_LINES ],
         Parameters::WPP => 'true');
         return $params;
     }
@@ -152,10 +152,10 @@ class Spreadsheet_Cloud_API_Actions {
     }
     function GetImageStyle( $atts ) {
         $style = '';
-        if ( $atts[Parameters::Width]<>'' )
-            $style = $style.Parameters::Width.":".$atts[ Parameters::Width ].";";
-        if ( $atts[ Parameters::Height ]<>'' )
-            $style = $style." ".Parameters::Height.":".$atts[ Parameters::Height ]."\"";
+        if ( $atts[Parameters::WIDTH]<>'' )
+            $style = $style.Parameters::WIDTH.":".$atts[ Parameters::WIDTH ].";";
+        if ( $atts[ Parameters::HEIGHT ]<>'' )
+            $style = $style." ".Parameters::HEIGHT.":".$atts[ Parameters::HEIGHT ]."\"";
         if ( $style<>'' )
             return "style=\"".$style;
         return '';
@@ -165,26 +165,26 @@ class Spreadsheet_Cloud_API_Actions {
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
             Parameters::SHEET_NAME               =>'',
-            Parameters::Range                   =>'',
+            Parameters::RANGE                   =>'',
             Parameters::START_ROW_INDEX           =>NULL,
             Parameters::START_COLUMN_INDEX        =>NULL,
-            Parameters::EndRowIndex             =>NULL,
-            Parameters::EndColumnIndex          =>NULL,
-            Parameters::ObjectIndex             =>NULL,
-            Parameters::Scale                   =>NULL,
-            Parameters::Picture_Type             =>Picture_Type::Picture), $atts ) );
+            Parameters::END_ROW_INDEX             =>NULL,
+            Parameters::END_COLUMN_INDEX          =>NULL,
+            Parameters::OBJECT_INDEX             =>NULL,
+            Parameters::SCALE                   =>NULL,
+            Parameters::PICTURE_TYPE             =>Picture_Type::PICTURE), $atts ) );
         $params = array(
         Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ], 
         Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ], 
         Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
-        Parameters::Range => $atts[ Parameters::Range ],
+        Parameters::RANGE => $atts[ Parameters::RANGE ],
         Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
         Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
-        Parameters::EndRowIndex => $atts[ Parameters::EndRowIndex ],
-        Parameters::EndColumnIndex => $atts[ Parameters::EndColumnIndex ],
-        Parameters::ObjectIndex => $atts[ Parameters::ObjectIndex ],
-        Parameters::Scale => $atts[ Parameters::Scale ],
-        Parameters::Picture_Type => $atts[ Parameters::Picture_Type ],
+        Parameters::END_ROW_INDEX => $atts[ Parameters::END_ROW_INDEX ],
+        Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
+        Parameters::OBJECT_INDEX => $atts[ Parameters::OBJECT_INDEX ],
+        Parameters::SCALE => $atts[ Parameters::SCALE ],
+        Parameters::PICTURE_TYPE => $atts[ Parameters::PICTURE_TYPE ],
         Parameters::WPP => 'true', );
         return $params;
     }

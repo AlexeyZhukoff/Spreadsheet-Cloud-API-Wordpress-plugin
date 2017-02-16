@@ -50,19 +50,19 @@ function mt_options_page() {
     $downloadfilebits = '';
     if ( ! empty( $fileoperation ) ) {
         switch ( $fileoperation ) {
-            case File_Operations::Upload:
+            case File_Operations::UPLOAD:
                 upload_file();
                 break;
-            case File_Operations::Delete:
+            case File_Operations::DELETE:
                 delete_file();
                 break;
-            case File_Operations::Rename:
+            case File_Operations::RENAME:
                 rename_file();
                 break;
-            case File_Operations::Download:
+            case File_Operations::DOWNLOAD:
                 $downloadresponse = download_file();
                 if ( $downloadresponse[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-                    $continueoperation = File_Operations::ContinueDownload;
+                    $continueoperation = File_Operations::CONTINUE_DOWNLOAD;
                     $downloadfilebits = base64_encode( $downloadresponse[ Plugin_Const::RESPONSE_DATA ] );
                 }
                 break;
