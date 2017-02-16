@@ -11,7 +11,7 @@ jQuery( function ($) {
 
     $( '.uploadbutton' ).attr( 'disabled', $( '.filename' ).attr( 'disabled' ) );
 
-    if ( '<?php echo $continue_operation ?>' == '<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>' ) {
+    if ( '<?php echo $continue_operation ?>' === '<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>' ) {
         endDownload();
     }
     function createExampleClick() {
@@ -55,7 +55,7 @@ jQuery( function ($) {
             var fileNoExists = true;
             var newFileName = $( '.file_new_name' ).val() + '.' + fileExtension;
             $( '.filename option' ).each( function ( index, element ) {
-                if ( $( element ).text() == newFileName ) {
+                if ( $( element ).text() === newFileName ) {
                     $( '.existtext' ).text( 'File ' + newFileName + ' already exists.' );
                     $( '.existtext' ).show();
                     fileNoExists = false;

@@ -1,6 +1,6 @@
 jQuery(function ($) {
     $.get( "createexample.php", function ( createExample ) {
-        if (createExample == 1) {
+        if (createExample === 1) {
             $( '#create_example' ).attr( 'style', 'float:right' );
         }
         else {
@@ -20,7 +20,7 @@ jQuery(function ($) {
             var shortcode = '[';
             $( 'form .sclapi-container' ).find( 'input:not(:disabled), select:not(:disabled)' ).each( function () {
                 var attName = $( this ).attr( 'name' ), attValue = $( this ).val(), attResult = '';
-                if ( attName == 'exportgridlines' ) {
+                if ( attName === 'exportgridlines' ) {
                     if ( $( this ).prop( 'checked' ) ) {
                         attValue = 'true';
                     }
@@ -31,7 +31,7 @@ jQuery(function ($) {
                 if ( attValue != undefined && attValue.length != 0 && attName != 'shortcode' ) {
                     attResult = attName + '="' + attValue + '" ';
                 }
-                if ( attName == 'shortcode' ) {
+                if ( attName === 'shortcode' ) {
                     if ( shortcode.length > 1 ) {
                         shortcode += ']<br />[';
                     }
@@ -69,7 +69,7 @@ jQuery(function ($) {
         CommandChangeCore( command );
     }
     function CommandChangeCore( command ) {
-        disableCommandParameters( command.closest( 'fieldset' ), command.val() == 'GetHTMLRange' );
+        disableCommandParameters( command.closest( 'fieldset' ), command.val() === 'GetHTMLRange' );
     }
     function disableCommandParameters( form, disabled ) {
         form.find( '.exportgridlines' ).attr( 'disabled', !disabled );
@@ -84,7 +84,7 @@ jQuery(function ($) {
     function exampleCommandChangeCore( command ) {
         CommandChangeCore( command );
         var sheetindex = command.closest( 'fieldset' ).find( '.sheetindex' );
-        if ( command.val() == 'GetHTMLRange' ) {
+        if ( command.val() === 'GetHTMLRange' ) {
             sheetindex.val(0);
         }
         else {
