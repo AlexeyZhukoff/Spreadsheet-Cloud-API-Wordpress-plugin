@@ -52,6 +52,7 @@ jQuery(function ($) {
                 $( '.filename' ).replaceWith( '<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>' );
                 $( '.range' ).attr( 'value', 'A1:E7' );
                 $( '.sheet-index' ).attr( 'readonly', true );
+                $( '.sheet-index' ).val(0);
                 $( '.sheet-name' ).attr( 'readonly', true );
                 $( '.object-index' ).attr( 'readonly', true );
                 $( '.picture-type' ).attr( 'readonly', true );
