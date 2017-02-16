@@ -5,7 +5,7 @@ fieldset {
     overflow: hidden;
     font-size: 10pt;
 }
-legend.parametersheader {
+.parameters-header {
     font-size: 10pt;
 }
 fieldset hr {
@@ -13,17 +13,18 @@ fieldset hr {
     height: 1px;
     background: #dfdfdf;
 }
-fieldset input, select {
+fieldset input, 
+select {
     float: right;
     font-size: 10pt;
     width: 210px;
 }
-input.exportgridlines {
+.export-gridlines {
     float: left;
     width: 20px;
     margin-top: 10px;
 }
-span.htmspan{
+.htm-span{
     float:  left;
     margin-left: 10px;
 }
@@ -32,18 +33,20 @@ fieldset span {
     font-size: 10pt;
     width: 125px;
 }
-#cancel_button, #create_example {
+#cancel-button, 
+#create-example {
     font-size: 10pt;
     background: #cfcfcf;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
     border-color: #b0b0b0;
     width: auto;
 }
-#cancel_button:hover, #create_example:hover {
+#cancel-button:hover, 
+#create-example:hover {
     background: #a4a4a4;
     color: #fff;
 }
-#insert_button {
+#insert-button {
     font-size: 10pt;
     background: #2ea2cc;
     box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
@@ -52,6 +55,6 @@ fieldset span {
     width: auto;
     margin-right: 6px;
 }
-#insert_button:hover {
+#insert-button:hover {
     background: #1e8cbe;
 }

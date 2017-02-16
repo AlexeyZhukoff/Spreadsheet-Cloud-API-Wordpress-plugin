@@ -8,7 +8,7 @@ function mt_options_page() {
     $API_key_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $opt_create_example =  get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::SHOW_CREATE_EXAMPLE ];
-    $file_operation = $_POST['my_file_operation'];
+    $file_operation = $_POST['my-file-operation'];
 
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
@@ -115,7 +115,7 @@ function download_file() {
 }
 function upload_file() {
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
-    $file = &$_FILES['my_file_upload'];
+    $file = &$_FILES['my-file-upload'];
     if ( ! empty( $file['name'] ) ) {
         $upload_response = Spreadsheet_Cloud_API_Actions::upload_file( $file );
         if ( $upload_response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {

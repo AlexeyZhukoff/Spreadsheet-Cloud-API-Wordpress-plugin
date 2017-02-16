@@ -1,10 +1,10 @@
 jQuery(function ($) {
     $.get( "createexample.php", function ( createExample ) {
         if (createExample === 1) {
-            $( '#create_example' ).attr( 'style', 'float:right' );
+            $( '#create-example' ).attr( 'style', 'float:right' );
         }
         else {
-            $( '#create_example' ).attr( 'style', 'display:none' );
+            $( '#create-example' ).attr( 'style', 'display:none' );
         }
     } )
 
@@ -16,7 +16,7 @@ jQuery(function ($) {
     $( 'body' ).on( 'change', '.command', commandChange );
 
     $( document ).ready( function () {
-        $( '#insert_button' ).click(function () {
+        $( '#insert-button' ).click(function () {
             var shortcode = '[';
             $( 'form .sclapi-container' ).find( 'input:not(:disabled), select:not(:disabled)' ).each( function () {
                 var attName = $( this ).attr( 'name' ), attValue = $( this ).val(), attResult = '';
@@ -45,9 +45,9 @@ jQuery(function ($) {
             tinyMCEPopup.close();
         } )
 
-        $( '#create_example' ).click( function () {
-            if ($( '.parametersheader' ).text() != 'Test shortcode parameters' ) {
-                $( '.parametersheader' ).text( 'Test shortcode parameters' );
+        $( '#create-example' ).click( function () {
+            if ($( '.parameters-header' ).text() != 'Test shortcode parameters' ) {
+                $( '.parameters-header' ).text( 'Test shortcode parameters' );
                 $( '.shortcode' ).attr( 'value', 'sclapiexample ' );
                 $( '.filename' ).replaceWith( '<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>' );
                 $( '.range' ).attr( ' value', 'A1:E7' );
@@ -60,7 +60,7 @@ jQuery(function ($) {
             }
         } )
 
-        $( '#cancel_button' ).click( function () {
+        $( '#cancel-button' ).click( function () {
             tinyMCEPopup.close();
         } )
     } )
@@ -72,7 +72,7 @@ jQuery(function ($) {
         disableCommandParameters( command.closest( 'fieldset' ), command.val() === 'GetHTMLRange' );
     }
     function disableCommandParameters( form, disabled ) {
-        form.find( '.exportgridlines' ).attr( 'disabled', !disabled );
+        form.find( '.export-gridlines' ).attr( 'disabled', !disabled );
         form.find( '.objectindex' ).attr( 'disabled', disabled );
         form.find( '.picturetype' ).attr( 'disabled', disabled );
         form.find( '.height' ).attr( 'disabled', disabled );

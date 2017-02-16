@@ -1,67 +1,67 @@
 <div class="wrap">
     <style>
-        div.optionsmanager{
+        .options-manager {
             float: left;
             width: 372px;
             line-height: 30px;
         }
-        div.filemanager{
-            float: left;
-        }
-        div.optionsmanagerdescription1, div.optionsmanagerdescription2 {
+        .options-manager-description1, 
+        .options-manager-description2 {
             width: 600px;
             margin-left: 450px;
         }
-        div.optionsmanagerdescription2 {
+        .options-manager-description2 {
             height: 60px;
         }
-        div.filemanagerdescription{
+        .file-manager {
+            float: left;
+        }
+        .file-manager-description {
             width: 600px;
             margin-left: 450px;
             margin-top: 34px;
         }
-        
-        input.getnewapikey{
+        .get-new-api-key {
             float:  left;
         }
-        input.apikeyfield{
+        .api-key-field {
             float: right;
             width: 310px;
         }
-        input.showcreateexample{
+        .show-create-example {
             vertical-align: top;
             margin-top: 7px; 
         }
-        input.updateoptions {
+        .update-options {
             float: right;
             margin-right: 28px;
         }
-        input.filemanagerbutton {
+        .file-manager-button {
             padding-left: 22px!important;
             padding-right: 21px!important;
         }
-        input.deletebutton {
+        .delete-button {
             padding-left: 21px!important;
         }
-        input.file_input_text{
+        .file-input-text {
             display: none;
         }
-        label.existtext{
+        .exist-text {
             color:#f00;
             display:none;
         }
-        span.filemanagerheader{
+        .file-manager-header {
              font-size: 12pt;
         }
-        span.createexamplespan{
+        .create-example-span {
             cursor: pointer;
         }
-        select.filename{
+        .filename {
             margin-top: 10px;
-            height: 200px; 
+            height: 200px!important; 
             width: 372px;
         }
-        h1{
+        h1 {
             font-size: 16pt!important;
         }
     </style>
@@ -69,39 +69,39 @@
     <br />
     <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>">
         <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
-        <div class="optionsmanager">
+        <div class="options-manager">
             <?php echo $options_API_key; ?> 
-            <input type="text" class="apikeyfield" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $create_example; ?> />
-            <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
-            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
-            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
+            <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
+            <input type="checkbox" class="show-create-example" name="showcreateexample" <?php echo $create_example; ?> />
+            <span class="create-example-span">Show “Test parameters” button in generator</span><br />
+            <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
+            <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>
-        <div class="optionsmanagerdescription1" <?php echo $unhave_API_key; ?>>
+        <div class="options-manager-description1" <?php echo $unhave_API_key; ?>>
             SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
         </div>
-        <div class="optionsmanagerdescription2" <?php echo $have_API_key; ?>>
+        <div class="options-manager-description2" <?php echo $have_API_key; ?>>
             The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
         <br /><br />
         <hr <?php echo $have_API_key; ?> />
-        <div class="filemanager" <?php echo $have_API_key; ?>>
-            <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
-            <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
+        <div class="file-manager" <?php echo $have_API_key; ?>>
+            <input class="my-file-operation" type="hidden" name="my-file-operation" value="">
+            <span class="file-manager-header">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $service_file_list; ?><br />
-            <input class="file_input_text" type="file" name="my_file_upload">
-            <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo File_Operations::UPLOAD; ?>" />
-            <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo File_Operations::DOWNLOAD; ?>" disabled="disabled" />
-            <input class="filemanagerbutton renamebutton button" type="button" value="<?php echo File_Operations::RENAME; ?>" disabled="disabled" />
-            <input class="filemanagerbutton deletebutton button" type="button"  value="<?php echo File_Operations::DELETE; ?>" disabled="disabled" />
+            <input class="file-input-text" type="file" name="my-file-upload">
+            <input class="file-manager-button upload-button button" type="button" value="<?php echo File_Operations::UPLOAD; ?>" />
+            <input class="file-manager-button download-button button" type="button" value="<?php echo File_Operations::DOWNLOAD; ?>" disabled="disabled" />
+            <input class="file-manager-button rename-button button" type="button" value="<?php echo File_Operations::RENAME; ?>" disabled="disabled" />
+            <input class="file-manager-button delete-button button" type="button"  value="<?php echo File_Operations::DELETE; ?>" disabled="disabled" />
             <dialog class="renamedialog">
-                <label class="existtext">File with this name already exists.</label><br />
-                <input class="file_new_name" type="text" name="newfilename">
+                <label class="exist-text">File with this name already exists.</label><br />
+                <input class="file-new-name" type="text" name="newfilename">
                 <button class="closedg">Rename</button>
                 <button class="canceldg">Cancel</button>
             </dialog>
         </div>
-        <div class="filemanagerdescription" <?php echo $have_API_key; ?>>
+        <div class="file-manager-description" <?php echo $have_API_key; ?>>
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
     </form>
