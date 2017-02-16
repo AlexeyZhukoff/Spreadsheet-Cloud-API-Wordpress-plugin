@@ -137,7 +137,7 @@ class Spreadsheet_Cloud_API_Actions {
     function get_image( $atts ) {
         $style = self::get_image_style( $atts );
         $imgBytes = self::get_image_bytes( $atts );
-        return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."'/>";
+        return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."' />";
     }
     function get_image_bytes( $atts ) {
         $params = self::extract_get_image_parameters( $atts );

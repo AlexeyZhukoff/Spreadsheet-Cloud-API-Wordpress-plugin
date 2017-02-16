@@ -74,8 +74,8 @@
             <input type="text" class="apikeyfield" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
             <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $create_example; ?> />
             <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
-            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?>/>
-            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled"/>
+            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
+            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>
         <div class="optionsmanagerdescription1" <?php echo $unhave_API_key; ?>>
             SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
@@ -106,6 +106,6 @@
         </div>
     </form>
     <script type="text/javascript">
-        <?php include (SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.js'); ?>
+        <?php include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.js' ); ?>
     </script>
 </div>
