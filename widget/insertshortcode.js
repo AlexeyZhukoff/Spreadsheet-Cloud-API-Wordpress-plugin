@@ -27,5 +27,5 @@
         }
     });
      
-    tinymce.PluginManager.add( "sclapi_insert_shortcode",tinymce.plugins.SclapiInsertShortcode )
+    tinymce.PluginManager.add( "sclapi_insert_shortcode", tinymce.plugins.SclapiInsertShortcode )
 } )();

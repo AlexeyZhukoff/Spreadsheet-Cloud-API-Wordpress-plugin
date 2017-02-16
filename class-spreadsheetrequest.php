@@ -116,10 +116,13 @@ class Spreadsheet_Request {
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_POSTFIELDS => $json
         ]);
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
+        try {
+            $response = curl_exec( $request );
+            $info = curl_getinfo( $request );
+            curl_close( $request );
+        } catch ( Exception $e ) {
+            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+        }
 
         return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
@@ -141,10 +144,13 @@ class Spreadsheet_Request {
             CURLOPT_FOLLOWLOCATION => true
         ]);
 
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
+        try {
+            $response = curl_exec( $request );
+            $info = curl_getinfo( $request );
+            curl_close( $request );
+        } catch ( Exception $e ) {
+            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+        }
 
         return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
@@ -166,10 +172,13 @@ class Spreadsheet_Request {
             CURLOPT_FOLLOWLOCATION => true
         ]);
 
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
+        try {
+            $response = curl_exec( $request );
+            $info = curl_getinfo( $request );
+            curl_close( $request );
+        } catch ( Exception $e ) {
+            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+        }
         
         return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
@@ -188,10 +197,13 @@ class Spreadsheet_Request {
             CURLOPT_AUTOREFERER => true
         ]);
 
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
+        try {
+            $response = curl_exec( $request );
+            $info = curl_getinfo( $request );
+            curl_close( $request );
+        } catch ( Exception $e ) {
+            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+        }
         
         return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
@@ -207,10 +219,13 @@ class Spreadsheet_Request {
             CURLOPT_AUTOREFERER => true
         ]);
 
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
+        try {
+            $response = curl_exec( $request );
+            $info = curl_getinfo( $request );
+            curl_close( $request );
+        } catch ( Exception $e ) {
+            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+        }
         
         return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
     }
