@@ -1,8 +1,8 @@
 (function(){
-    tinymce.create("tinymce.plugins.SclapiInsertShortcode",{
-        init:function(a, b){
-            a.addCommand("sclapiInsert", function(){
-                a.windowManager.open({
+    tinymce.create( "tinymce.plugins.SclapiInsertShortcode", {
+        init:function( a, b ){
+            a.addCommand( "sclapiInsert", function() {
+                a.windowManager.open( {
                     file: b + "/generatorform.html",
                     width: 420,
                     height: 356,
@@ -10,14 +10,14 @@
                 })
             });
            
-            a.addButton("sclapi_insert_shortcode",{
+            a.addButton( "sclapi_insert_shortcode", {
                 title: "Generate SCLAPI shortcode",
                 cmd: "sclapiInsert",
                 image: b + "/images/icon.png"
             });
         },
  
-        getInfo:function(){
+        getInfo:function() {
             return{
                 longname:"Insert SCLAPI shortcode",
                 author:"sclapi",
@@ -27,5 +27,5 @@
         }
     });
      
-    tinymce.PluginManager.add("sclapi_insert_shortcode",tinymce.plugins.SclapiInsertShortcode)
-})();
+    tinymce.PluginManager.add( "sclapi_insert_shortcode",tinymce.plugins.SclapiInsertShortcode )
+} )();
