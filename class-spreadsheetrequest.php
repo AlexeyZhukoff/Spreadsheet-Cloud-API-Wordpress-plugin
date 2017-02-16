@@ -152,8 +152,8 @@ class Spreadsheet_Request {
         if ( empty( $params ) )
             return null;
 
-        $filename = "=".$params["filename"];
-        $header = self::generate_header( strlen( $filename ), 'application/x-www-form-urlencoded' );
+        $file_name = "=".$params["filename"];
+        $header = self::generate_header( strlen( $file_name ), 'application/x-www-form-urlencoded' );
         
         $request = curl_init();
 
@@ -162,7 +162,7 @@ class Spreadsheet_Request {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => $header,
             CURLOPT_CUSTOMREQUEST => "DELETE",
-            CURLOPT_POSTFIELDS => $filename,
+            CURLOPT_POSTFIELDS => $file_name,
             CURLOPT_FOLLOWLOCATION => true
         ]);
 

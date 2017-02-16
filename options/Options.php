@@ -8,15 +8,15 @@ function mt_options_page() {
     $apikey_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $opt_create_example =  get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::SHOW_CREATE_EXAMPLE ];
-    $fileoperation = $_POST['my_file_operation'];
+    $file_operation = $_POST['my_file_operation'];
 
     //echo '<pre>'.print_r($_POST,1).'</pre>';
     //echo '<pre>'.print_r($_FILES,1).'</pre>';
     //echo '<pre>'.print_r($options,1).'</pre>';
 
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-    if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $fileoperation ) ) {
-        $needsaveoption = TRUE;
+    if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $file_operation ) ) {
+        $need_save_option = TRUE;
         if ( $opt_create_example != ( $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ]=='on' ) ) {
             $opt_create_example = $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ]=='on';
             $options[ Plugin_Const::SHOW_CREATE_EXAMPLE ] = $opt_create_example;
@@ -29,10 +29,10 @@ function mt_options_page() {
             }
             else {
                 show_header_message( $response[ Plugin_Const::RESPONSE_DATA ] );
-                $needsaveoption = FALSE;
+                $need_save_option = FALSE;
             }
         }
-        if ( $needsaveoption ) {
+        if ( $need_save_option ) {
             $opt_api_key = $_POST[ $apikey_field_name ];
             $options[ Plugin_Const::API_KEY ] = $opt_api_key;
             
@@ -46,10 +46,10 @@ function mt_options_page() {
         }
     }
     
-    $continueoperation = '';
-    $downloadfilebits = '';
-    if ( ! empty( $fileoperation ) ) {
-        switch ( $fileoperation ) {
+    $continue_operation = '';
+    $download_file_bits = '';
+    if ( ! empty( $file_operation ) ) {
+        switch ( $file_operation ) {
             case File_Operations::UPLOAD:
                 upload_file();
                 break;
@@ -60,10 +60,10 @@ function mt_options_page() {
                 rename_file();
                 break;
             case File_Operations::DOWNLOAD:
-                $downloadresponse = download_file();
-                if ( $downloadresponse[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-                    $continueoperation = File_Operations::CONTINUE_DOWNLOAD;
-                    $downloadfilebits = base64_encode( $downloadresponse[ Plugin_Const::RESPONSE_DATA ] );
+                $download_response = download_file();
+                if ( $download_response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
+                    $continue_operation = File_Operations::CONTINUE_DOWNLOAD;
+                    $download_file_bits = base64_encode( $download_response[ Plugin_Const::RESPONSE_DATA ] );
                 }
                 break;
             default:
@@ -71,41 +71,41 @@ function mt_options_page() {
         };
     }
 
-    $createexample = '';
+    $create_example = '';
     if ( $opt_create_example ) {
-        $createexample = 'checked="checked"';
+        $create_example = 'checked="checked"';
     }
-    show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfilebits, $_POST['filename'], $createexample );
+    show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $create_example );
 }
 function get_newapikey() {
-    $useremail = wp_get_current_user()->user_email;
-    return Spreadsheet_Request::generate_new_API_key( $useremail );
+    $user_email = wp_get_current_user()->user_email;
+    return Spreadsheet_Request::generate_new_API_key( $user_email );
 }
 function rename_file() {
-    $filename = $_POST['filename'];
-    $newfilename = $_POST['newfilename'];
-    if ( empty( $filename ) ) {
+    $file_name = $_POST['filename'];
+    $new_file_name = $_POST['newfilename'];
+    if ( empty( $file_name ) ) {
         show_header_message( Header_Messages::SELECT_RENAME );
         return;
     }
-    $filerenamed = Spreadsheet_Cloud_API_Actions::rename_file( $filename, $newfilename );
-    if ( $filerenamed[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-        show_header_message( sprintf(Header_Messages::FILE_RENAMED, $filename, $newfilename) );
+    $file_renamed = Spreadsheet_Cloud_API_Actions::rename_file( $file_name, $new_file_name );
+    if ( $file_renamed[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
+        show_header_message( sprintf(Header_Messages::FILE_RENAMED, $file_name, $new_file_name) );
     }
     else {
-        show_header_message( $filerenamed[ Plugin_Const::RESPONSE_DATA ] );
+        show_header_message( $file_renamed[ Plugin_Const::RESPONSE_DATA ] );
     }
 }
 function download_file() {
-    $filename = $_POST['filename'];
-    if ( ! empty( $filename ) ) {
-        $downloadresponse = Spreadsheet_Cloud_API_Actions::download_file( $filename );
-        if ( $downloadresponse[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-            show_header_message( sprintf(Header_Messages::FILE_DOWNLOADED, $filename) );
-            return $downloadresponse;
+    $file_name = $_POST['filename'];
+    if ( ! empty( $file_name ) ) {
+        $download_response = Spreadsheet_Cloud_API_Actions::download_file( $file_name );
+        if ( $download_response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
+            show_header_message( sprintf(Header_Messages::FILE_DOWNLOADED, $file_name) );
+            return $download_response;
         }
         else {
-            show_header_message( $downloadresponse[ Plugin_Const::RESPONSE_DATA ] );
+            show_header_message( $download_response[ Plugin_Const::RESPONSE_DATA ] );
         }
         update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
     }
@@ -117,12 +117,12 @@ function upload_file() {
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
     $file = &$_FILES['my_file_upload'];
     if ( ! empty( $file['name'] ) ) {
-        $uploadresponse = Spreadsheet_Cloud_API_Actions::upload_file( $file );
-        if ( $uploadresponse[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
+        $upload_response = Spreadsheet_Cloud_API_Actions::upload_file( $file );
+        if ( $upload_response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
             show_header_message( sprintf( Header_Messages::FILE_UPLOADED, $file['name'] ) );
         }
         else {
-            show_header_message( $uploadresponse[ Plugin_Const::RESPONSE_DATA ] );
+            show_header_message( $upload_response[ Plugin_Const::RESPONSE_DATA ] );
         }
         update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
     }
@@ -131,15 +131,15 @@ function upload_file() {
     }
 }
 function delete_file() {
-    $filename = $_POST['filename'];
-    if ( ! empty( $filename ) ) {
-        $filedeleted = Spreadsheet_Cloud_API_Actions::delete_file( $filename );
-        if ( $filedeleted[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-            show_header_message( sprintf( Header_Messages::FILE_DELETED, $filename ) );
+    $file_name = $_POST['filename'];
+    if ( ! empty( $file_name ) ) {
+        $file_deleted = Spreadsheet_Cloud_API_Actions::delete_file( $file_name );
+        if ( $file_deleted[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
+            show_header_message( sprintf( Header_Messages::FILE_DELETED, $file_name ) );
             update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
         }
         else {
-            show_header_message( $filedeleted[ Plugin_Const::RESPONSE_DATA ] );
+            show_header_message( $file_deleted[ Plugin_Const::RESPONSE_DATA ] );
         }
     }
     else {
@@ -147,9 +147,9 @@ function delete_file() {
     }
 }
 
-function update_sclapi_option( $optionkey, $optionvalue ) {
+function update_sclapi_option( $option_key, $option_value ) {
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-    $options[ $optionkey ] = $optionvalue;
+    $options[ $option_key ] = $option_value;
     update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
 }
 
@@ -158,18 +158,18 @@ function show_header_message( $message ) {
     _e( $message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continueoperation, $downloadfile, $filename, $createexample ) {
-    $haveapikey = '';
-    $unhaveapikey = 'style="display: none"';
+function show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $create_example ) {
+    $have_API_key = '';
+    $unhave_API_key = 'style="display: none"';
     if ( empty( $opt_api_key ) ) {
-        $haveapikey = 'style="display: none"';
-        $unhaveapikey = '';
+        $have_API_key = 'style="display: none"';
+        $unhave_API_key = '';
     }
-    $optionsheader = __( 'SpreadsheetCloudAPI Plugin Options', 'mt_trans_domain' );
-    $optionsaction = str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] );
-    $optionsapikey = __( "API Key:", Plugin_Const::API_KEY );
-    $optionsupdate = __( 'Update', 'mt_trans_domain' );
-    $servicefilelist = Spreadsheet_Cloud_API_Actions::get_files_list(3);
+    $options_header = __( 'SpreadsheetCloudAPI Plugin Options', 'mt_trans_domain' );
+    $options_action = str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] );
+    $options_API_key = __( "API Key:", Plugin_Const::API_KEY );
+    $options_update = __( 'Update', 'mt_trans_domain' );
+    $service_file_list = Spreadsheet_Cloud_API_Actions::get_files_list(3);
     include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.html' );
 }
 ?>

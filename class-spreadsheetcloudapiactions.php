@@ -71,18 +71,18 @@ class Spreadsheet_Cloud_API_Actions {
     public function upload_file( $file ) {
         return Spreadsheet_Request::upload_file( $file );
     }
-    public function download_file( $filename ) {
-        $params = array( Parameters::FILE_NAME => $filename );
-        $downloadresponse = Spreadsheet_Request::download_file( $params );
-        return $downloadresponse;
+    public function download_file( $file_name ) {
+        $params = array( Parameters::FILE_NAME => $file_name );
+        $download_response = Spreadsheet_Request::download_file( $params );
+        return $download_response;
     }
-    public function delete_file( $filename ) {
-        $params = array( Parameters::FILE_NAME => $filename );
+    public function delete_file( $file_name ) {
+        $params = array( Parameters::FILE_NAME => $file_name );
         return Spreadsheet_Request::delete_file( $params );
     }
-    public function rename_file( $filename, $newfilename ) {
-        $params = array( Parameters::FILE_NAME => $filename,
-        Parameters::NEW_FILE_NAME => $newfilename, );
+    public function rename_file( $file_name, $new_file_name ) {
+        $params = array( Parameters::FILE_NAME => $file_name,
+        Parameters::NEW_FILE_NAME => $new_file_name, );
         return Spreadsheet_Request::rename_file( $params );
     }
 

@@ -11,7 +11,7 @@ jQuery(function ($) {
 
     $('.uploadbutton').attr('disabled', $('.filename').attr('disabled'));
 
-    if ("<?php echo $continueoperation ?>" == "<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>") {
+    if ("<?php echo $continue_operation ?>" == "<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>") {
         enddownload();
     }
     function createexampleclick() {
@@ -85,8 +85,8 @@ jQuery(function ($) {
     }
     function enddownload() {
         var element = document.createElement('a');
-        element.setAttribute('href', 'data:application/octet-stream; charset=utf-8; base64,' + '<?php echo $downloadfile; ?>');
-        element.setAttribute('download', "<?php echo $filename; ?>");
+        element.setAttribute('href', 'data:application/octet-stream; charset=utf-8; base64,' + '<?php echo $download_file; ?>');
+        element.setAttribute('download', "<?php echo $file_name; ?>");
         element.click();
         document.body.removeChild(element);
     }

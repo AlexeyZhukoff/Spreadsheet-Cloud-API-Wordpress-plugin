@@ -65,30 +65,30 @@
             font-size: 16pt!important;
         }
     </style>
-    <h1> <?php echo $optionsheader; ?> </h1>
+    <h1> <?php echo $options_header; ?> </h1>
     <br />
-    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $optionsaction; ?>">
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>">
         <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
         <div class="optionsmanager">
-            <?php echo $optionsapikey; ?> 
+            <?php echo $options_API_key; ?> 
             <input type="text" class="apikeyfield" name="<?php echo $apikey_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
-            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $createexample; ?> />
+            <input type="checkbox" class="showcreateexample" name="showcreateexample" <?php echo $create_example; ?> />
             <span class="createexamplespan">Show “Test parameters” button in generator</span><br />
-            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhaveapikey; ?>/>
-            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $optionsupdate; ?>" disabled="disabled"/>
+            <input type="submit" class="getnewapikey button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?>/>
+            <input type="submit" class="updateoptions button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled"/>
         </div>
-        <div class="optionsmanagerdescription1" <?php echo $unhaveapikey; ?>>
+        <div class="optionsmanagerdescription1" <?php echo $unhave_API_key; ?>>
             SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
         </div>
-        <div class="optionsmanagerdescription2" <?php echo $haveapikey; ?>>
+        <div class="optionsmanagerdescription2" <?php echo $have_API_key; ?>>
             The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
         <br /><br />
-        <hr <?php echo $haveapikey; ?> />
-        <div class="filemanager" <?php echo $haveapikey; ?>>
+        <hr <?php echo $have_API_key; ?> />
+        <div class="filemanager" <?php echo $have_API_key; ?>>
             <input class="my_file_operation" type="hidden" name="my_file_operation" value="">
             <span class="filemanagerheader">SpreadsheetCloudAPI Service file manager</span><br />
-            <?php echo $servicefilelist; ?><br />
+            <?php echo $service_file_list; ?><br />
             <input class="file_input_text" type="file" name="my_file_upload">
             <input class="filemanagerbutton uploadbutton button" type="button" value="<?php echo File_Operations::UPLOAD; ?>" />
             <input class="filemanagerbutton downloadbutton button" type="button" value="<?php echo File_Operations::DOWNLOAD; ?>" disabled="disabled" />
@@ -101,7 +101,7 @@
                 <button class="canceldg">Cancel</button>
             </dialog>
         </div>
-        <div class="filemanagerdescription" <?php echo $haveapikey; ?>>
+        <div class="filemanagerdescription" <?php echo $have_API_key; ?>>
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
     </form>
