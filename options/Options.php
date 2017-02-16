@@ -5,7 +5,7 @@ function mt_add_pages() {
 
 function mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
-    $apikey_field_name = Plugin_Const::API_KEY;
+    $API_key_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $opt_create_example =  get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::SHOW_CREATE_EXAMPLE ];
     $file_operation = $_POST['my_file_operation'];
@@ -22,10 +22,10 @@ function mt_options_page() {
             $options[ Plugin_Const::SHOW_CREATE_EXAMPLE ] = $opt_create_example;
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
-        if ( ! empty( $_POST[ Plugin_Const::GET_NEW_API_KEY ] ) && empty( $_POST[ $apikey_field_name ] ) ) {
+        if ( ! empty( $_POST[ Plugin_Const::GET_NEW_API_KEY ] ) && empty( $_POST[ $API_key_field_name ] ) ) {
             $response = get_newapikey();
             if ( $response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-                $_POST[ $apikey_field_name ] = base64_decode( $response[ Plugin_Const::RESPONSE_DATA ] );
+                $_POST[ $API_key_field_name ] = base64_decode( $response[ Plugin_Const::RESPONSE_DATA ] );
             }
             else {
                 show_header_message( $response[ Plugin_Const::RESPONSE_DATA ] );
@@ -33,7 +33,7 @@ function mt_options_page() {
             }
         }
         if ( $need_save_option ) {
-            $opt_api_key = $_POST[ $apikey_field_name ];
+            $opt_api_key = $_POST[ $API_key_field_name ];
             $options[ Plugin_Const::API_KEY ] = $opt_api_key;
             
             if ( ! empty( $opt_api_key ) ) {
@@ -75,7 +75,7 @@ function mt_options_page() {
     if ( $opt_create_example ) {
         $create_example = 'checked="checked"';
     }
-    show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $create_example );
+    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $create_example );
 }
 function get_newapikey() {
     $user_email = wp_get_current_user()->user_email;
@@ -158,7 +158,7 @@ function show_header_message( $message ) {
     _e( $message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form( $hidden_field_name, $apikey_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $create_example ) {
+function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $create_example ) {
     $have_API_key = '';
     $unhave_API_key = 'style="display: none"';
     if ( empty( $opt_api_key ) ) {

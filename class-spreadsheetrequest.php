@@ -39,10 +39,10 @@ class Spreadsheet_Request {
             return;
         $request = curl_init();
         
-        $arF = array();
-        $arF[ $file['name'] ] = $file['tmp_name'];
+        $file_array = array();
+        $file_array[ $file['name'] ] = $file['tmp_name'];
         
-        self::curl_custom_postfields( $request, array(), $arF ); 
+        self::curl_custom_postfields( $request, array(), $file_array ); 
         curl_setopt(
             $request,
             CURLOPT_URL,
@@ -77,24 +77,24 @@ class Spreadsheet_Request {
 
     #region Helper
     private static function get_API_key() {
-        $actiontype = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::ACTION_TYPE ];
-        if ( $actiontype == Plugin_Const::EXAMPLE_ACTION_TYPE ) {
+        $action_type = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::ACTION_TYPE ];
+        if ( $action_type == Plugin_Const::EXAMPLE_ACTION_TYPE ) {
             return self::EXAMPLE_API_KEY;  
         }
         return get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     }
-    private static function generate_header( $contentlength, $contenttype ) {
-        $apiKey = self::get_API_key();
+    private static function generate_header( $content_length, $content_type ) {
+        $API_key = self::get_API_key();
 
-        if ( is_null( $contenttype ) )
-            $contenttype = 'application/json';
+        if ( is_null( $content_type ) )
+            $content_type = 'application/json';
 
         $header = [
-            'Content-type: '.$contenttype,
-            'Authorization: '.self::SCHEME.' '.$apiKey,
+            'Content-type: '.$content_type,
+            'Authorization: '.self::SCHEME.' '.$API_key,
         ];
-        if ( ! empty( $contentlength ) || ! is_null( $contentlength ) ) {
-            $header[] = 'Content-Length: '.$contentlength;
+        if ( ! empty( $content_length ) || ! is_null( $content_length ) ) {
+            $header[] = 'Content-Length: '.$content_length;
         }        
         return $header;
     }

@@ -18,10 +18,10 @@ class Spreadsheet_Cloud_API_Actions {
     private static function bail_on_activation( $message, $deactivate = true ) {
 		if ( $deactivate ) {
 			$plugins = get_option( 'active_plugins' );
-			$SpreadsheetCloudAPI = plugin_basename( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'spreadsheetcloudapi.php' );
+			$spreadsheet_cloud_API = plugin_basename( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'spreadsheetcloudapi.php' );
 			$update  = false;
 			foreach ( $plugins as $i => $plugin ) {
-				if ( $plugin === $SpreadsheetCloudAPI ) {
+				if ( $plugin === $spreadsheet_cloud_API ) {
 					$plugins[$i] = false;
 					$update = true;
 				}
@@ -36,17 +36,17 @@ class Spreadsheet_Cloud_API_Actions {
 	}
    	public static function deactivate_key( $key ) {
 	}
-    public function GetAction ( $atts ) {
+    public function get_action ( $atts ) {
         $command = $atts[ Parameters::COMMAND ];
         switch ( $command ) {
             case Commands::GET_HTML_RANGE:
-                $response = self::GetHTMLRange( $atts );
+                $response = self::get_HTML_range( $atts );
                 break;
             case Commands::GET_IMAGE:
-                $response = self::GetImage( $atts );
+                $response = self::get_image( $atts );
                 break;
             case Commands::GET_IMAGE_BYTES:
-                $response = self::GetImageBytes( $atts );
+                $response = self::get_image_bytes( $atts );
                 break;
             default:
                 $response = 'Method error!';
@@ -54,13 +54,13 @@ class Spreadsheet_Cloud_API_Actions {
         };
         return $response;
     }
-    public function GetExampleAction ( $atts ) {
+    public function get_example_action ( $atts ) {
         $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
         
         $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::EXAMPLE_ACTION_TYPE;
         update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
 
-        $response = Spreadsheet_Cloud_API_Actions::GetAction( $atts );
+        $response = Spreadsheet_Cloud_API_Actions::get_action( $atts );
 
         $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::FULL_ACTION_TYPE;
         update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
@@ -86,15 +86,15 @@ class Spreadsheet_Cloud_API_Actions {
         return Spreadsheet_Request::rename_file( $params );
     }
 
-    function GetHTMLRange( $atts ) {
-        $params = self::ExtractGetHTMLRangeParams( $atts );
+    function get_HTML_range( $atts ) {
+        $params = self::extract_get_HTML_range_params( $atts );
         $output = Spreadsheet_Request::get_HTML( $params );
         if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
         } else
-            return self::FixHTMLStyle( $output[ Plugin_Const::RESPONSE_DATA ] );
+            return self::fix_HTML_style( $output[ Plugin_Const::RESPONSE_DATA ] );
     }
-    function FixHTMLStyle( $HtmlCode ) {
+    function fix_HTML_style( $HTML_code ) {
         $style = "<style>
         .initial-style table {
             border: initial;
@@ -105,9 +105,9 @@ class Spreadsheet_Cloud_API_Actions {
         }
         </style>
         <div class=\"";
-        return $style."initial-style \"".">".$HtmlCode."</div>";
+        return $style."initial-style \"".">".$HTML_code."</div>";
     }
-    function ExtractGetHTMLRangeParams( $atts ) {
+    function extract_get_HTML_range_params( $atts ) {
         extract(shortcode_atts(array(
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
@@ -134,13 +134,13 @@ class Spreadsheet_Cloud_API_Actions {
         return $params;
     }
 
-    function GetImage( $atts ) {
-        $style = self::GetImageStyle( $atts );
-        $imgBytes = self::GetImageBytes( $atts );
+    function get_image( $atts ) {
+        $style = self::get_image_style( $atts );
+        $imgBytes = self::get_image_bytes( $atts );
         return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."'/>";
     }
-    function GetImageBytes( $atts ) {
-        $params = self::ExtractGetImageParams( $atts );
+    function get_image_bytes( $atts ) {
+        $params = self::extract_get_image_parameters( $atts );
         $output = Spreadsheet_Request::get_pictures( $params );
         if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
@@ -150,7 +150,7 @@ class Spreadsheet_Cloud_API_Actions {
             return $response[0]['PictureBytes'];;
         }
     }
-    function GetImageStyle( $atts ) {
+    function get_image_style( $atts ) {
         $style = '';
         if ( $atts[Parameters::WIDTH]<>'' )
             $style = $style.Parameters::WIDTH.":".$atts[ Parameters::WIDTH ].";";
@@ -160,7 +160,7 @@ class Spreadsheet_Cloud_API_Actions {
             return "style=\"".$style;
         return '';
     }
-    function ExtractGetImageParams( $atts ) {
+    function extract_get_image_parameters( $atts ) {
         extract(shortcode_atts( array(
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
@@ -195,12 +195,12 @@ class Spreadsheet_Cloud_API_Actions {
         if ( $size == 1 )  {
             $result = '<span>File Name: </span>'.$result;
         }
-        $baseconnected = $output[ Plugin_Const::RESPONSE_STATUS ] == 200;
-        if ( ! $baseconnected ) {
+        $base_connected = $output[ Plugin_Const::RESPONSE_STATUS ] == 200;
+        if ( ! $base_connected ) {
             $result = $result.'disabled="disabled"';
         }
         $result = $result.'>';
-        if ( $baseconnected ) {
+        if ( $base_connected ) {
             $counter = 0;
             foreach( $response as $current ) {
                 if ( $counter == 0 && $size == 1 ) {
