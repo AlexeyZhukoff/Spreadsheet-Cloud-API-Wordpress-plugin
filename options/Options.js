@@ -72,6 +72,7 @@ jQuery(function ($) {
                 return;
             }
         });
+
         document.querySelector( '.canceldg' ).onclick = function () {
             dialog.close();
         };

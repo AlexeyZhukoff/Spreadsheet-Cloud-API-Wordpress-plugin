@@ -1,6 +1,6 @@
-(function(){
+(function() {
     tinymce.create( "tinymce.plugins.SclapiInsertShortcode", {
-        init:function( a, b ){
+        init:function( a, b ) {
             a.addCommand( "sclapiInsert", function() {
                 a.windowManager.open( {
                     file: b + "/generatorform.html",
