@@ -17,8 +17,8 @@ function mt_options_page() {
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
     if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $file_operation ) ) {
         $need_save_option = TRUE;
-        if ( $opt_create_example != ( $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ]=='on' ) ) {
-            $opt_create_example = $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ]=='on';
+        if ( $opt_create_example != ( $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ] == 'on' ) ) {
+            $opt_create_example = $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ] == 'on';
             $options[ Plugin_Const::SHOW_CREATE_EXAMPLE ] = $opt_create_example;
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }

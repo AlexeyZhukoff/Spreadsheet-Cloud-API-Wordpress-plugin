@@ -1,16 +1,16 @@
 jQuery(function ($) {
     $.get( "createexample.php", function ( createExample ) {
-        if (createExample === 1) {
-            $( '#create-example' ).attr( 'style', 'float:right' );
+        if ( createExample ) {
+            $( '#create-example-button' ).attr( 'style', 'float:right' );
         }
         else {
-            $( '#create-example' ).attr( 'style', 'display:none' );
+            $( '#create-example-button' ).attr( 'style', 'display:none' );
         }
     } )
 
     $.get( "getfilelist.php", function ( htmlFilesList ) {
         $( '.filelist' ).replaceWith( htmlFilesList );
-        CommandChangeCore( $( '.command' ) );
+        commandChangeCore( $( '.command' ) );
     } )
 
     $( 'body' ).on( 'change', '.command', commandChange );
@@ -45,16 +45,16 @@ jQuery(function ($) {
             tinyMCEPopup.close();
         } )
 
-        $( '#create-example' ).click( function () {
+        $( '#create-example-button' ).click( function () {
             if ($( '.parameters-header' ).text() != 'Test shortcode parameters' ) {
                 $( '.parameters-header' ).text( 'Test shortcode parameters' );
                 $( '.shortcode' ).attr( 'value', 'sclapiexample ' );
                 $( '.filename' ).replaceWith( '<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>' );
-                $( '.range' ).attr( ' value', 'A1:E7' );
-                $( '.sheetindex' ).attr( 'readonly', true );
-                $( '.sheetname' ).attr( 'readonly', true );
-                $( '.objectindex' ).attr( 'readonly', true );
-                $( '.picturetype' ).attr( 'readonly', true );
+                $( '.range' ).attr( 'value', 'A1:E7' );
+                $( '.sheet-index' ).attr( 'readonly', true );
+                $( '.sheet-name' ).attr( 'readonly', true );
+                $( '.object-index' ).attr( 'readonly', true );
+                $( '.picture-type' ).attr( 'readonly', true );
                 exampleCommandChangeCore( $( '.command' ) );
                 $( 'body' ).on( 'change', '.command', exampleCommandChange );
             }
@@ -66,15 +66,15 @@ jQuery(function ($) {
     } )
     function commandChange() {
         var command = $( this );
-        CommandChangeCore( command );
+        commandChangeCore( command );
     }
-    function CommandChangeCore( command ) {
+    function commandChangeCore( command ) {
         disableCommandParameters( command.closest( 'fieldset' ), command.val() === 'GetHTMLRange' );
     }
     function disableCommandParameters( form, disabled ) {
         form.find( '.export-gridlines' ).attr( 'disabled', !disabled );
-        form.find( '.objectindex' ).attr( 'disabled', disabled );
-        form.find( '.picturetype' ).attr( 'disabled', disabled );
+        form.find( '.object-index' ).attr( 'disabled', disabled );
+        form.find( '.picture-type' ).attr( 'disabled', disabled );
         form.find( '.height' ).attr( 'disabled', disabled );
         form.find( '.width' ).attr( 'disabled', disabled );
     }
@@ -82,8 +82,8 @@ jQuery(function ($) {
         exampleCommandChangeCore( $( this ) );
     }
     function exampleCommandChangeCore( command ) {
-        CommandChangeCore( command );
-        var sheetindex = command.closest( 'fieldset' ).find( '.sheetindex' );
+        commandChangeCore( command );
+        var sheetindex = command.closest( 'fieldset' ).find( '.sheet-index' );
         if ( command.val() === 'GetHTMLRange' ) {
             sheetindex.val(0);
         }

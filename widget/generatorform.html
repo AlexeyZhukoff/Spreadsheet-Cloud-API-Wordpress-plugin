@@ -14,19 +14,17 @@
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
                 <select class="filelist" name="filename"></select><br />
-                <span>Sheet Index:</span><input type="number" class="sheetindex" name="sheetindex" value="0" /><br />
-                <span>Sheet Name:</span><input type="text" class="sheetname" name="sheetname" /><br />
+                <span>Sheet Index:</span><input type="number" class="sheet-index" name="sheetindex" value="0" /><br />
+                <span>Sheet Name:</span><input type="text" class="sheet-name" name="sheetname" /><br />
                 <span>Range:</span><input type="text" class="range" name="range" /><br />
                 <hr />
                 <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Export Grid Lines</span><br />
                 <hr />
-                <span class="picspan">Object Index:</span><input type="number" class="objectindex" name="objectindex" value="0" /><br />
-                <span class="picspan">Picture Type:</span><select class="picturetype" name="picturetype"><option>picture</option><option>chart</option></select><br />
-                <!--<span class="picspan">Height:</span><input type="number" class="height" name="height" /><br />
-                <span class="picspan">Width:</span><input type="number" class="width" name="width" /><br />-->
+                <span class="picspan">Object Index:</span><input type="number" class="object-index" name="objectindex" value="0" /><br />
+                <span class="picspan">Picture Type:</span><select class="picture-type" name="picturetype"><option>picture</option><option>chart</option></select><br />
             </fieldset>
             <div>
-                <input type="button" class="button" id="create-example" name="create_example" title="Generates sclapi shortcode with test parameters" value="Test parameters" style="display:none" />
+                <input type="button" class="button" id="create-example-button" name="createexample" title="Generates sclapi shortcode with test parameters" value="Test parameters"  style="display:none" />
                 <input type="button" class="button" id="insert-button" name="insert" title="Generates a shortcode and inserts it into your post" value="Insert" style="float: left" />
                 <input type="button" class="button" id="cancel-button" name="cancel" value="Cancel" style="float: left" />
             </div>
