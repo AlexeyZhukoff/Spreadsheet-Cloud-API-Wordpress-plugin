@@ -72,8 +72,8 @@
         <div class="options-manager">
             <?php echo $options_API_key; ?> 
             <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
-            <input type="checkbox" class="show-create-example" name="showcreateexample" <?php echo $create_example; ?> />
-            <span class="create-example-span">Show “Test parameters” button in generator</span><br />
+            <!--<input type="checkbox" class="show-create-example" name="showcreateexample" <?php echo $create_example; ?> />
+            <span class="create-example-span">Show “Test parameters” button in generator</span><br />-->
             <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
             <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>
@@ -105,6 +105,7 @@
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
     </form>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <script type="text/javascript">
         <?php include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.js' ); ?>
     </script>

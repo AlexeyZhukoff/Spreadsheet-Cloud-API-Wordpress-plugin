@@ -2,7 +2,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>SpreadsheetCloudAPI shortcode generator</title>
-        <script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
+        <!--<script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>-->
         <script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
         <script type="text/javascript" src="generatorform.js"></script>
         <link rel="stylesheet" type="text/css" href="generatorform.css" />
@@ -18,13 +19,13 @@
                 <span>Sheet Name:</span><input type="text" class="sheet-name" name="sheetname" /><br />
                 <span>Range:</span><input type="text" class="range" name="range" /><br />
                 <hr />
-                <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Export Grid Lines</span><br />
+                <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Show Grid Lines</span><br />
                 <hr />
                 <span class="picspan">Object Index:</span><input type="number" class="object-index" name="objectindex" value="0" min="0" /><br />
-                <span class="picspan">Picture Type:</span><select class="picture-type" name="picturetype"><option>picture</option><option>chart</option></select><br />
+                <!--<span class="picspan">Picture Type:</span><select class="picture-type" name="picturetype"><option>picture</option><option>chart</option></select><br />-->
             </fieldset>
             <div>
-                <input type="button" class="button" id="create-example-button" name="createexample" title="Generates sclapi shortcode with test parameters" value="Test parameters"  style="display:none" />
+                <!--<input type="button" class="button" id="create-example-button" name="createexample" title="Generates sclapi shortcode with test parameters" value="Test parameters"  style="display:none" />-->
                 <input type="button" class="button" id="insert-button" name="insert" title="Generates a shortcode and inserts it into your post" value="Insert" style="float: left" />
                 <input type="button" class="button" id="cancel-button" name="cancel" value="Cancel" style="float: left" />
             </div>
