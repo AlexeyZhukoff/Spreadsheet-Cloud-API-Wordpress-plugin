@@ -28,10 +28,6 @@
             float: right;
             width: 310px;
         }
-        .show-create-example {
-            vertical-align: top;
-            margin-top: 7px; 
-        }
         .update-options {
             float: right;
             margin-right: 28px;
@@ -53,9 +49,6 @@
         .file-manager-header {
              font-size: 12pt;
         }
-        .create-example-span {
-            cursor: pointer;
-        }
         .filename {
             margin-top: 10px;
             height: 200px!important; 
@@ -72,8 +65,6 @@
         <div class="options-manager">
             <?php echo $options_API_key; ?> 
             <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
-            <!--<input type="checkbox" class="show-create-example" name="showcreateexample" <?php echo $create_example; ?> />
-            <span class="create-example-span">Show “Test parameters” button in generator</span><br />-->
             <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
             <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>

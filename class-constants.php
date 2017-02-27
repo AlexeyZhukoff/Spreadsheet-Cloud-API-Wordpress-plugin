@@ -1,14 +1,9 @@
 <?php
 class Plugin_Const{
     const SHORTCODE_NAME = 'sclapi';
-    const EXAMPLE_SHORTCODE_NAME = 'sclapiexample';
     const API_KEY = 'API_Key';
     const GET_NEW_API_KEY = 'getnewapikey';
-    const SHOW_CREATE_EXAMPLE = 'showcreateexample';
     const USER_FILE_LIST = 'userfileslist';
-    const ACTION_TYPE = 'actiontype';
-    const FULL_ACTION_TYPE = 'action';
-    const EXAMPLE_ACTION_TYPE = 'example';
     const RESPONSE_DATA = 'data';
     const RESPONSE_STATUS = 'status';
     const SCLAPI_OPTIONS = 'sclapi_options';

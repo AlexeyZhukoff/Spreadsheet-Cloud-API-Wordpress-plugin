@@ -6,7 +6,6 @@ class Spreadsheet_Request {
     const BASE_URI = 'http://spreadsheetcloudapi.azurewebsites.net/api/spreadsheet';
     const BASE_WP_URI = 'http://spreadsheetcloudapi.azurewebsites.net/wpusers/getapikey';
     const SCHEME = "amx";
-    const EXAMPLE_API_KEY = "24c95646ebd272ff55856413befc97ae";
     #endregion
 
     public static function generate_new_API_key( $mail ) {
@@ -77,10 +76,6 @@ class Spreadsheet_Request {
 
     #region Helper
     private static function get_API_key() {
-        $action_type = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::ACTION_TYPE ];
-        if ( $action_type == Plugin_Const::EXAMPLE_ACTION_TYPE ) {
-            return self::EXAMPLE_API_KEY;  
-        }
         return get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     }
     private static function generate_header( $content_length, $content_type ) {

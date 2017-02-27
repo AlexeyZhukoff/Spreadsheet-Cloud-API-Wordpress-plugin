@@ -1,13 +1,4 @@
 jQuery(function ($) {
-    $.get( "createexample.php", function ( createExample ) {
-        if ( createExample ) {
-            $( '#create-example-button' ).attr( 'style', 'float:right' );
-        }
-        else {
-            $( '#create-example-button' ).attr( 'style', 'display:none' );
-        }
-    } )
-
     $.get( "getfilelist.php", function ( htmlFilesList ) {
         $( '.filelist' ).replaceWith( htmlFilesList );
         commandChangeCore( $( '.command' ) );
@@ -45,22 +36,6 @@ jQuery(function ($) {
             tinyMCEPopup.close();
         } )
 
-        $( '#create-example-button' ).click( function () {
-            if ($( '.parameters-header' ).text() != 'Test shortcode parameters' ) {
-                $( '.parameters-header' ).text( 'Test shortcode parameters' );
-                $( '.shortcode' ).attr( 'value', 'sclapiexample ' );
-                $( '.filename' ).replaceWith( '<select class="examplefilename" name="filename" size="1"><option value="example.xlsx">example.xlsx</option></select>' );
-                $( '.range' ).attr( 'value', 'A1:E7' );
-                $( '.sheet-index' ).attr( 'readonly', true );
-                $( '.sheet-index' ).val(0);
-                $( '.sheet-name' ).attr( 'readonly', true );
-                $( '.object-index' ).attr( 'readonly', true );
-                $( '.picture-type' ).attr( 'readonly', true );
-                exampleCommandChangeCore( $( '.command' ) );
-                $( 'body' ).on( 'change', '.command', exampleCommandChange );
-            }
-        } )
-
         $( '#cancel-button' ).click( function () {
             tinyMCEPopup.close();
         } )
@@ -78,18 +53,5 @@ jQuery(function ($) {
         form.find( '.picture-type' ).attr( 'disabled', disabled );
         form.find( '.height' ).attr( 'disabled', disabled );
         form.find( '.width' ).attr( 'disabled', disabled );
-    }
-    function exampleCommandChange() {
-        exampleCommandChangeCore( $( this ) );
-    }
-    function exampleCommandChangeCore( command ) {
-        commandChangeCore( command );
-        var sheetindex = command.closest( 'fieldset' ).find( '.sheet-index' );
-        if ( command.val() === 'GetHTMLRange' ) {
-            sheetindex.val(0);
-        }
-        else {
-            sheetindex.val(1);
-        }
     }
 } )

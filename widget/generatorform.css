@@ -33,16 +33,14 @@ fieldset span {
     font-size: 10pt;
     width: 125px;
 }
-#cancel-button, 
-#create-example-button {
+#cancel-button {
     font-size: 10pt;
     background: #cfcfcf;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
     border-color: #b0b0b0;
     width: auto;
 }
-#cancel-button:hover, 
-#create-example-button:hover {
+#cancel-button:hover {
     background: #a4a4a4;
     color: #fff;
 }

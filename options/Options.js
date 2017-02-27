@@ -5,17 +5,12 @@ jQuery( function ($) {
     $( '.wrap' ).on( 'click', '.delete-button', deleteClk );
     $( '.wrap' ).on( 'change', '.file-input-text', upload );
     $( '.wrap' ).on( 'change', '.api-key-field', optionsChange );
-    $( '.wrap' ).on( 'change', '.show-create-example', optionsChange );
     $( '.wrap' ).on( 'click', '.filename', selectFile );
-    $( '.wrap' ).on( 'click', '.create-example-span', createExampleClick );
 
     $( '.upload-button' ).attr( 'disabled', $( '.filename' ).attr( 'disabled' ) );
 
     if ( '<?php echo $continue_operation ?>' === '<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>' ) {
         endDownload();
-    }
-    function createExampleClick() {
-        $( '.show-create-example' ).click();
     }
     function selectFile() {
         if ($( '.filename' ).val() != null ) {

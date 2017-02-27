@@ -47,6 +47,5 @@ add_action( 'admin_menu', 'mt_add_pages' );
 add_action( 'init', 'sclapi_custom_button' );
 
 add_shortcode( Plugin_Const::SHORTCODE_NAME, array( 'Spreadsheet_Cloud_API_Actions', 'get_action' ) );
-add_shortcode( Plugin_Const::EXAMPLE_SHORTCODE_NAME, array( 'Spreadsheet_Cloud_API_Actions', 'get_example_action' ) );
 
 ?>

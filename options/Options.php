@@ -7,7 +7,6 @@ function mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
     $API_key_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
-    $opt_create_example =  get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::SHOW_CREATE_EXAMPLE ];
     $file_operation = $_POST['my-file-operation'];
 
     //echo '<pre>'.print_r($_POST,1).'</pre>';
@@ -17,11 +16,6 @@ function mt_options_page() {
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
     if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $file_operation ) ) {
         $need_save_option = TRUE;
-        if ( $opt_create_example != ( $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ] == 'on' ) ) {
-            $opt_create_example = $_POST[ Plugin_Const::SHOW_CREATE_EXAMPLE ] == 'on';
-            $options[ Plugin_Const::SHOW_CREATE_EXAMPLE ] = $opt_create_example;
-            update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
-        }
         if ( ! empty( $_POST[ Plugin_Const::GET_NEW_API_KEY ] ) && empty( $_POST[ $API_key_field_name ] ) ) {
             $response = get_newapikey();
             if ( $response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
@@ -71,11 +65,7 @@ function mt_options_page() {
         };
     }
 
-    $create_example = '';
-    if ( $opt_create_example ) {
-        $create_example = 'checked="checked"';
-    }
-    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $create_example );
+    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename']);
 }
 function get_newapikey() {
     $user_email = wp_get_current_user()->user_email;
@@ -158,7 +148,7 @@ function show_header_message( $message ) {
     _e( $message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $create_example ) {
+function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name) {
     $have_API_key = '';
     $unhave_API_key = 'style="display: none"';
     if ( empty( $opt_api_key ) ) {

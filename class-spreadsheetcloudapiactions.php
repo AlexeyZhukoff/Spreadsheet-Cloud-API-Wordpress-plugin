@@ -5,9 +5,7 @@ class Spreadsheet_Cloud_API_Actions {
         if ( empty( $options ) ) {
             $options = array(
                 Plugin_Const::API_KEY  => '',
-                Plugin_Const::SHOW_CREATE_EXAMPLE => 1,
                 Plugin_Const::USER_FILE_LIST => '<select class="filename" name="filename" size="1"></select>',
-                Plugin_Const::ACTION_TYPE => Plugin_Const::FULL_ACTION_TYPE,
             );
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
@@ -54,20 +52,6 @@ class Spreadsheet_Cloud_API_Actions {
         };
         return $response;
     }
-    public function get_example_action ( $atts ) {
-        $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-        
-        $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::EXAMPLE_ACTION_TYPE;
-        update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
-
-        $response = Spreadsheet_Cloud_API_Actions::get_action( $atts );
-
-        $options[ Plugin_Const::ACTION_TYPE ] = Plugin_Const::FULL_ACTION_TYPE;
-        update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
-
-        return $response;
-    }
-
     public function upload_file( $file ) {
         return Spreadsheet_Request::upload_file( $file );
     }
@@ -184,7 +168,7 @@ class Spreadsheet_Cloud_API_Actions {
         Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
         Parameters::OBJECT_INDEX => $atts[ Parameters::OBJECT_INDEX ],
         Parameters::SCALE => $atts[ Parameters::SCALE ],
-        Parameters::PICTURE_TYPE => $atts[ Parameters::PICTURE_TYPE ],
+        Parameters::PICTURE_TYPE => Picture_Type::PICTURE,
         Parameters::WPP => 'true', );
         return $params;
     }
