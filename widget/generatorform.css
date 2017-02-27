@@ -28,6 +28,10 @@ select {
     float:  left;
     margin-left: 10px;
 }
+.or-span {
+    float: left;
+    margin-left: 165px;
+}
 fieldset span {
     float: left;
     font-size: 10pt;

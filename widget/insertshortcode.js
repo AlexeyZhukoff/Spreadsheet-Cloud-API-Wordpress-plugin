@@ -5,7 +5,7 @@
                 a.windowManager.open ( {
                     file: b + "/generatorform.html",
                     width: 420,
-                    height: 326,
+                    height: 356,
                     inline: 1
                 })
             });

@@ -176,9 +176,6 @@ class Spreadsheet_Cloud_API_Actions {
         $output = Spreadsheet_Request::get_files_list();
         $response = json_decode( $output[ Plugin_Const::RESPONSE_DATA ], true );
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
-        if ( $size == 1 )  {
-            $result = '<span>File Name: </span>'.$result;
-        }
         $base_connected = $output[ Plugin_Const::RESPONSE_STATUS ] == 200;
         if ( ! $base_connected ) {
             $result = $result.'disabled="disabled"';
