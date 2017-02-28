@@ -62,10 +62,10 @@
     <h1> <?php echo $options_header; ?> </h1>
     <br />
     <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>">
-        <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
+        <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y" />
         <div class="options-manager">
             <?php echo $options_API_key; ?> 
-            <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" ><br />
+            <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" /><br />
             <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
             <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>
@@ -78,7 +78,7 @@
         <!--<br />-->
         <hr <?php echo $have_API_key; ?> />
         <div class="file-manager" <?php echo $have_API_key; ?>>
-            <input class="my-file-operation" type="hidden" name="my-file-operation" value="">
+            <input class="my-file-operation" type="hidden" name="my-file-operation" value="" />
             <span class="file-manager-header">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $service_file_list; ?><br />
             <input class="file-input-text" type="file" name="my-file-upload">

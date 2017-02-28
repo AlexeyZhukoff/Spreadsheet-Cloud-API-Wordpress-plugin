@@ -2,8 +2,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>SpreadsheetCloudAPI shortcode generator</title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
-        <!--<script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>-->
+        <script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>
         <script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
         <script type="text/javascript" src="generatorform.js"></script>
         <link rel="stylesheet" type="text/css" href="generatorform.css" />
@@ -15,14 +14,11 @@
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
                 <span>File Name:</span><input type="text" class="filelist" name="filename" placeholder="Filename.xlsx" /><br />
-                <span>Sheet Index:</span><input type="number" class="sheet-index" name="sheetindex" value="0" min="0" /><br />
-                <span class="or-span">- or -</span><br />
-                <span>Sheet Name:</span><input type="text" class="sheet-name" name="sheetname" placeholder="Sheet1"/><br />
+                <span class="sheet-index-span">Sheet Index:  </span><input type="number" class="sheet-index" name="sheetindex" value="0" min="0" /><span class="sheet-name-span"> or Sheet Name:  </span><input type="text" class="sheet-name" name="sheetname" placeholder="Sheet1"/><br />
                 <span>Range:</span><input type="text" class="range" name="range" placeholder="A1:B2"/><br />
                 <hr />
-                <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Show Grid Lines</span><br />
-                <hr />
-                <span class="picspan">Object Index:</span><input type="number" class="object-index" name="objectindex" value="0" min="0" /><br />
+                <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Show Grid Lines</span>
+                <span class="picspan" style="display: none">Object Index:</span><input type="number" class="object-index" name="objectindex" value="0" min="0" style="display: none" /><br />
             </fieldset>
             <div>
                 <input type="button" class="button" id="insert-button" name="insert" title="Generates a shortcode and inserts it into your post" value="Insert" style="float: left" />

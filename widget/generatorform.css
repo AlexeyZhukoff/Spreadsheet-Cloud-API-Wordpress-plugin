@@ -13,11 +13,12 @@ fieldset hr {
     height: 1px;
     background: #dfdfdf;
 }
-fieldset input, 
+fieldset input,
 select {
     float: right;
     font-size: 10pt;
     width: 210px;
+    margin-top: 5px;
 }
 .export-gridlines {
     float: left;
@@ -28,9 +29,25 @@ select {
     float:  left;
     margin-left: 10px;
 }
-.or-span {
+
+input.sheet-index, input.sheet-name {
+    width: 80px;
     float: left;
-    margin-left: 165px;
+    margin-left: 7px;
+    margin-right: 5px;
+}
+input.sheet-name {
+    width: 88px;
+    margin-right: 0;
+}
+span.sheet-name-span {
+    float: left;
+    width: 110px;
+    margin-left: 5px;
+}
+span.sheet-index-span {
+    float: left;
+    width: 90px;
 }
 fieldset span {
     float: left;

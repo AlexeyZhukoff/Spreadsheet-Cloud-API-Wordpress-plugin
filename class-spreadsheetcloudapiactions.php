@@ -131,7 +131,7 @@ class Spreadsheet_Cloud_API_Actions {
         } else{
             $imgJSON = $output[ Plugin_Const::RESPONSE_DATA ];
             $response = json_decode( $imgJSON, true );
-            return $response[0]['PictureBytes'];;
+            return $response[0]['PictureBytes'];
         }
     }
     function get_image_style( $atts ) {
@@ -168,7 +168,7 @@ class Spreadsheet_Cloud_API_Actions {
         Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
         Parameters::OBJECT_INDEX => $atts[ Parameters::OBJECT_INDEX ],
         Parameters::SCALE => $atts[ Parameters::SCALE ],
-        Parameters::PICTURE_TYPE => Picture_Type::PICTURE,
+        Parameters::PICTURE_TYPE =>  $atts[ Parameters::PICTURE_TYPE ],
         Parameters::WPP => 'true', );
         return $params;
     }
