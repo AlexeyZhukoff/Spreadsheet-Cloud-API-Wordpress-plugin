@@ -92,7 +92,7 @@ class Spreadsheet_Cloud_API_Actions {
         return $style."initial-style \"".">".$HTML_code."</div>";
     }
     function extract_get_HTML_range_params( $atts ) {
-        extract(shortcode_atts(array(
+        $params = shortcode_atts(array(
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
             Parameters::RANGE                   =>'',
@@ -102,19 +102,9 @@ class Spreadsheet_Cloud_API_Actions {
             Parameters::END_ROW_INDEX             =>NULL,
             Parameters::END_COLUMN_INDEX          =>NULL,
             Parameters::EXPORT_DRAWING_OBJECTS    =>'true',
-            Parameters::EXPORT_GRID_LINES    =>'false'), $atts));
-        $params = array(
-        Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ],
-        Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ],
-        Parameters::RANGE => $atts[ Parameters::RANGE ],
-        Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
-        Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
-        Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
-        Parameters::END_ROW_INDEX => $atts[ Parameters::END_ROW_INDEX ],
-        Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
-        Parameters::EXPORT_DRAWING_OBJECTS => $atts[ Parameters::EXPORT_DRAWING_OBJECTS ],
-        Parameters::EXPORT_GRID_LINES => $atts[ Parameters::EXPORT_GRID_LINES ],
-        Parameters::WPP => 'true');
+            Parameters::EXPORT_GRID_LINES    =>'false',
+            Parameters::WPP => 'true',
+            ), $atts);
         return $params;
     }
 
@@ -145,8 +135,9 @@ class Spreadsheet_Cloud_API_Actions {
         return '';
     }
     function extract_get_image_parameters( $atts ) {
-        extract(shortcode_atts( array(
+        $params = shortcode_atts( array(
             Parameters::FILE_NAME                =>'',
+            Parameters::SCALE                   =>0.1,
             Parameters::SHEET_INDEX              =>NULL,
             Parameters::SHEET_NAME               =>'',
             Parameters::RANGE                   =>'',
@@ -155,21 +146,10 @@ class Spreadsheet_Cloud_API_Actions {
             Parameters::END_ROW_INDEX             =>NULL,
             Parameters::END_COLUMN_INDEX          =>NULL,
             Parameters::OBJECT_INDEX             =>NULL,
-            Parameters::SCALE                   =>NULL,
-            Parameters::PICTURE_TYPE             =>Picture_Type::PICTURE), $atts ) );
-        $params = array(
-        Parameters::FILE_NAME => $atts[ Parameters::FILE_NAME ], 
-        Parameters::SHEET_INDEX => $atts[ Parameters::SHEET_INDEX ], 
-        Parameters::SHEET_NAME => $atts[ Parameters::SHEET_NAME ],
-        Parameters::RANGE => $atts[ Parameters::RANGE ],
-        Parameters::START_ROW_INDEX => $atts[ Parameters::START_ROW_INDEX ],
-        Parameters::START_COLUMN_INDEX => $atts[ Parameters::START_COLUMN_INDEX ],
-        Parameters::END_ROW_INDEX => $atts[ Parameters::END_ROW_INDEX ],
-        Parameters::END_COLUMN_INDEX => $atts[ Parameters::END_COLUMN_INDEX ],
-        Parameters::OBJECT_INDEX => $atts[ Parameters::OBJECT_INDEX ],
-        Parameters::SCALE => $atts[ Parameters::SCALE ],
-        Parameters::PICTURE_TYPE =>  $atts[ Parameters::PICTURE_TYPE ],
-        Parameters::WPP => 'true', );
+            Parameters::HEIGHT                   =>NULL,
+            Parameters::PICTURE_TYPE             =>Picture_Type::PICTURE,
+            Parameters::WPP                      =>'true',
+            ), $atts );
         return $params;
     }
     public static function get_files_list( $size ) {
