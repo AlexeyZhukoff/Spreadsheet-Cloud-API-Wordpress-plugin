@@ -1,9 +1,13 @@
+<?php
+    require_once $_SERVER['DOCUMENT_ROOT'].'/wp-load.php';
+    $filelist = get_option( 'sclapi_options' )['userfileslist'];
+?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>SpreadsheetCloudAPI shortcode generator</title>
-        <script type="text/javascript" src="/wp-includes/js/jquery/jquery.js"></script>
-        <script type="text/javascript" src="/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
+        <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
         <script type="text/javascript" src="generatorform.js"></script>
         <link rel="stylesheet" type="text/css" href="generatorform.css" />
     </head>
@@ -13,7 +17,7 @@
                 <legend class="parameters-header">Shortcode parameters</legend>
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
-                <span>File Name:</span><input type="text" class="filelist" name="filename" placeholder="Filename.xlsx" /><br />
+                <span>File Name:</span><?php echo $filelist; ?><br />
                 <span class="sheet-index-span">Sheet Index:  </span><input type="number" class="sheet-index" name="sheetindex" value="0" min="0" /><span class="sheet-name-span"> or Sheet Name:  </span><input type="text" class="sheet-name" name="sheetname" placeholder="Sheet1"/><br />
                 <span>Range:</span><input type="text" class="range" name="range" placeholder="A1:B2"/><br />
                 <hr />

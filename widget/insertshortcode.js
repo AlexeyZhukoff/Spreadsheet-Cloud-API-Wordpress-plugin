@@ -3,7 +3,7 @@
         init:function ( a, b ) {
             a.addCommand ( "sclapiInsert", function() {
                 a.windowManager.open ( {
-                    file: b + "/generatorform.html",
+                    file: b + "/generatorform.php",
                     width: 420,
                     height: 251,
                     inline: 1

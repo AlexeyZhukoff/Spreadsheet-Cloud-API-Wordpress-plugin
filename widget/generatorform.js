@@ -1,12 +1,8 @@
 jQuery(function ($) {
-    $.get("getfilelist.php", function (htmlFilesList) {
-        $('.filelist').replaceWith(htmlFilesList);
-        commandChangeCore($('.command'));
-    })
-
     $('body').on('change', '.command', commandChange);
 
     $(document).ready(function () {
+        commandChangeCore($('.command'));
         $('#insert-button').click(function () {
             var shortcode = '[';
             var imagemode = false;
