@@ -45,7 +45,7 @@ register_deactivation_hook( __FILE__, array( 'Spreadsheet_Cloud_API_Actions', 'p
 add_action( 'init', array( 'Spreadsheet_Cloud_API_Actions', 'init' ) );
 add_action( 'admin_menu', 'mt_add_pages' );
 add_action( 'init', 'sclapi_custom_button' );
-
+add_action('wp_ajax_sclapigeneratewindow', 'sclapi_generate_ajax');
+add_action('admin_head', 'sclapi_generate_admin_ajax');
 add_shortcode( Plugin_Const::SHORTCODE_NAME, array( 'Spreadsheet_Cloud_API_Actions', 'get_action' ) );
-
 ?>
