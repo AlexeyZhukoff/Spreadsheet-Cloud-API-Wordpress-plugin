@@ -5,7 +5,6 @@ class Spreadsheet_Cloud_API_Actions {
         if ( empty( $options ) ) {
             $options = array(
                 Plugin_Const::API_KEY  => '',
-                Plugin_Const::USER_FILE_LIST => '<select class="filename" name="filename" size="1"></select>',
             );
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }

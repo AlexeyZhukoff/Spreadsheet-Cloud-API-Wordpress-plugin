@@ -9,10 +9,6 @@ function mt_options_page() {
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $file_operation = $_POST['my-file-operation'];
 
-    //echo '<pre>'.print_r($_POST,1).'</pre>';
-    //echo '<pre>'.print_r($_FILES,1).'</pre>';
-    //echo '<pre>'.print_r($options,1).'</pre>';
-
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
     if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $file_operation ) ) {
         $need_save_option = TRUE;
@@ -29,12 +25,6 @@ function mt_options_page() {
         if ( $need_save_option ) {
             $opt_api_key = $_POST[ $API_key_field_name ];
             $options[ Plugin_Const::API_KEY ] = $opt_api_key;
-            
-            if ( ! empty( $opt_api_key ) ) {
-                $options[ Plugin_Const::USER_FILE_LIST ] = Spreadsheet_Cloud_API_Actions::get_files_list(1);
-            } else {
-                $options[ Plugin_Const::USER_FILE_LIST ] = '<select class="filename" name="filename" size="1"></select>';
-            } 
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
             show_header_message( Header_Messages::OPTIONS_SAVED );
         }
@@ -97,7 +87,6 @@ function download_file() {
         else {
             show_header_message( $download_response[ Plugin_Const::RESPONSE_DATA ] );
         }
-        update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
     }
     else {
         show_header_message( Header_Messages::SELECT_DOWNLOAD );
@@ -114,7 +103,6 @@ function upload_file() {
         else {
             show_header_message( $upload_response[ Plugin_Const::RESPONSE_DATA ] );
         }
-        update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
     }
     else {
         show_header_message( Header_Messages::SELECT_UPLOAD );
@@ -126,7 +114,6 @@ function delete_file() {
         $file_deleted = Spreadsheet_Cloud_API_Actions::delete_file( $file_name );
         if ( $file_deleted[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
             show_header_message( sprintf( Header_Messages::FILE_DELETED, $file_name ) );
-            update_sclapi_option( Plugin_Const::USER_FILE_LIST, Spreadsheet_Cloud_API_Actions::get_files_list(1) );
         }
         else {
             show_header_message( $file_deleted[ Plugin_Const::RESPONSE_DATA ] );
@@ -135,12 +122,6 @@ function delete_file() {
     else {
         show_header_message( Header_Messages::SELECT_DELETE );
     }
-}
-
-function update_sclapi_option( $option_key, $option_value ) {
-    $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-    $options[ $option_key ] = $option_value;
-    update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
 }
 
 function show_header_message( $message ) {

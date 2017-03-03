@@ -15,8 +15,12 @@
                         var imagemode = false;
                         $('form .sclapi-container').find('input:not(:disabled), select:not(:disabled)').each(function () {
                             var attName = $(this).attr('name'), attValue = $(this).val(), attResult = '';
+                            
                             if (attName === 'command') {
                                 imagemode = attValue !== 'GetHTMLRange';
+                            }
+                            if (attName === 'sheet') {
+                                    attName = isNaN(attValue) ? 'sheetname' : 'sheetindex';
                             }
                             if (attName === 'exportgridlines') {
                                 if ($(this).prop('checked') && !imagemode) {
@@ -29,6 +33,7 @@
                             if (attName === 'objectindex' && !imagemode) {
                                 attValue = undefined;
                             }
+
                             if (attValue != undefined && attValue.length != 0 && attName != 'shortcode') {
                                 attResult = attName + '="' + attValue + '" ';
                             }
@@ -91,7 +96,7 @@
             fieldset input, select {
                 float: right;
                 font-size: 10pt;
-                width: 210px;
+                width: 240px;
                 margin-top: 5px;
             }
             .export-gridlines {
@@ -103,25 +108,8 @@
                 float: left;
                 margin-left: 10px;
             }
-
-            input.sheet-index, input.sheet-name {
-                width: 80px;
-                float: left;
-                margin-left: 7px;
-                margin-right: 5px;
-            }
-            input.sheet-name {
-                width: 88px;
-                margin-right: 0;
-            }
-            span.sheet-name-span {
-                float: left;
-                width: 110px;
-                margin-left: 5px;
-            }
-            span.sheet-index-span {
-                float: left;
-                width: 90px;
+            span.sheet-span{
+                width: 200px;
             }
             fieldset span {
                 float: left;
@@ -159,9 +147,9 @@
                 <legend class="parameters-header">Shortcode parameters</legend>
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
-                <span>File Name:</span><?php echo get_option( 'sclapi_options' )['userfileslist']; ?><br />
-                <span class="sheet-index-span">Sheet Index:  </span><input type="number" class="sheet-index" name="sheetindex" value="0" min="0" /><span class="sheet-name-span"> or Sheet Name:  </span><input type="text" class="sheet-name" name="sheetname" placeholder="Sheet1"/><br />
-                <span>Range:</span><input type="text" class="range" name="range" placeholder="A1:B2"/><br />
+                <span>File Name:</span><?php echo Spreadsheet_Cloud_API_Actions::get_files_list(1); ?><br />
+                <span class="sheet-span">Sheet Index or Sheet Name: </span><input type="text" class="sheet" name="sheet" placeholder="0 or Sheet1" value="0"/><br />
+                <span>Range:</span><input type="text" class="range" name="range" placeholder="A1:B2 or empty for a used range"/><br />
                 <hr />
                 <input type="checkbox" class="export-gridlines" name="exportgridlines" /><span class="htm-span">Show Grid Lines</span>
                 <span class="picspan" style="display: none">Object Index:</span><input type="number" class="object-index" name="objectindex" value="0" min="0" style="display: none" /><br />

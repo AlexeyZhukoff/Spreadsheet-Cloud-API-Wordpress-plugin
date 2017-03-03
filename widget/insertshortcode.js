@@ -4,7 +4,7 @@
             a.addCommand("sclapiInsert", function () {
                 a.windowManager.open({
                     file: sclapi_generate_admin_ajax,
-                    width: 420,
+                    width: 470,
                     height: 251,
                     inline: 1
                 })

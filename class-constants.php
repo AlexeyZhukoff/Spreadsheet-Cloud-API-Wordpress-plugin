@@ -3,7 +3,6 @@ class Plugin_Const{
     const SHORTCODE_NAME = 'sclapi';
     const API_KEY = 'API_Key';
     const GET_NEW_API_KEY = 'getnewapikey';
-    const USER_FILE_LIST = 'userfileslist';
     const RESPONSE_DATA = 'data';
     const RESPONSE_STATUS = 'status';
     const SCLAPI_OPTIONS = 'sclapi_options';

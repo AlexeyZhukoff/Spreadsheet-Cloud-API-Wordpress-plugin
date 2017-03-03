@@ -1,8 +1,6 @@
 <?php
 class Spreadsheet_Request {
     #region Fields
-    //const BASE_URI = 'http://localhost:54306/api/spreadsheet';
-    //const BASE_WP_URI = 'http://localhost:54306/wpusers/getapikey';
     const BASE_URI = 'http://spreadsheetcloudapi.azurewebsites.net/api/spreadsheet';
     const BASE_WP_URI = 'http://spreadsheetcloudapi.azurewebsites.net/wpusers/getapikey';
     const SCHEME = "amx";
