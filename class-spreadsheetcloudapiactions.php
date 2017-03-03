@@ -173,10 +173,7 @@ class Spreadsheet_Cloud_API_Actions {
                 $counter = $counter + 1;
             }
         } else {
-            $api_key = Spreadsheet_Request::get_API_key();
-            if( ! empty ( $api_key ) ) {
-                $result = $result.'<option>Sorry, there is a database connection problem.</option><option>Please try again shortly.</option>';
-            }
+            $result = $result.'<option>Sorry, there is a database connection problem.</option><option>Please try again shortly.</option>';
         }
         $result = $result.'</select>';
         return $result;

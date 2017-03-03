@@ -9,8 +9,9 @@ function mt_options_page() {
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $file_operation = $_POST['my-file-operation'];
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-    $show_wizard = TRUE;
-    $need_save_option = ($_POST[ 'Submit' ] == __( 'Update', 'mt_trans_domain' ));
+    $show_wizard = empty( $opt_api_key );
+    $need_save_option = ( $_POST[ 'Submit' ] == __( 'Update', 'mt_trans_domain' ) );
+
     if ( ! empty( $_POST[ 'user-choise' ] ) ) {
         $show_wizard = FALSE;
         if ( $_POST['user-choise'] == 'generate' ) {
@@ -21,7 +22,6 @@ function mt_options_page() {
             else {
                 show_header_message( $response[ Plugin_Const::RESPONSE_DATA ] );
                 $need_save_option = FALSE;
-                $show_wizard = TRUE;
             }
         }
     }
@@ -31,6 +31,7 @@ function mt_options_page() {
             $options[ Plugin_Const::API_KEY ] = $opt_api_key;
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
             show_header_message( Header_Messages::OPTIONS_SAVED );
+            $show_wizard = FALSE; // = empty( $opt_api_key ); if need show wizard after erase api key
         }
     }
     $continue_operation = '';
@@ -133,12 +134,20 @@ function show_header_message( $message ) {
     echo '</strong></p></div>';
 }
 function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $show_wizard) {
-    $have_API_key = '';
-    $unhave_API_key = 'style="display: none"';
-    if ( empty( $opt_api_key ) && ( $show_wizard == TRUE ) ) {
-        $have_API_key = 'style="display: none"';
-        $unhave_API_key = '';
+    $options_style = '';
+    $file_manager_style = '';
+    $wizard_style = '';
+
+    if ( $show_wizard == FALSE ) {
+        if ( empty( $opt_api_key ) ) {
+            $file_manager_style = 'style="display: none"';
+        }
+        $wizard_style = 'style="display: none"';
+    } else {
+        $options_style = 'style="display: none"';
+        $file_manager_style = 'style="display: none"';
     }
+
     $options_header = __( 'SpreadsheetCloudAPI Plugin Options', 'mt_trans_domain' );
     $options_action = str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] );
     $options_API_key = __( "API Key:", Plugin_Const::API_KEY );

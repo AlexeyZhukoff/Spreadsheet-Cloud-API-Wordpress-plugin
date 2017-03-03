@@ -61,7 +61,7 @@
     </style>
     <h1> <?php echo $options_header; ?> </h1>
     <br />
-    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $have_API_key; ?>>
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $options_style; ?>>
         <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y" />
         <div class="options-manager">
             <?php echo $options_API_key; ?> 
@@ -71,7 +71,7 @@
         <div class="options-manager-description">
             The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
-        <!--<br />-->
+        <div <?php echo $file_manager_style; ?>>
         <hr />
         <div class="file-manager">
             <input class="my-file-operation" type="hidden" name="my-file-operation" value="" />
@@ -92,8 +92,9 @@
         <div class="file-manager-description">
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
+        </div>
     </form>
-    <form class="startingwizzard"  enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $unhave_API_key; ?>>
+    <form class="startingwizzard"  enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $wizard_style; ?>>
         <div class="wizard-description">
             SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Either select "Use an existing API key" if you have an active SpreadsheetCloudAPI API key or select “Generate a new API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
         </div><Br><Br><Br>
