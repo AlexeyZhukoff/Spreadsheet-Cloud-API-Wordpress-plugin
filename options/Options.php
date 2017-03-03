@@ -8,11 +8,12 @@ function mt_options_page() {
     $API_key_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     $file_operation = $_POST['my-file-operation'];
-
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
-    if ( $_POST[ $hidden_field_name ] == 'Y' && empty( $file_operation ) ) {
-        $need_save_option = TRUE;
-        if ( ! empty( $_POST[ Plugin_Const::GET_NEW_API_KEY ] ) && empty( $_POST[ $API_key_field_name ] ) ) {
+    $show_wizard = TRUE;
+    $need_save_option = ($_POST[ 'Submit' ] == __( 'Update', 'mt_trans_domain' ));
+    if ( ! empty( $_POST[ 'user-choise' ] ) ) {
+        $show_wizard = FALSE;
+        if ( $_POST['user-choise'] == 'generate' ) {
             $response = get_newapikey();
             if ( $response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
                 $_POST[ $API_key_field_name ] = base64_decode( $response[ Plugin_Const::RESPONSE_DATA ] );
@@ -20,16 +21,18 @@ function mt_options_page() {
             else {
                 show_header_message( $response[ Plugin_Const::RESPONSE_DATA ] );
                 $need_save_option = FALSE;
+                $show_wizard = TRUE;
             }
         }
-        if ( $need_save_option ) {
-            $opt_api_key = $_POST[ $API_key_field_name ];
+    }
+    if ( $need_save_option ) {
+        $opt_api_key = $_POST[ $API_key_field_name ];
+        if ( $_POST['user-choise'] != 'haveapikey' ) {
             $options[ Plugin_Const::API_KEY ] = $opt_api_key;
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options );
             show_header_message( Header_Messages::OPTIONS_SAVED );
         }
     }
-    
     $continue_operation = '';
     $download_file_bits = '';
     if ( ! empty( $file_operation ) ) {
@@ -55,7 +58,7 @@ function mt_options_page() {
         };
     }
 
-    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename']);
+    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $show_wizard );
 }
 function get_newapikey() {
     $user_email = wp_get_current_user()->user_email;
@@ -129,10 +132,10 @@ function show_header_message( $message ) {
     _e( $message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name) {
+function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $show_wizard) {
     $have_API_key = '';
     $unhave_API_key = 'style="display: none"';
-    if ( empty( $opt_api_key ) ) {
+    if ( empty( $opt_api_key ) && ( $show_wizard == TRUE ) ) {
         $have_API_key = 'style="display: none"';
         $unhave_API_key = '';
     }

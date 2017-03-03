@@ -73,7 +73,7 @@ class Spreadsheet_Request {
     #endregion
 
     #region Helper
-    private static function get_API_key() {
+    public static function get_API_key() {
         return get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
     }
     private static function generate_header( $content_length, $content_type ) {

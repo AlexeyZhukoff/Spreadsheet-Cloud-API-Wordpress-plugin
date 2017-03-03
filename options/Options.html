@@ -5,13 +5,13 @@
             width: 372px;
             line-height: 30px;
         }
-        .options-manager-description1, 
-        .options-manager-description2 {
-            width: 600px;
-            margin-left: 450px;
+        .wizard-description {
+            width: 750px;
             height: 40px;
         }
-        .options-manager-description2 {
+        .options-manager-description {
+            width: 600px;
+            margin-left: 450px;
             height: 60px;
         }
         .file-manager {
@@ -61,23 +61,19 @@
     </style>
     <h1> <?php echo $options_header; ?> </h1>
     <br />
-    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>">
+    <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $have_API_key; ?>>
         <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y" />
         <div class="options-manager">
             <?php echo $options_API_key; ?> 
             <input type="text" class="api-key-field" name="<?php echo $API_key_field_name; ?>" value="<?php echo $opt_api_key; ?>" /><br />
-            <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Generate API key" <?php echo $unhave_API_key; ?> />
             <input type="submit" class="update-options button" name="Submit" value="<?php echo $options_update; ?>" disabled="disabled" />
         </div>
-        <div class="options-manager-description1" <?php echo $unhave_API_key; ?>>
-            SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Specify an existing API key (if any) or click “Generate API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
-        </div>
-        <div class="options-manager-description2" <?php echo $have_API_key; ?>>
+        <div class="options-manager-description">
             The API key is used to initialize your application within the SpreadsheetCloudAPI service.
         </div>
         <!--<br />-->
-        <hr <?php echo $have_API_key; ?> />
-        <div class="file-manager" <?php echo $have_API_key; ?>>
+        <hr />
+        <div class="file-manager">
             <input class="my-file-operation" type="hidden" name="my-file-operation" value="" />
             <span class="file-manager-header">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $service_file_list; ?><br />
@@ -93,9 +89,17 @@
                 <button class="canceldg">Cancel</button>
             </dialog>
         </div>
-        <div class="file-manager-description" <?php echo $have_API_key; ?>>
+        <div class="file-manager-description">
             File manager lists all files that correspond to the API key above. The maximum file size is limited by 10 MB. The maximum storage size (all files for all applications per one SpreadsheetCloudAPI account) is limited by 100 MB.
         </div>
+    </form>
+    <form class="startingwizzard"  enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $unhave_API_key; ?>>
+        <div class="wizard-description">
+            SpreadsheetCloudAPI(link) uses an API key-based mechanism to identify applications. Either select "Use an existing API key" if you have an active SpreadsheetCloudAPI API key or select “Generate a new API key” to create a new SpreadsheetCloudAPI account for your e-mail and generate an API key within this account. In case of a new account, SpreadsheetCloudAPI will send you an e-mail with generated login and password for authorization within the service web interface.
+        </div><Br><Br><Br>
+        <input type="radio" name="user-choise" value="haveapikey"> Use an existing API key<Br>
+        <input type="radio" name="user-choise" value="generate"> Generate a new API key<Br><Br>
+        <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Next >>" />
     </form>
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <script type="text/javascript">
