@@ -1,16 +1,12 @@
 <?php
- /**
- * @package SpreadsheetCloudAPI
- * @version 1.0
- */
 /*
 Plugin Name: SpreadsheetCloudAPI
-Plugin URI: http://sclapi.com
+Plugin URI: http://wordpress.org/plugins/SpreadsheetCloudAPI
 Description: SpreadsheetCloudAPI (Sclapi) plugin is an easy-to-use tool for using your spreadsheet files in WordPress blogs. To get started with a plugin, go to the Sclapi plugin options and enter an <a target="_blank" href="http://spreadsheetadmin.azurewebsites.net/">existing</a> or generate a new API key.
-Author: 
+Author: SpreadsheetCloudAPI Inc.
+Author URI: http://spreadsheetadmin.azurewebsites.net/
 Version: 1.0
 License: GPLv2 or later
-Text Domain: sclapi
 */
 /*
     Copyright 2017 SpreadsheetCloudAPI Ltd. (email: scloudapi@gmail.com)
@@ -38,9 +34,6 @@ require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class-spreadsheetrequest.php' 
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\options.php' );
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\widget\generator.php' );
 
-
-register_activation_hook( __FILE__, array( 'Spreadsheet_Cloud_API_Actions', 'plugin_activation' ) );
-register_deactivation_hook( __FILE__, array( 'Spreadsheet_Cloud_API_Actions', 'plugin_deactivation' ) );
 
 add_action( 'init', array( 'Spreadsheet_Cloud_API_Actions', 'init' ) );
 add_action( 'admin_menu', 'mt_add_pages' );

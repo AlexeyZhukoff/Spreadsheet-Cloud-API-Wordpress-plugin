@@ -9,9 +9,6 @@ class Spreadsheet_Cloud_API_Actions {
             update_option( Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
 	}
-    public static function plugin_activation() {
-	}
-    
     private static function bail_on_activation( $message, $deactivate = true ) {
 		if ( $deactivate ) {
 			$plugins = get_option( 'active_plugins' );
@@ -29,11 +26,7 @@ class Spreadsheet_Cloud_API_Actions {
 		}
 		exit;
 	}
-    public static function plugin_deactivation( ) {
-	}
-   	public static function deactivate_key( $key ) {
-	}
-    public function get_action ( $atts ) {
+    public static function get_action ( $atts ) {
         $command = $atts[ Parameters::COMMAND ];
         switch ( $command ) {
             case Commands::GET_HTML_RANGE:
@@ -51,25 +44,25 @@ class Spreadsheet_Cloud_API_Actions {
         };
         return $response;
     }
-    public function upload_file( $file ) {
+    public static function upload_file( $file ) {
         return Spreadsheet_Request::upload_file( $file );
     }
-    public function download_file( $file_name ) {
+    public static function download_file( $file_name ) {
         $params = array( Parameters::FILE_NAME => $file_name );
         $download_response = Spreadsheet_Request::download_file( $params );
         return $download_response;
     }
-    public function delete_file( $file_name ) {
+    public static function delete_file( $file_name ) {
         $params = array( Parameters::FILE_NAME => $file_name );
         return Spreadsheet_Request::delete_file( $params );
     }
-    public function rename_file( $file_name, $new_file_name ) {
+    public static function rename_file( $file_name, $new_file_name ) {
         $params = array( Parameters::FILE_NAME => $file_name,
         Parameters::NEW_FILE_NAME => $new_file_name, );
         return Spreadsheet_Request::rename_file( $params );
     }
 
-    function get_HTML_range( $atts ) {
+    static function get_HTML_range( $atts ) {
         $params = self::extract_get_HTML_range_params( $atts );
         $output = Spreadsheet_Request::get_HTML( $params );
         if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
@@ -77,7 +70,7 @@ class Spreadsheet_Cloud_API_Actions {
         } else
             return self::fix_HTML_style( $output[ Plugin_Const::RESPONSE_DATA ] );
     }
-    function fix_HTML_style( $HTML_code ) {
+    static function fix_HTML_style( $HTML_code ) {
         $style = "<style>
         .initial-style table {
             border: initial;
@@ -90,7 +83,7 @@ class Spreadsheet_Cloud_API_Actions {
         <div class=\"";
         return $style."initial-style \"".">".$HTML_code."</div>";
     }
-    function extract_get_HTML_range_params( $atts ) {
+    static function extract_get_HTML_range_params( $atts ) {
         $params = shortcode_atts(array(
             Parameters::FILE_NAME                =>'',
             Parameters::SHEET_INDEX              =>NULL,
@@ -107,12 +100,12 @@ class Spreadsheet_Cloud_API_Actions {
         return $params;
     }
 
-    function get_image( $atts ) {
+    static function get_image( $atts ) {
         $style = self::get_image_style( $atts );
         $imgBytes = self::get_image_bytes( $atts );
         return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."' />";
     }
-    function get_image_bytes( $atts ) {
+    static function get_image_bytes( $atts ) {
         $params = self::extract_get_image_parameters( $atts );
         $output = Spreadsheet_Request::get_pictures( $params );
         if ( $output[ Plugin_Const::RESPONSE_STATUS ] != 200 ) {
@@ -123,17 +116,17 @@ class Spreadsheet_Cloud_API_Actions {
             return $response[0]['PictureBytes'];
         }
     }
-    function get_image_style( $atts ) {
+    static function get_image_style( $atts ) {
         $style = '';
-        if ( $atts[Parameters::WIDTH]<>'' )
+        if ( in_array(Parameters::WIDTH, $atts) && $atts[Parameters::WIDTH]<>'' )
             $style = $style.Parameters::WIDTH.":".$atts[ Parameters::WIDTH ].";";
-        if ( $atts[ Parameters::HEIGHT ]<>'' )
+        if ( in_array(Parameters::HEIGHT, $atts) &&  $atts[ Parameters::HEIGHT ]<>'' )
             $style = $style." ".Parameters::HEIGHT.":".$atts[ Parameters::HEIGHT ]."\"";
         if ( $style<>'' )
             return "style=\"".$style;
         return '';
     }
-    function extract_get_image_parameters( $atts ) {
+    static function extract_get_image_parameters( $atts ) {
         $params = shortcode_atts( array(
             Parameters::FILE_NAME                =>'',
             Parameters::SCALE                   =>0.1,

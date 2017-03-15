@@ -7,10 +7,10 @@ function mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
     $API_key_field_name = Plugin_Const::API_KEY;
     $opt_api_key = get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
-    $file_operation = $_POST['my-file-operation'];
+    $file_operation = get_array_element($_POST, 'my-file-operation');
     $options = get_option( Plugin_Const::SCLAPI_OPTIONS );
     $show_wizard = empty( $opt_api_key );
-    $need_save_option = ( $_POST[ 'Submit' ] == __( 'Update', 'mt_trans_domain' ) );
+    $need_save_option = (  get_array_element($_POST, 'Submit') == __( 'Update', 'mt_trans_domain' ) );
 
     if ( ! empty( $_POST[ 'user-choise' ] ) ) {
         $show_wizard = FALSE;
@@ -59,7 +59,7 @@ function mt_options_page() {
         };
     }
 
-    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, $_POST['filename'], $show_wizard );
+    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, get_array_element ( $_POST, 'filename' ), $show_wizard );
 }
 function get_newapikey() {
     $user_email = wp_get_current_user()->user_email;
@@ -81,7 +81,7 @@ function rename_file() {
     }
 }
 function download_file() {
-    $file_name = $_POST['filename'];
+    $file_name = get_array_element ( $_POST, 'filename' );
     if ( ! empty( $file_name ) ) {
         $download_response = Spreadsheet_Cloud_API_Actions::download_file( $file_name );
         if ( $download_response[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
@@ -113,7 +113,7 @@ function upload_file() {
     }
 }
 function delete_file() {
-    $file_name = $_POST['filename'];
+    $file_name = get_array_element ( $_POST, 'filename' );
     if ( ! empty( $file_name ) ) {
         $file_deleted = Spreadsheet_Cloud_API_Actions::delete_file( $file_name );
         if ( $file_deleted[ Plugin_Const::RESPONSE_STATUS ] == 200 ) {
@@ -127,6 +127,7 @@ function delete_file() {
         show_header_message( Header_Messages::SELECT_DELETE );
     }
 }
+
 
 function show_header_message( $message ) {
     echo '<div class="updated"><p><strong>';
@@ -154,5 +155,12 @@ function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_ke
     $options_update = __( 'Update', 'mt_trans_domain' );
     $service_file_list = Spreadsheet_Cloud_API_Actions::get_files_list(3);
     include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.html' );
+}
+
+function get_array_element($elements_array, $element_key){
+    if(array_key_exists($element_key, $elements_array)){
+        return $elements_array[$element_key];
+    }
+    return '';
 }
 ?>
