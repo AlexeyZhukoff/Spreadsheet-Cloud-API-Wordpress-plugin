@@ -11,18 +11,19 @@ The WordPress plugin for the SpreadsheetCloudAPI service allows you to display p
 
 == Description ==
 
-[]
+The WordPress plugin for the [SpreadsheetCloudAPI service](http://spreadsheetadmin.azurewebsites.net) allows you to display parts of spreadsheet files stored in the service within your WordPress blogs. The plugin assists you in displaying tables, images and other parts (as HTML code) of your spreadsheet files. For your accommodation, the plugin provides you with the form for short code generating.
+
+Also, you can use the plugin options to manage your SpreadsheetCloudAPI account by uploading, downloading, renaming and deleting spreadsheet files connected with the account.
 
 == Installation ==
 
 1. Copy the plugin folder <strong>SpreadsheetCloudAPI</strong> into <strong>/wp-content/plugins/</strong>. .
-2. Activate plugin in wordpress <strong>Plugins</strong> menu.
-3. It's all.
-4. For more information on plugin, visit [plugin help page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin).
+2. Activate the plugin in WordPress <strong>Plugins</strong> menu.
+3. The plugin is ready to work. For more information on plugin, visit [plugin help page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin).
 
 == Screenshots ==
 
-1. Result of using plugin.
+1. The plugin usage result.
 2. Dialog to specify a required command and its parameters.
 
 == Changelog ==

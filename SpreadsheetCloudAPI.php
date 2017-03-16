@@ -9,7 +9,7 @@ Version: 1.0
 License: GPLv2 or later
 */
 /*
-    Copyright 2017 SpreadsheetCloudAPI Ltd. (email: scloudapi@gmail.com)
+    Copyright 2017 SpreadsheetCloudAPI Inc. (email: scloudapi@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
