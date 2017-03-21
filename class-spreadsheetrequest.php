@@ -6,69 +6,94 @@ class Spreadsheet_Request {
     const SCHEME = "amx";
     #endregion
 
+    #region public interface
     public static function generate_new_API_key( $mail ) {
         if ( empty( $mail ) )
             return null;
 
         $params = array( 'cemail' => base64_encode( $mail ) );
-        $header = ['Content-type: application/json',];
+        $header = array('Content-Type' => 'application/json');
 
-        $request = curl_init();
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_WP_URI.'?'.http_build_query( $params ),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_AUTOREFERER => true
-        ]);
+        try {
+            $request = wp_remote_get( 
+                self::BASE_WP_URI.'?'.http_build_query( $params ), 
+                array( 'timeout' => 120, 
+                'httpversion' => '1.1', 
+                'headers' => $header ) );
+        } catch ( Exception $e ) {
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        }
 
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
-
-        curl_close( $request );
-        
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
+        }
     }
-
-    #region public interface
     public static function upload_file( $file ) {
         if ( empty( $file ) )
             return;
-        $request = curl_init();
-        
-        $file_array = array();
-        $file_array[ $file['name'] ] = $file['tmp_name'];
-        
-        self::curl_custom_postfields( $request, array(), $file_array ); 
-        curl_setopt(
-            $request,
-            CURLOPT_URL,
-            self::BASE_URI.'/upload'
-        );
-        $response = curl_exec( $request );
-        $info = curl_getinfo( $request );
 
-        curl_close( $request );
+        $k = $file['name'];
+        $v = $file['tmp_name'];
+        $file_data = file_get_contents( $v );
+        $v = call_user_func( "end", explode( DIRECTORY_SEPARATOR, $v ) );
+        $k = str_replace( $disallow, "_", $k );
+        $v = str_replace( $disallow, "_", $v );
+        $body[] = implode( "\r\n", array(
+                "Content-Disposition: form-data; filename=\"{$k}\"; name=\"{$v}\"",
+                "Content-Type: application/octet-stream",
+                "",
+                $file_data, 
+            ));
 
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    public static function download_file( $params ) {
-        return self::get( $params, '/download' );
-    }
-    public static function delete_file( $params ) {
-        return self::delete( $params, '/deletefile' );
+        do {
+            $boundary = "---------------------" . md5( mt_rand() . microtime() );
+        } while( preg_grep( "/{$boundary}/", $body ) );
+    
+        array_walk( $body, function( &$part ) use ( $boundary ) {
+            $part = "--{$boundary}\r\n{$part}";
+        });
+    
+        $body[] = "--{$boundary}--";
+        $body[] = "";
+
+        $header = self::sclapi_generate_header( NULL, null );
+        $header['Expect'] = '100-continue';
+        $header['Content-Type'] = "multipart/form-data; boundary={$boundary}";
+        
+        try {
+            $request = wp_remote_post( 
+                self::BASE_URI.$url.'/upload', 
+                array( 'timeout' => 120, 
+                'httpversion' => '1.1', 
+                'headers' => $header, 
+                'body' => implode( "\r\n", $body ),
+                ) );
+
+        } catch ( Exception $e ) {
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        }
+
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
+        }
     }
     public static function rename_file( $params ) {
-        return self::post( $params, '/renamefile' );
+        return self::sclapi_post( $params, '/renamefile' );
+    }
+    public static function download_file( $params ) {
+        return self::sclapi_get( $params, '/download' );
+    }
+    public static function delete_file( $params ) {
+        return self::sclapi_delete( $params, '/deletefile' );
     }
     public static function get_files_list() {
-        return self::get_without_params( '/getfilelist' );
+        return self::sclapi_get_without_params( '/getfilelist' );
     }
     public static function get_HTML( $params ) {
-        return self::get( $params, '/exporttohtml' );
+        return self::sclapi_get( $params, '/exporttohtml' );
     }
     public static function get_pictures( $params ) {
-        return self::get( $params, '/getpictures' );
+        return self::sclapi_get( $params, '/getpictures' );
     }
     #endregion
 
@@ -76,206 +101,101 @@ class Spreadsheet_Request {
     private static function get_API_key() {
         return get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS )[ Sclapi_Plugin_Const::API_KEY ];
     }
-    private static function generate_header( $content_length, $content_type ) {
+    private static function sclapi_post( $params, $url ) {
+        if ( empty( $params ) )
+            return null;
+
+        $json = json_encode( $params );
+
+        $header = self::sclapi_generate_header( null, null );
+
+        try {
+            $request = wp_remote_post( 
+                self::BASE_URI.$url, 
+                array( 'timeout' => 120, 
+                'httpversion' => '1.1', 
+                'headers' => $header, 
+                'body' => $json ) );
+
+        } catch ( Exception $e ) {
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        }
+
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
+        }
+    }
+    private static function sclapi_delete( $params, $url ) {
+        if ( empty( $params ) )
+            return null;
+
+        $file_name = "=".$params["filename"];
+        
+        $header = self::sclapi_generate_header( strlen( $file_name ), 'application/x-www-form-urlencoded' );
+
+        try {
+            $request = wp_remote_request( 
+                self::BASE_URI.$url, 
+                    array( 
+                        'timeout' => 120, 
+                        'httpversion' => '1.1', 
+                        'headers' => $header, 
+                        'body' => $file_name,
+                        'method' => 'DELETE' )
+                );
+        } catch ( Exception $e ) {
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        }
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
+        }
+    }
+    private static function sclapi_generate_header( $content_length, $content_type ) {
         $API_key = self::get_API_key();
 
         if ( is_null( $content_type ) )
             $content_type = 'application/json';
 
-        $header = [
-            'Content-type: '.$content_type,
-            'Authorization: '.self::SCHEME.' '.$API_key,
-        ];
+        $header = array(
+        'Authorization' => self::SCHEME .' '. $API_key,
+        'Content-Type' => $content_type,
+        );
         if ( ! empty( $content_length ) || ! is_null( $content_length ) ) {
-            $header[] = 'Content-Length: '.$content_length;
+            $header['Content-Length'] = $content_length;
         }        
+
         return $header;
     }
-    private static function put( $params, $url ) {
+    private static function sclapi_get_without_params( $url ) {
+        $header = self::sclapi_generate_header( null, null );
+        try {
+            $request = wp_remote_get( self::BASE_URI.$url, array( 'timeout' => 120, 'httpversion' => '1.1', 'headers' => $header, 'body' => 'grant_type=client_credentials' ) );
+        } catch ( Exception $e ) {
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        }
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
+        }
+    }
+    private static function sclapi_get( $params, $url ) {
         if ( empty( $params ) )
             return null;
+        $header = self::sclapi_generate_header( null, null );
 
-        $json = json_encode( $params );
-
-        $header = self::generate_header( strlen( $json ), null );
-
-        $request = curl_init();
-
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_URI.$url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_CUSTOMREQUEST => 'PUT',
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_POSTFIELDS => $json
-        ]);
         try {
-            $response = curl_exec( $request );
-            $info = curl_getinfo( $request );
-            curl_close( $request );
+            $request = wp_remote_get( 
+                self::BASE_URI.$url.'?'.http_build_query( $params ), 
+                array( 'timeout' => 120, 
+                'httpversion' => '1.1', 
+                'headers' => $header, 
+                'body' => 'grant_type=client_credentials' ) );
         } catch ( Exception $e ) {
             return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
 
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    private static function post( $params, $url ) {
-        if ( empty( $params ) )
-            return null;
-
-        $json = json_encode( $params );
-
-        $header = self::generate_header( null, null );
-
-        $request = curl_init();
-
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_URI.$url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_POSTFIELDS => $json,
-            CURLOPT_FOLLOWLOCATION => true
-        ]);
-
-        try {
-            $response = curl_exec( $request );
-            $info = curl_getinfo( $request );
-            curl_close( $request );
-        } catch ( Exception $e ) {
-            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
+        if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ){
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
         }
-
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    private static function delete( $params, $url ) {
-        if ( empty( $params ) )
-            return null;
-
-        $file_name = "=".$params["filename"];
-        $header = self::generate_header( strlen( $file_name ), 'application/x-www-form-urlencoded' );
-        
-        $request = curl_init();
-
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_URI.$url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_CUSTOMREQUEST => "DELETE",
-            CURLOPT_POSTFIELDS => $file_name,
-            CURLOPT_FOLLOWLOCATION => true
-        ]);
-
-        try {
-            $response = curl_exec( $request );
-            $info = curl_getinfo( $request );
-            curl_close( $request );
-        } catch ( Exception $e ) {
-            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
-        }
-        
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    private static function get( $params, $url ) {
-        if ( empty( $params ) )
-            return null;
-        
-        $header = self::generate_header( null, null );
-
-        $request = curl_init();
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_URI.$url.'?'.http_build_query( $params ),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_AUTOREFERER => true
-        ]);
-
-        try {
-            $response = curl_exec( $request );
-            $info = curl_getinfo( $request );
-            curl_close( $request );
-        } catch ( Exception $e ) {
-            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
-        }
-        
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    private static function get_without_params( $url ) {
-        $header = self::generate_header( null, null );
-
-        $request = curl_init();
-        curl_setopt_array( $request, [
-            CURLOPT_URL => self::BASE_URI.$url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => $header,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_AUTOREFERER => true
-        ]);
-
-        try {
-            $response = curl_exec( $request );
-            $info = curl_getinfo( $request );
-            curl_close( $request );
-        } catch ( Exception $e ) {
-            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
-        }
-        
-        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
-    }
-    private static function curl_custom_postfields( $ch, array $assoc = array(), array $files = array() ) {
-        // invalid characters for "name" and "filename"
-        static $disallow = array( "\0", "\"", "\r", "\n" );
-
-        // build normal parameters
-        foreach ( $assoc as $k => $v ) {
-            $k = str_replace( $disallow, "_", $k );
-            $body[] = implode( "\r\n", array(
-                "Content-Disposition: form-data; name=\"{$k}\"",
-                "",
-                filter_var( $v ), 
-            ));
-        }
-        // build file parameters
-        foreach( $files as $k => $v ) {
-            
-            $data = file_get_contents( $v );
-            
-            $v = call_user_func( "end", explode( DIRECTORY_SEPARATOR, $v ) );
-            $k = str_replace( $disallow, "_", $k );
-            $v = str_replace( $disallow, "_", $v );
-            $body[] = implode( "\r\n", array(
-                "Content-Disposition: form-data; filename=\"{$k}\"; name=\"{$v}\"",
-                "Content-Type: application/octet-stream",
-                "",
-                $data, 
-            ));
-        }
-    
-        // generate safe boundary 
-        do {
-            $boundary = "---------------------" . md5( mt_rand() . microtime() );
-        } while( preg_grep( "/{$boundary}/", $body ) );
-    
-        // add boundary for each parameters
-        array_walk( $body, function( &$part ) use ( $boundary ) {
-            $part = "--{$boundary}\r\n{$part}";
-        });
-    
-        // add final boundary
-        $body[] = "--{$boundary}--";
-        $body[] = "";
-    
-        // set options
-        return @curl_setopt_array( $ch, array(
-            CURLOPT_POST       => true,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POSTFIELDS => implode( "\r\n", $body ),
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: amx ".get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS )[ Sclapi_Plugin_Const::API_KEY ],
-                "Expect: 100-continue",
-                "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
-            ),
-        ));
     }
     #endregion
 }
