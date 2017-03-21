@@ -78,10 +78,10 @@
             <span class="file-manager-header">SpreadsheetCloudAPI Service file manager</span><br />
             <?php echo $service_file_list; ?><br />
             <input class="file-input-text" type="file" name="my-file-upload">
-            <input class="file-manager-button upload-button button" type="button" value="<?php echo File_Operations::UPLOAD; ?>" />
-            <input class="file-manager-button download-button button" type="button" value="<?php echo File_Operations::DOWNLOAD; ?>" disabled="disabled" />
-            <input class="file-manager-button rename-button button" type="button" value="<?php echo File_Operations::RENAME; ?>" disabled="disabled" />
-            <input class="file-manager-button delete-button button" type="button"  value="<?php echo File_Operations::DELETE; ?>" disabled="disabled" />
+            <input class="file-manager-button upload-button button" type="button" value="<?php echo Sclapi_File_Operations::UPLOAD; ?>" />
+            <input class="file-manager-button download-button button" type="button" value="<?php echo Sclapi_File_Operations::DOWNLOAD; ?>" disabled="disabled" />
+            <input class="file-manager-button rename-button button" type="button" value="<?php echo Sclapi_File_Operations::RENAME; ?>" disabled="disabled" />
+            <input class="file-manager-button delete-button button" type="button"  value="<?php echo Sclapi_File_Operations::DELETE; ?>" disabled="disabled" />
             <dialog class="renamedialog">
                 <label class="exist-text">File with this name already exists.</label><br />
                 <input class="file-new-name" type="text" name="newfilename">
@@ -100,7 +100,7 @@
         </div><Br><Br><Br>
         <input type="radio" name="user-choise" value="haveapikey"> Use an existing API key<Br>
         <input type="radio" name="user-choise" value="generate"> Generate a new API key<Br><Br>
-        <input type="submit" class="get-new-api-key button" name="<?php echo Plugin_Const::GET_NEW_API_KEY; ?>" value="Next >>" />
+        <input type="submit" class="get-new-api-key button" name="<?php echo Sclapi_Plugin_Const::GET_NEW_API_KEY; ?>" value="Next >>" />
     </form>
     <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js"></script>

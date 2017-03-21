@@ -9,7 +9,7 @@ jQuery( function ($) {
 
     $( '.upload-button' ).attr( 'disabled', $( '.filename' ).attr( 'disabled' ) );
 
-    if ( '<?php echo $continue_operation ?>' === '<?php echo File_Operations::CONTINUE_DOWNLOAD; ?>' ) {
+    if ( '<?php echo $continue_operation ?>' === '<?php echo Sclapi_File_Operations::CONTINUE_DOWNLOAD; ?>' ) {
         endDownload();
     }
     function selectFile() {
@@ -26,16 +26,16 @@ jQuery( function ($) {
         $( '.file-input-text' ).click();
     }
     function upload() {
-        $( '.my-file-operation' ).val( '<?php echo File_Operations::UPLOAD; ?>' );
+        $( '.my-file-operation' ).val( '<?php echo Sclapi_File_Operations::UPLOAD; ?>' );
         $( '.autorization_manager' ).submit();
     }
     function download() {
-        $( '.my-file-operation' ).val( '<?php echo File_Operations::DOWNLOAD; ?>' );
+        $( '.my-file-operation' ).val( '<?php echo Sclapi_File_Operations::DOWNLOAD; ?>' );
         $( '.autorization_manager' ).submit();
     }
     function rename() {
         if ($( '.filename' ).val() == null ) {
-            $( '.my-file-operation' ).val( '<?php echo File_Operations::RENAME; ?>' );
+            $( '.my-file-operation' ).val( '<?php echo Sclapi_File_Operations::RENAME; ?>' );
             $( '.autorization_manager' ).submit();
         }
         var fileArray = $( '.filename' ).val().split( '.' );
@@ -60,7 +60,7 @@ jQuery( function ($) {
             if ( fileNoExists ) {
                 dialog.close();
                 $( '.file-new-name' ).val( newFileName );
-                $( '.my-file-operation' ).val( '<?php echo File_Operations::RENAME; ?>' );
+                $( '.my-file-operation' ).val( '<?php echo Sclapi_File_Operations::RENAME; ?>' );
                 $( '.autorization_manager' ).submit();
             }
             else {
@@ -75,7 +75,7 @@ jQuery( function ($) {
     function deleteClk() {
         var choice = confirm( 'Do you really want to delete the "' + $( '.filename' ).val() + '" file?' );
         if ( choice ) {
-            $( '.my-file-operation' ).val( '<?php echo File_Operations::DELETE; ?>' );
+            $( '.my-file-operation' ).val( '<?php echo Sclapi_File_Operations::DELETE; ?>' );
             $( '.autorization_manager' ).submit();
         }
     }

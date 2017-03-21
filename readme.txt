@@ -1,6 +1,6 @@
 === SpreadsheetCloudAPI ===
 Contributors: spreadsheetcloudapi
-Tags: spreadsheet, cloud, cloudapi, webservice
+Tags: spreadsheet, cloud, cloudapi, webservice, table, tables
 Requires at least: 4.7
 Tested up to: 4.7
 Stable tag: trunk

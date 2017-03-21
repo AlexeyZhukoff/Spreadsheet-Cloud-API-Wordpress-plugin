@@ -27,7 +27,7 @@ class Spreadsheet_Request {
 
         curl_close( $request );
         
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
 
     #region public interface
@@ -50,7 +50,7 @@ class Spreadsheet_Request {
 
         curl_close( $request );
 
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     public static function download_file( $params ) {
         return self::get( $params, '/download' );
@@ -74,7 +74,7 @@ class Spreadsheet_Request {
 
     #region Helper
     private static function get_API_key() {
-        return get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ];
+        return get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS )[ Sclapi_Plugin_Const::API_KEY ];
     }
     private static function generate_header( $content_length, $content_type ) {
         $API_key = self::get_API_key();
@@ -114,10 +114,10 @@ class Spreadsheet_Request {
             $info = curl_getinfo( $request );
             curl_close( $request );
         } catch ( Exception $e ) {
-            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
 
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function post( $params, $url ) {
         if ( empty( $params ) )
@@ -142,10 +142,10 @@ class Spreadsheet_Request {
             $info = curl_getinfo( $request );
             curl_close( $request );
         } catch ( Exception $e ) {
-            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
 
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function delete( $params, $url ) {
         if ( empty( $params ) )
@@ -170,10 +170,10 @@ class Spreadsheet_Request {
             $info = curl_getinfo( $request );
             curl_close( $request );
         } catch ( Exception $e ) {
-            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
         
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function get( $params, $url ) {
         if ( empty( $params ) )
@@ -195,10 +195,10 @@ class Spreadsheet_Request {
             $info = curl_getinfo( $request );
             curl_close( $request );
         } catch ( Exception $e ) {
-            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
         
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function get_without_params( $url ) {
         $header = self::generate_header( null, null );
@@ -217,10 +217,10 @@ class Spreadsheet_Request {
             $info = curl_getinfo( $request );
             curl_close( $request );
         } catch ( Exception $e ) {
-            return array( Plugin_Const::RESPONSE_STATUS => 434, Plugin_Const::RESPONSE_DATA => $e );
+            return array( Sclapi_Plugin_Const::RESPONSE_STATUS => 434, Sclapi_Plugin_Const::RESPONSE_DATA => $e );
         }
         
-        return array( Plugin_Const::RESPONSE_STATUS => $info['http_code'], Plugin_Const::RESPONSE_DATA => $response );
+        return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $info['http_code'], Sclapi_Plugin_Const::RESPONSE_DATA => $response );
     }
     private static function curl_custom_postfields( $ch, array $assoc = array(), array $files = array() ) {
         // invalid characters for "name" and "filename"
@@ -271,7 +271,7 @@ class Spreadsheet_Request {
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POSTFIELDS => implode( "\r\n", $body ),
             CURLOPT_HTTPHEADER => array(
-                "Authorization: amx ".get_option( Plugin_Const::SCLAPI_OPTIONS )[ Plugin_Const::API_KEY ],
+                "Authorization: amx ".get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS )[ Sclapi_Plugin_Const::API_KEY ],
                 "Expect: 100-continue",
                 "Content-Type: multipart/form-data; boundary={$boundary}", // change Content-Type
             ),
