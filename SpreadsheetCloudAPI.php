@@ -35,7 +35,6 @@ require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\options.php' );
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\widget\generator.php' );
 
 
-add_action( 'init', array( 'Spreadsheet_Cloud_API_Actions', 'init' ) );
 add_action( 'admin_init', array( 'Spreadsheet_Cloud_API_Actions', 'admin_init' ) );
 add_action( 'admin_menu', 'sclapi_mt_add_pages' );
 add_action( 'init', 'sclapi_custom_button' );

@@ -1,0 +1,62 @@
+fieldset {
+    margin: 0 0 10px 0;
+    height: auto;
+    line-height: 30px;
+    overflow: hidden;
+    font-size: 10pt;
+}
+.parameters-header {
+    font-size: 10pt;
+}
+fieldset hr {
+    border: none;
+    height: 1px;
+    background: #dfdfdf;
+}
+fieldset input, 
+select {
+    float: right;
+    font-size: 10pt;
+    width: 240px;
+    margin-top: 5px;
+}
+.export-gridlines {
+    float: left;
+    width: 20px;
+    margin-top: 10px;
+}
+.htm-span {
+    float: left;
+    margin-left: 10px;
+}
+span.sheet-span {
+    width: 200px;
+}
+fieldset span {
+    float: left;
+    font-size: 10pt;
+    width: 125px;
+}
+#cancel-button {
+    font-size: 10pt;
+    background: #cfcfcf;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    border-color: #b0b0b0;
+    width: auto;
+}
+#cancel-button:hover {
+    background: #a4a4a4;
+    color: #fff;
+}
+#insert-button {
+    font-size: 10pt;
+    background: #2ea2cc;
+    box-shadow: inset 0 1px 0 rgba(120,200,230,0.6);
+    border-color: #0074a2;
+    color: #fff;
+    width: auto;
+    margin-right: 6px;
+}
+#insert-button:hover {
+    background: #1e8cbe;
+}
