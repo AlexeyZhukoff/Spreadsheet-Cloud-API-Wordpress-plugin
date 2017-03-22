@@ -43,8 +43,7 @@ function sclapi_mt_options_page() {
             $show_wizard = FALSE; // = empty( $opt_api_key ); if need show wizard after erase api key
         }
     }
-    $continue_operation = '';
-    $download_file_bits = '';
+    $download_file = '';
     if ( ! empty( $file_operation ) ) {
         switch ( $file_operation ) {
             case Sclapi_File_Operations::UPLOAD:
