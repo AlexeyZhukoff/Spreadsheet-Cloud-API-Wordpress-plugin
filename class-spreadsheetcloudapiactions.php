@@ -9,6 +9,10 @@ class Spreadsheet_Cloud_API_Actions {
             update_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
 	}
+    public static function admin_init() {
+        wp_register_script ( 'sclapi_options_script', plugins_url('/options/options.js', __FILE__), array( 'jquery' ), NULL, true );
+        wp_register_style ( 'sclapi_options_style', plugins_url('/options/options.css', __FILE__) );
+	}
     private static function bail_on_activation( $message, $deactivate = true ) {
 		if ( $deactivate ) {
 			$plugins = get_option( 'active_plugins' );

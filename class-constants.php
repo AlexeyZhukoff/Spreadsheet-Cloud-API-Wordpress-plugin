@@ -55,7 +55,6 @@ class Sclapi_File_Operations{
     const DELETE = 'Delete';
     const RENAME = 'Rename';
     const DOWNLOAD = 'Download';
-    const CONTINUE_DOWNLOAD = 'continuedownload';
 }
 ?>
 

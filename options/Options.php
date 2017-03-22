@@ -1,8 +1,15 @@
 <?php
 function sclapi_mt_add_pages() {
-    add_options_page( 'SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 'manage_options', 'spreadsheetcloudapioptions', 'sclapi_mt_options_page' );
+    $page = add_options_page( 'SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 'manage_options', 'spreadsheetcloudapioptions', 'sclapi_mt_options_page' );
+    add_action( 'admin_print_scripts-' . $page, 'sclapi_options_scripts' );
+    add_action('admin_print_styles-'. $page, 'sclapi_options_styles');
 }
-
+function sclapi_options_scripts() {
+    wp_enqueue_script( 'sclapi_options_script' );
+}
+function sclapi_options_styles() {
+    wp_enqueue_style( 'sclapi_options_style' );
+}
 function sclapi_mt_options_page() {
     $hidden_field_name = 'mt_submit_hidden';
     $API_key_field_name = Sclapi_Plugin_Const::API_KEY;
@@ -50,8 +57,9 @@ function sclapi_mt_options_page() {
             case Sclapi_File_Operations::DOWNLOAD:
                 $download_response = download_file();
                 if ( $download_response[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-                    $continue_operation = Sclapi_File_Operations::CONTINUE_DOWNLOAD;
-                    $download_file_bits = base64_encode( $download_response[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
+                    $download_file ='<a class="continuedownload" href="data:application/octet-stream; charset=utf-8; base64,'
+                    .base64_encode( $download_response[ Sclapi_Plugin_Const::RESPONSE_DATA ] ).
+                    '" download = "'.get_array_element ( $_POST, 'filename' ).'" style="display: none"><a/>';
                 }
                 break;
             default:
@@ -59,7 +67,7 @@ function sclapi_mt_options_page() {
         };
     }
 
-    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file_bits, get_array_element ( $_POST, 'filename' ), $show_wizard );
+    show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $download_file, $show_wizard );
 }
 function get_newapikey() {
     $user_email = wp_get_current_user()->user_email;
@@ -134,7 +142,7 @@ function show_header_message( $message ) {
     _e( $message, 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
-function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $continue_operation, $download_file, $file_name, $show_wizard) {
+function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $download_file, $show_wizard) {
     $options_style = '';
     $file_manager_style = '';
     $wizard_style = '';
@@ -154,6 +162,7 @@ function show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_ke
     $options_API_key = __( "API Key:", Sclapi_Plugin_Const::API_KEY );
     $options_update = __( 'Update', 'mt_trans_domain' );
     $service_file_list = Spreadsheet_Cloud_API_Actions::get_files_list(3);
+
     include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.html' );
 }
 

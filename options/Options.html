@@ -1,64 +1,4 @@
 <div class="wrap">
-    <style>
-        .options-manager {
-            float: left;
-            width: 372px;
-            line-height: 30px;
-        }
-        .wizard-description {
-            width: 750px;
-            height: 40px;
-        }
-        .options-manager-description {
-            width: 600px;
-            margin-left: 450px;
-            height: 60px;
-        }
-        .file-manager {
-            float: left;
-        }
-        .file-manager-description {
-            width: 600px;
-            margin-left: 450px;
-            margin-top: 34px;
-        }
-        .get-new-api-key {
-            float:  left;
-        }
-        .api-key-field {
-            float: right;
-            width: 310px;
-        }
-        .update-options {
-            float: right;
-            margin-right: 28px;
-        }
-        .file-manager-button {
-            padding-left: 22px!important;
-            padding-right: 21px!important;
-        }
-        .delete-button {
-            padding-left: 21px!important;
-        }
-        .file-input-text {
-            display: none;
-        }
-        .exist-text {
-            color:#f00;
-            display:none;
-        }
-        .file-manager-header {
-             font-size: 12pt;
-        }
-        .filename {
-            margin-top: 10px;
-            height: 200px!important; 
-            width: 372px;
-        }
-        h1 {
-            font-size: 16pt!important;
-        }
-    </style>
     <h1> <?php echo $options_header; ?> </h1>
     <br />
     <form class="autorization_manager" enctype="multipart/form-data" method="post" action="<?php echo $options_action; ?>"  <?php echo $options_style; ?>>
@@ -102,9 +42,5 @@
         <input type="radio" name="user-choise" value="generate"> Generate a new API key<Br><Br>
         <input type="submit" class="get-new-api-key button" name="<?php echo Sclapi_Plugin_Const::GET_NEW_API_KEY; ?>" value="Next >>" />
     </form>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/jquery/jquery.js"></script>
-    <script type="text/javascript">
-        <?php include ( SPREADSHEEETCLOUDAPI__PLUGIN_DIR.'\options\options.js' ); ?>
-    </script>
+    <?php echo $download_file; ?>
 </div>
