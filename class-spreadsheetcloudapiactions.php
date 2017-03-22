@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 class Spreadsheet_Cloud_API_Actions {
     public static function admin_init() {
         $options = get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS );

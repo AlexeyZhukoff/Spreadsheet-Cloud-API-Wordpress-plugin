@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 class Sclapi_Plugin_Const{
     const SHORTCODE_NAME = 'sclapi';
     const API_KEY = 'API_Key';

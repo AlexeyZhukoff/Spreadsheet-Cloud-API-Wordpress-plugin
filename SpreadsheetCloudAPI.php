@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 /*
 Plugin Name: SpreadsheetCloudAPI
 Plugin URI: http://wordpress.org/plugins/SpreadsheetCloudAPI

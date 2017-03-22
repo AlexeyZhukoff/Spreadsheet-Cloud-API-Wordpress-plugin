@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 function sclapi_mt_add_pages() {
     $page = add_options_page( 'SpreadsheetCloudAPI Options', 'SpreadsheetCloudAPI Options', 'manage_options', 'spreadsheetcloudapioptions', 'sclapi_mt_options_page' );
     add_action( 'admin_print_scripts-' . $page, 'sclapi_options_scripts' );

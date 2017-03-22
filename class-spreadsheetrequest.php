@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 class Spreadsheet_Request {
     #region Fields
     const BASE_URI = 'http://spreadsheetcloudapi.azurewebsites.net/api/spreadsheet';

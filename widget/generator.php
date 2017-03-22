@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; 
+
 function sclapi_insert_shortcode( $plugin_array ) {
     $plugin_array['sclapi_insert_shortcode'] = WP_PLUGIN_URL . '/SpreadsheetCloudAPI/widget/insertshortcode.js';
     return $plugin_array;
