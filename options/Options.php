@@ -20,13 +20,13 @@ function sclapi_mt_options_page() {
     $options = get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS );
     $show_wizard = empty( $opt_api_key );
     $need_save_option = (  sclapi_get_array_element($_POST, 'Submit') == __( 'Update', 'mt_trans_domain' ) );
-
-    if ( ! empty( $_POST[ 'user-choise' ] ) ) {
+    $user_choise = sclapi_get_array_element( $_POST, 'user-choise' );
+    if ( ! empty( $user_choise ) ) {
         $show_wizard = FALSE;
-        if ( $_POST['user-choise'] == 'generate' ) {
+        if ( $user_choise == 'generate' ) {
             $response = sclapi_get_newapikey();
             if ( $response[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-                $_POST[ $API_key_field_name ] = base64_decode( $response[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
+                $_POST[ $API_key_field_name ] = sanitize_text_field( base64_decode( $response[ Sclapi_Plugin_Const::RESPONSE_DATA ] ) );
             }
             else {
                 sclapi_show_header_message( $response[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
@@ -35,8 +35,8 @@ function sclapi_mt_options_page() {
         }
     }
     if ( $need_save_option ) {
-        $opt_api_key = $_POST[ $API_key_field_name ];
-        if ( $_POST['user-choise'] != 'haveapikey' ) {
+        $opt_api_key = sanitize_text_field( $_POST[ $API_key_field_name ] );
+        if ( $user_choise != 'haveapikey' ) {
             $options[ Sclapi_Plugin_Const::API_KEY ] = $opt_api_key;
             update_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS, $options );
             sclapi_show_header_message( Sclapi_Header_Messages::OPTIONS_SAVED );
@@ -60,7 +60,7 @@ function sclapi_mt_options_page() {
                 if ( $download_response[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
                     $download_file ='<a class="continuedownload" href="data:application/octet-stream; charset=utf-8; base64,'
                     .base64_encode( $download_response[ Sclapi_Plugin_Const::RESPONSE_DATA ] ).
-                    '" download = "'.sclapi_get_array_element ( $_POST, 'filename' ).'" style="display: none"><a/>';
+                    '" download = "'.sanitize_file_name( sclapi_get_array_element ( $_POST, 'filename' ) ).'" style="display: none"><a/>';
                 }
                 break;
             default:
@@ -71,12 +71,12 @@ function sclapi_mt_options_page() {
     sclapi_show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $download_file, $show_wizard );
 }
 function sclapi_get_newapikey() {
-    $user_email = wp_get_current_user()->user_email;
+    $user_email = sanitize_email( wp_get_current_user()->user_email );
     return Spreadsheet_Request::sclapi_generate_new_API_key( $user_email );
 }
 function sclapi_rename_file() {
-    $file_name = $_POST['filename'];
-    $new_file_name = $_POST['newfilename'];
+    $file_name = sanitize_file_name( sclapi_get_array_element( $_POST, 'filename' ) );
+    $new_file_name = sanitize_file_name( sclapi_get_array_element( $_POST, 'newfilename' ) );
     if ( empty( $file_name ) ) {
         sclapi_show_header_message( Sclapi_Header_Messages::SELECT_RENAME );
         return;
@@ -90,7 +90,7 @@ function sclapi_rename_file() {
     }
 }
 function sclapi_download_file() {
-    $file_name = sclapi_get_array_element ( $_POST, 'filename' );
+    $file_name = sanitize_file_name( sclapi_get_array_element ( $_POST, 'filename' ) );
     if ( ! empty( $file_name ) ) {
         $download_response = Spreadsheet_Cloud_API_Actions::sclapi_download_file( $file_name );
         if ( $download_response[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
@@ -108,10 +108,11 @@ function sclapi_download_file() {
 function sclapi_upload_file() {
     require_once( ABSPATH . 'wp-admin/includes/file.php' );
     $file = &$_FILES['my-file-upload'];
-    if ( ! empty( $file['name'] ) ) {
+    $file_name = sanitize_file_name( $file['name'] );
+    if ( ! empty( $file_name ) ) {
         $upload_response = Spreadsheet_Cloud_API_Actions::sclapi_upload_file( $file );
         if ( $upload_response[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
-            sclapi_show_header_message( sprintf( Sclapi_Header_Messages::FILE_UPLOADED, $file['name'] ) );
+            sclapi_show_header_message( sprintf( Sclapi_Header_Messages::FILE_UPLOADED, $file_name ) );
         }
         else {
             sclapi_show_header_message( $upload_response[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
@@ -122,7 +123,7 @@ function sclapi_upload_file() {
     }
 }
 function sclapi_delete_file() {
-    $file_name = sclapi_get_array_element ( $_POST, 'filename' );
+    $file_name = sanitize_file_name( sclapi_get_array_element ( $_POST, 'filename' ) );
     if ( ! empty( $file_name ) ) {
         $file_deleted = Spreadsheet_Cloud_API_Actions::sclapi_delete_file( $file_name );
         if ( $file_deleted[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200 ) {
@@ -140,7 +141,7 @@ function sclapi_delete_file() {
 
 function sclapi_show_header_message( $message ) {
     echo '<div class="updated"><p><strong>';
-    _e( $message, 'mt_trans_domain' ); 
+    _e( sanitize_text_field( $message ), 'mt_trans_domain' ); 
     echo '</strong></p></div>';
 }
 function sclapi_show_options_form( $hidden_field_name, $API_key_field_name, $opt_api_key, $download_file, $show_wizard) {
@@ -169,7 +170,8 @@ function sclapi_show_options_form( $hidden_field_name, $API_key_field_name, $opt
 
 function sclapi_get_array_element($elements_array, $element_key){
     if(array_key_exists($element_key, $elements_array)){
-        return $elements_array[$element_key];
+        $valid_element_key = sanitize_text_field( $element_key );
+        return $elements_array[$valid_element_key];
     }
     return '';
 }

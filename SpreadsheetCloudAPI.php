@@ -1,6 +1,4 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; 
-
 /*
 Plugin Name: SpreadsheetCloudAPI
 Plugin URI: http://wordpress.org/plugins/SpreadsheetCloudAPI
@@ -9,8 +7,7 @@ Author: SpreadsheetCloudAPI Inc.
 Author URI: http://spreadsheetadmin.azurewebsites.net/
 Version: 1.0
 License: GPLv2 or later
-*/
-/*
+
     Copyright 2017 SpreadsheetCloudAPI Inc. (email: scloudapi@gmail.com)
 
     This program is free software; you can redistribute it and/or modify
