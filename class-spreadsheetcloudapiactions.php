@@ -18,23 +18,6 @@ class Spreadsheet_Cloud_API_Actions {
         wp_register_style ( 'sclapi_options_style', plugins_url('/options/options.css', __FILE__) );
         wp_register_style ( 'sclapi_generatorform_style', plugins_url('/widget/generatorform.css', __FILE__) );
 	}
-    private static function sclapi_deactivation( $message, $deactivate = true ) {
-		if ( $deactivate ) {
-			$plugins = get_option( 'active_plugins' );
-			$spreadsheet_cloud_API = plugin_basename( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'spreadsheetcloudapi.php' );
-			$update  = false;
-			foreach ( $plugins as $i => $plugin ) {
-				if ( $plugin === $spreadsheet_cloud_API ) {
-					$plugins[$i] = false;
-					$update = true;
-				}
-			}
-			if ( $update ) {
-				update_option( 'active_plugins', array_filter( $plugins ) );
-			}
-		}
-		exit;
-	}
     public static function sclapi_get_action ( $atts ) {
         $command = $atts[ Sclapi_Parameters::COMMAND ];
         switch ( $command ) {
