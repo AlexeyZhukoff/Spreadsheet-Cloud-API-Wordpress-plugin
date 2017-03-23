@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit; 
 
 class Spreadsheet_Cloud_API_Actions {
-    public static function admin_init() {
+    public static function sclapi_admin_init() {
         $options = get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS );
         if ( empty( $options ) ) {
             $options = array(
@@ -10,6 +10,7 @@ class Spreadsheet_Cloud_API_Actions {
             );
             update_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS, $options ); 
         }
+
         wp_register_script ( 'sclapi_options_script', plugins_url('/options/options.js', __FILE__), array( 'jquery' ), NULL, true );
         wp_register_script ( 'sclapi_tiny_mce_popup_script', site_url().'/wp-includes/js/tinymce/tiny_mce_popup.js' );
         wp_register_script ( 'sclapi_generatorform_script', plugins_url('/widget/generatorform.js', __FILE__), array( 'jquery', 'sclapi_tiny_mce_popup_script' ) );
@@ -17,7 +18,7 @@ class Spreadsheet_Cloud_API_Actions {
         wp_register_style ( 'sclapi_options_style', plugins_url('/options/options.css', __FILE__) );
         wp_register_style ( 'sclapi_generatorform_style', plugins_url('/widget/generatorform.css', __FILE__) );
 	}
-    private static function bail_on_activation( $message, $deactivate = true ) {
+    private static function sclapi_deactivation( $message, $deactivate = true ) {
 		if ( $deactivate ) {
 			$plugins = get_option( 'active_plugins' );
 			$spreadsheet_cloud_API = plugin_basename( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'spreadsheetcloudapi.php' );
@@ -34,17 +35,17 @@ class Spreadsheet_Cloud_API_Actions {
 		}
 		exit;
 	}
-    public static function get_action ( $atts ) {
+    public static function sclapi_get_action ( $atts ) {
         $command = $atts[ Sclapi_Parameters::COMMAND ];
         switch ( $command ) {
             case Sclapi_Commands::GET_HTML_RANGE:
-                $response = self::get_HTML_range( $atts );
+                $response = self::sclapi_get_HTML_range( $atts );
                 break;
             case Sclapi_Commands::GET_IMAGE:
-                $response = self::get_image( $atts );
+                $response = self::sclapi_get_image( $atts );
                 break;
             case Sclapi_Commands::GET_IMAGE_BYTES:
-                $response = self::get_image_bytes( $atts );
+                $response = self::sclapi_get_image_bytes( $atts );
                 break;
             default:
                 $response = 'Method error!';
@@ -52,33 +53,33 @@ class Spreadsheet_Cloud_API_Actions {
         };
         return $response;
     }
-    public static function upload_file( $file ) {
-        return Spreadsheet_Request::upload_file( $file );
+    public static function sclapi_upload_file( $file ) {
+        return Spreadsheet_Request::sclapi_upload_file( $file );
     }
-    public static function download_file( $file_name ) {
+    public static function sclapi_download_file( $file_name ) {
         $params = array( Sclapi_Parameters::FILE_NAME => $file_name );
-        $download_response = Spreadsheet_Request::download_file( $params );
+        $download_response = Spreadsheet_Request::sclapi_download_file( $params );
         return $download_response;
     }
-    public static function delete_file( $file_name ) {
+    public static function sclapi_delete_file( $file_name ) {
         $params = array( Sclapi_Parameters::FILE_NAME => $file_name );
-        return Spreadsheet_Request::delete_file( $params );
+        return Spreadsheet_Request::sclapi_delete_file( $params );
     }
-    public static function rename_file( $file_name, $new_file_name ) {
+    public static function sclapi_rename_file( $file_name, $new_file_name ) {
         $params = array( Sclapi_Parameters::FILE_NAME => $file_name,
         Sclapi_Parameters::NEW_FILE_NAME => $new_file_name, );
-        return Spreadsheet_Request::rename_file( $params );
+        return Spreadsheet_Request::sclapi_rename_file( $params );
     }
 
-    static function get_HTML_range( $atts ) {
-        $params = self::extract_get_HTML_range_params( $atts );
-        $output = Spreadsheet_Request::get_HTML( $params );
+    static function sclapi_get_HTML_range( $atts ) {
+        $params = self::sclapi_extract_get_HTML_range_params( $atts );
+        $output = Spreadsheet_Request::sclapi_get_HTML( $params );
         if ( $output[ Sclapi_Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
         } else
-            return self::fix_HTML_style( $output[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
+            return self::sclapi_fix_HTML_style( $output[ Sclapi_Plugin_Const::RESPONSE_DATA ] );
     }
-    static function fix_HTML_style( $HTML_code ) {
+    static function sclapi_fix_HTML_style( $HTML_code ) {
         $style = "<style>
         .initial-style table {
             border: initial;
@@ -91,7 +92,7 @@ class Spreadsheet_Cloud_API_Actions {
         <div class=\"";
         return $style."initial-style \"".">".$HTML_code."</div>";
     }
-    static function extract_get_HTML_range_params( $atts ) {
+    static function sclapi_extract_get_HTML_range_params( $atts ) {
         $params = shortcode_atts(array(
             Sclapi_Parameters::FILE_NAME                =>'',
             Sclapi_Parameters::SHEET_INDEX              =>NULL,
@@ -108,14 +109,14 @@ class Spreadsheet_Cloud_API_Actions {
         return $params;
     }
 
-    static function get_image( $atts ) {
-        $style = self::get_image_style( $atts );
-        $imgBytes = self::get_image_bytes( $atts );
+    static function sclapi_get_image( $atts ) {
+        $style = self::sclapi_get_image_style( $atts );
+        $imgBytes = self::sclapi_get_image_bytes( $atts );
         return "<img ".$style." src='data:image/jpeg;base64,".$imgBytes."' />";
     }
-    static function get_image_bytes( $atts ) {
-        $params = self::extract_get_image_parameters( $atts );
-        $output = Spreadsheet_Request::get_pictures( $params );
+    static function sclapi_get_image_bytes( $atts ) {
+        $params = self::sclapi_extract_get_image_parameters( $atts );
+        $output = Spreadsheet_Request::sclapi_get_pictures( $params );
         if ( $output[ Sclapi_Plugin_Const::RESPONSE_STATUS ] != 200 ) {
             return "Error";
         } else{
@@ -124,7 +125,7 @@ class Spreadsheet_Cloud_API_Actions {
             return $response[0]['PictureBytes'];
         }
     }
-    static function get_image_style( $atts ) {
+    static function sclapi_get_image_style( $atts ) {
         $style = '';
         if ( in_array(Sclapi_Parameters::WIDTH, $atts) && $atts[Sclapi_Parameters::WIDTH]<>'' )
             $style = $style.Sclapi_Parameters::WIDTH.":".$atts[ Sclapi_Parameters::WIDTH ].";";
@@ -134,7 +135,7 @@ class Spreadsheet_Cloud_API_Actions {
             return "style=\"".$style;
         return '';
     }
-    static function extract_get_image_parameters( $atts ) {
+    static function sclapi_extract_get_image_parameters( $atts ) {
         $params = shortcode_atts( array(
             Sclapi_Parameters::FILE_NAME                =>'',
             Sclapi_Parameters::SCALE                   =>0.1,
@@ -152,8 +153,8 @@ class Spreadsheet_Cloud_API_Actions {
             ), $atts );
         return $params;
     }
-    public static function get_files_list( $size ) {
-        $output = Spreadsheet_Request::get_files_list();
+    public static function sclapi_get_files_list( $size ) {
+        $output = Spreadsheet_Request::sclapi_get_files_list();
         $response = json_decode( $output[ Sclapi_Plugin_Const::RESPONSE_DATA ], true );
         $result = '<select class="filename" name="filename" size="'.$size.'" ';
         $base_connected = $output[ Sclapi_Plugin_Const::RESPONSE_STATUS ] == 200;

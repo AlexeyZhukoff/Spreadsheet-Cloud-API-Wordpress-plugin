@@ -36,11 +36,11 @@ require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . 'class-spreadsheetrequest.php' 
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\options\options.php' );
 require_once( SPREADSHEEETCLOUDAPI__PLUGIN_DIR . '\widget\generator.php' );
 
-
-add_action( 'admin_init', array( 'Spreadsheet_Cloud_API_Actions', 'admin_init' ) );
+add_action( 'admin_init', array( 'Spreadsheet_Cloud_API_Actions', 'sclapi_admin_init' ) );
 add_action( 'admin_menu', 'sclapi_mt_add_pages' );
 add_action( 'init', 'sclapi_custom_button' );
 add_action( 'wp_ajax_sclapigeneratewindow', 'sclapi_generate_ajax' );
 add_action( 'admin_head', 'sclapi_generate_admin_ajax' );
-add_shortcode( Sclapi_Plugin_Const::SHORTCODE_NAME, array( 'Spreadsheet_Cloud_API_Actions', 'get_action' ) );
+register_deactivation_hook(__FILE__, 'sclapi_deactivation');
+add_shortcode( Sclapi_Plugin_Const::SHORTCODE_NAME, array( 'Spreadsheet_Cloud_API_Actions', 'sclapi_get_action' ) );
 ?>

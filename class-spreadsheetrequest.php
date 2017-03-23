@@ -9,7 +9,7 @@ class Spreadsheet_Request {
     #endregion
 
     #region public interface
-    public static function generate_new_API_key( $mail ) {
+    public static function sclapi_generate_new_API_key( $mail ) {
         if ( empty( $mail ) )
             return null;
 
@@ -30,7 +30,7 @@ class Spreadsheet_Request {
             return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
         }
     }
-    public static function upload_file( $file ) {
+    public static function sclapi_upload_file( $file ) {
         if ( empty( $file ) )
             return;
 
@@ -79,28 +79,28 @@ class Spreadsheet_Request {
             return array( Sclapi_Plugin_Const::RESPONSE_STATUS => $request['response']['code'], Sclapi_Plugin_Const::RESPONSE_DATA => $request['body'] );
         }
     }
-    public static function rename_file( $params ) {
+    public static function sclapi_rename_file( $params ) {
         return self::sclapi_post( $params, '/renamefile' );
     }
-    public static function download_file( $params ) {
+    public static function sclapi_download_file( $params ) {
         return self::sclapi_get( $params, '/download' );
     }
-    public static function delete_file( $params ) {
+    public static function sclapi_delete_file( $params ) {
         return self::sclapi_delete( $params, '/deletefile' );
     }
-    public static function get_files_list() {
+    public static function sclapi_get_files_list() {
         return self::sclapi_get_without_params( '/getfilelist' );
     }
-    public static function get_HTML( $params ) {
+    public static function sclapi_get_HTML( $params ) {
         return self::sclapi_get( $params, '/exporttohtml' );
     }
-    public static function get_pictures( $params ) {
+    public static function sclapi_get_pictures( $params ) {
         return self::sclapi_get( $params, '/getpictures' );
     }
     #endregion
 
     #region Helper
-    private static function get_API_key() {
+    private static function sclapi_get_API_key() {
         return get_option( Sclapi_Plugin_Const::SCLAPI_OPTIONS )[ Sclapi_Plugin_Const::API_KEY ];
     }
     private static function sclapi_post( $params, $url ) {
@@ -153,7 +153,7 @@ class Spreadsheet_Request {
         }
     }
     private static function sclapi_generate_header( $content_length, $content_type ) {
-        $API_key = self::get_API_key();
+        $API_key = self::sclapi_get_API_key();
 
         if ( is_null( $content_type ) )
             $content_type = 'application/json';

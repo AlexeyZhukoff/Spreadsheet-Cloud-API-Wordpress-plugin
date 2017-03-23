@@ -16,7 +16,7 @@
                 <legend class="parameters-header">Shortcode parameters</legend>
                 <input type="hidden" class="shortcode" name="shortcode" value="sclapi ">
                 <span>Command:</span><select class="command" name="command"><option value="GetHTMLRange">GetHTMLRange</option><option>GetImage</option><option>GetImageBytes</option></select><br />
-                <span>File Name:</span><?php echo Spreadsheet_Cloud_API_Actions::get_files_list(1); ?><br />
+                <span>File Name:</span><?php echo Spreadsheet_Cloud_API_Actions::sclapi_get_files_list(1); ?><br />
                 <span class="sheet-span">Sheet Index or Sheet Name: </span><input type="text" class="sheet" name="sheet" placeholder="0 or Sheet1" value="0"/><br />
                 <span>Range:</span><input type="text" class="range" name="range" placeholder="A1:B2 or empty for a used range"/><br />
                 <hr />
