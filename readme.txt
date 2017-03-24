@@ -1,13 +1,13 @@
 === SpreadsheetCloudAPI ===
 Contributors: spreadsheetcloudapi
-Tags: spreadsheet, cloud, cloudapi, webservice, table, tables
+Tags: spreadsheet, cloud, cloudapi, webservice, table, tables, excel, worksheet, charts, chart, images, image
 Requires at least: 4.7
 Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The WordPress plugin for the SpreadsheetCloudAPI service allows you to display parts of spreadsheet files stored in the service within your WordPress blogs.
+The WordPress plugin for the SpreadsheetCloudAPI service allows you to display parts of spreadsheet files stored in the service within your blogs.
 
 == Description ==
 
@@ -20,6 +20,10 @@ Also, you can use the plugin options to manage your SpreadsheetCloudAPI account 
 1. Copy the plugin folder <strong>SpreadsheetCloudAPI</strong> into <strong>/wp-content/plugins/</strong>. .
 2. Activate the plugin in WordPress <strong>Plugins</strong> menu.
 3. The plugin is ready to work. For more information on plugin, visit [plugin help page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin).
+
+== Frequently Asked Questions == 
+
+[Help page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin)
 
 == Screenshots ==
 
