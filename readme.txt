@@ -17,9 +17,9 @@ Also, you can use the plugin options to manage your SpreadsheetCloudAPI account 
 
 == Installation ==
 
-1. Copy the plugin folder <strong>SpreadsheetCloudAPI</strong> into <strong>/wp-content/plugins/</strong>. .
+1. Copy the <strong>SpreadsheetCloudAPI</strong> plugin folder into <strong>/wp-content/plugins/</strong>. .
 2. Activate the plugin in WordPress <strong>Plugins</strong> menu.
-3. The plugin is ready to work. For more information on plugin, visit [plugin help page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin).
+3. The plugin is ready to work. For more information on plugin, visit [plugin documentation page](http://spreadsheetadmin.azurewebsites.net/Documentation/WordPressPlugin).
 
 == Frequently Asked Questions == 
 
