@@ -5,7 +5,7 @@ Plugin URI: http://wordpress.org/plugins/SpreadsheetCloudAPI
 Description: SpreadsheetCloudAPI (Sclapi) plugin is an easy-to-use tool for using your spreadsheet files in WordPress blogs. To get started with a plugin, go to the Sclapi plugin options and enter an <a target="_blank" href="http://spreadsheetadmin.azurewebsites.net/">existing</a> or generate a new API key.
 Author: SpreadsheetCloudAPI Inc.
 Author URI: http://spreadsheetadmin.azurewebsites.net/
-Version: 1.0
+Version: 1.1
 License: GPLv2 or later
 
     Copyright 2017 SpreadsheetCloudAPI Inc. (email: scloudapi@gmail.com)

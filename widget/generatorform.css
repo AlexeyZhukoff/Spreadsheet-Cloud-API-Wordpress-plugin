@@ -1,5 +1,5 @@
 fieldset {
-    margin: 0 0 10px 0;
+    margin: -5px 0 10px 0;
     height: auto;
     line-height: 30px;
     overflow: hidden;
@@ -30,7 +30,7 @@ select {
     margin-left: 10px;
 }
 span.sheet-span {
-    width: 200px;
+    width: 190px;
 }
 fieldset span {
     float: left;

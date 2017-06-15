@@ -4,8 +4,9 @@
             a.addCommand("sclapiInsert", function () {
                 a.windowManager.open({
                     file: sclapi_generate_admin_ajax,
-                    width: 470,
-                    height: 251,
+                    title: 'SpreadsheetCloudAPI shortcode generator',
+                    width: 480,
+                    height: 255,
                     inline: 1
                 })
             });
